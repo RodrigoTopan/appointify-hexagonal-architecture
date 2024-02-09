@@ -17,8 +17,8 @@
         <java.version>17</java.version>
     </properties>
     <modules>
-        <module>appointify-application-module</module>
-        <module>appointify-domain-module</module>
+        <module>application</module>
+        <module>domain</module>
     </modules>
     <packaging>pom</packaging>
 </project>

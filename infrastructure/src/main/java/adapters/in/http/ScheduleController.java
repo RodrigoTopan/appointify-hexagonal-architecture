@@ -1,0 +1,65 @@
+package adapters.in.http;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import adapters.in.http.handlers.schedules.ScheduleQueryHandler;
+import adapters.in.http.handlers.schedules.ScheduleCommandHandler;
+import adapters.in.http.handlers.schedules.contract.command.CreateScheduleCommand;
+import adapters.in.http.handlers.schedules.contract.command.CreateScheduleCommandResponse;
+import adapters.in.http.handlers.schedules.contract.query.FindAvailableSchedulesQuery;
+import adapters.in.http.handlers.schedules.contract.query.FindAvailableSchedulesQueryResponse;
+import adapters.in.http.handlers.schedules.contract.query.FindScheduleQueryResponse;
+
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+@RestController
+@RequestMapping("/schedules")
+@RequiredArgsConstructor
+public class ScheduleController {
+
+    private final ScheduleCommandHandler scheduleCommandHandler;
+    private final ScheduleQueryHandler scheduleQueryHandler;
+
+    @GetMapping
+    public ResponseEntity<List<FindScheduleQueryResponse>> findAll() {
+        return ResponseEntity.ok()
+                .body(scheduleQueryHandler.findAll());
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<FindAvailableSchedulesQueryResponse>> findAvailability(
+            @RequestParam UUID companyId,
+            @RequestParam UUID offeredServiceId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date rangeStartDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date rangeEndDate
+    ) {
+        return ResponseEntity.ok()
+                .body(scheduleQueryHandler.find(FindAvailableSchedulesQuery
+                        .builder()
+                        .companyId(companyId)
+                        .offeredServiceId(offeredServiceId)
+                        .rangeStartDate(rangeStartDate)
+                        .rangeEndDate(rangeEndDate)
+                        .build()));
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_COMPANY')")
+    public ResponseEntity<CreateScheduleCommandResponse> create(
+            @RequestBody @Valid CreateScheduleCommand command) {
+        return ResponseEntity.ok()
+                .body(scheduleCommandHandler.create(command));
+    }
+
+}

@@ -1,5 +1,10 @@
 package adapters.in.http;
 
+import usecase.schedules.contract.command.CreateScheduleCommand;
+import usecase.schedules.contract.command.CreateScheduleCommandResponse;
+import usecase.schedules.contract.query.FindAvailableSchedulesQuery;
+import usecase.schedules.contract.query.FindAvailableSchedulesQueryResponse;
+import usecase.schedules.contract.query.FindScheduleQueryResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,13 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import adapters.in.http.handlers.schedules.ScheduleQueryHandler;
-import adapters.in.http.handlers.schedules.ScheduleCommandHandler;
-import adapters.in.http.handlers.schedules.contract.command.CreateScheduleCommand;
-import adapters.in.http.handlers.schedules.contract.command.CreateScheduleCommandResponse;
-import adapters.in.http.handlers.schedules.contract.query.FindAvailableSchedulesQuery;
-import adapters.in.http.handlers.schedules.contract.query.FindAvailableSchedulesQueryResponse;
-import adapters.in.http.handlers.schedules.contract.query.FindScheduleQueryResponse;
+import ports.input.ScheduleInputPort;
 
 import java.util.Date;
 import java.util.List;
@@ -28,13 +27,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ScheduleController {
 
-    private final ScheduleCommandHandler scheduleCommandHandler;
-    private final ScheduleQueryHandler scheduleQueryHandler;
+    private final ScheduleInputPort scheduleInputPort;
 
     @GetMapping
     public ResponseEntity<List<FindScheduleQueryResponse>> findAll() {
         return ResponseEntity.ok()
-                .body(scheduleQueryHandler.findAll());
+                .body(scheduleInputPort.findAll());
     }
 
     @GetMapping("/available")
@@ -45,7 +43,7 @@ public class ScheduleController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date rangeEndDate
     ) {
         return ResponseEntity.ok()
-                .body(scheduleQueryHandler.find(FindAvailableSchedulesQuery
+                .body(scheduleInputPort.find(FindAvailableSchedulesQuery
                         .builder()
                         .companyId(companyId)
                         .offeredServiceId(offeredServiceId)
@@ -59,7 +57,7 @@ public class ScheduleController {
     public ResponseEntity<CreateScheduleCommandResponse> create(
             @RequestBody @Valid CreateScheduleCommand command) {
         return ResponseEntity.ok()
-                .body(scheduleCommandHandler.create(command));
+                .body(scheduleInputPort.create(command));
     }
 
 }

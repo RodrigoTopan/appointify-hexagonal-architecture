@@ -1,13 +1,15 @@
 package ports.input;
 
-import entity.Category;
+import usecase.category.contract.command.CreateCategoryCommand;
+import usecase.category.contract.command.CreateCategoryCommandResponse;
+import usecase.category.contract.query.FindCategoryQueryResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface CategoryInputPort {
-    Category create(Category category);
-    void delete(UUID categoryId);
-    List<Category> findAll();
-    Category findById(UUID id);
+    CreateCategoryCommandResponse create(CreateCategoryCommand command);
+    void deleteById(UUID id);
+    List<FindCategoryQueryResponse> findAll();
+    FindCategoryQueryResponse findById(UUID id);
 }

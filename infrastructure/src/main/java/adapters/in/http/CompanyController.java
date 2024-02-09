@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import adapters.in.http.handlers.company.CompanyCommandHandler;
-import adapters.in.http.handlers.company.CompanyQueryHandler;
-import adapters.in.http.handlers.company.contract.command.CreateCompanyCommand;
-import adapters.in.http.handlers.company.contract.command.CreateCompanyCommandResponse;
-import adapters.in.http.handlers.company.contract.query.FindCompanyQueryResponse;
-import adapters.in.http.handlers.offeredservice.OfferedServiceQueryHandler;
-import adapters.in.http.handlers.offeredservice.contract.query.FindCompanyOfferedServicesQuery;
-import adapters.in.http.handlers.offeredservice.contract.query.FindOfferedServiceQueryResponse;
+import ports.input.CompanyInputPort;
+import ports.input.OfferedServiceInputPort;
+import usecase.company.contract.command.CreateCompany;
+import usecase.company.contract.command.CreateCompanyResponse;
+import usecase.company.contract.query.FindCompanyResponse;
+import usecase.offeredservice.contract.query.FindCompanyOfferedServicesQuery;
+import usecase.offeredservice.contract.query.FindOfferedServiceQueryResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,34 +27,33 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CompanyController {
 
-    private final CompanyCommandHandler companyCommandHandler;
-    private final CompanyQueryHandler companyQueryHandler;
-    private final OfferedServiceQueryHandler offeredServiceQueryHandler;
+    private final CompanyInputPort companyInputPort;
+    private final OfferedServiceInputPort offeredServiceInputPort;
 
     @GetMapping
-    public ResponseEntity<List<FindCompanyQueryResponse>> findAll() {
+    public ResponseEntity<List<FindCompanyResponse>> findAll() {
         return ResponseEntity.ok()
-                .body(companyQueryHandler.findAll());
+                .body(companyInputPort.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FindCompanyQueryResponse> findById(@PathVariable UUID id) {
+    public ResponseEntity<FindCompanyResponse> findById(@PathVariable UUID id) {
         return ResponseEntity.ok()
-                .body(companyQueryHandler.findById(id));
+                .body(companyInputPort.findById(id));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_COMPANY')")
-    public ResponseEntity<CreateCompanyCommandResponse> create(
-            @RequestBody @Valid CreateCompanyCommand command) {
+    public ResponseEntity<CreateCompanyResponse> create(
+            @RequestBody @Valid CreateCompany command) {
         return ResponseEntity.ok()
-                .body(companyCommandHandler.create(command));
+                .body(companyInputPort.create(command));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_COMPANY')")
     public ResponseEntity<?> deleteById(@PathVariable UUID id) {
-        companyCommandHandler.deleteById(id);
+        companyInputPort.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
@@ -65,7 +63,7 @@ public class CompanyController {
         FindCompanyOfferedServicesQuery query = FindCompanyOfferedServicesQuery.builder()
                 .companyId(companyId)
                 .build();
-        List<FindOfferedServiceQueryResponse> response = offeredServiceQueryHandler.find(query);
+        List<FindOfferedServiceQueryResponse> response = offeredServiceInputPort.find(query);
         return ResponseEntity.ok().body(response);
     }
 }

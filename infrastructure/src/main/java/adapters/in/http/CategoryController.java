@@ -1,5 +1,8 @@
 package adapters.in.http;
 
+import usecase.category.contract.command.CreateCategoryCommand;
+import usecase.category.contract.command.CreateCategoryCommandResponse;
+import usecase.category.contract.query.FindCategoryQueryResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import adapters.in.http.handlers.category.CategoryCommandHandler;
-import adapters.in.http.handlers.category.CategoryQueryHandler;
-import adapters.in.http.handlers.category.contract.command.CreateCategoryCommand;
-import adapters.in.http.handlers.category.contract.command.CreateCategoryCommandResponse;
-import adapters.in.http.handlers.category.contract.query.FindCategoryQueryResponse;
+import ports.input.CategoryInputPort;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,21 +24,20 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private final CategoryCommandHandler categoryCommandHandler;
-    private final CategoryQueryHandler categoryQueryHandler;
+    private final CategoryInputPort categoryInputPort;
 
 
     @GetMapping("/{id}")
     public ResponseEntity<FindCategoryQueryResponse> findById(@PathVariable UUID id) {
         return ResponseEntity.ok()
-                .body(categoryQueryHandler.findById(id));
+                .body(categoryInputPort.findById(id));
     }
 
 
     @GetMapping
     public ResponseEntity<List<FindCategoryQueryResponse>> findAll() {
         return ResponseEntity.ok()
-                .body(categoryQueryHandler.findAll());
+                .body(categoryInputPort.findAll());
     }
 
     @PostMapping
@@ -47,12 +45,12 @@ public class CategoryController {
     public ResponseEntity<CreateCategoryCommandResponse> create(
             @RequestBody @Valid CreateCategoryCommand command) {
         return ResponseEntity.ok()
-                .body(categoryCommandHandler.create(command));
+                .body(categoryInputPort.create(command));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable UUID id) {
-        categoryCommandHandler.deleteById(id);
+        categoryInputPort.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }

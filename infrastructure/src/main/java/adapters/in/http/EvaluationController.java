@@ -1,5 +1,8 @@
 package adapters.in.http;
 
+import usecase.evaluation.contract.command.CreateEvaluationCommand;
+import usecase.evaluation.contract.command.CreateEvaluationCommandResponse;
+import usecase.evaluation.contract.query.FindEvaluationQueryResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,11 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import adapters.in.http.handlers.evaluation.EvaluationCommandHandler;
-import adapters.in.http.handlers.evaluation.EvaluationQueryHandler;
-import adapters.in.http.handlers.evaluation.contract.command.CreateEvaluationCommand;
-import adapters.in.http.handlers.evaluation.contract.command.CreateEvaluationCommandResponse;
-import adapters.in.http.handlers.evaluation.contract.query.FindEvaluationQueryResponse;
+import ports.input.EvaluationInputPort;
 
 import java.util.List;
 
@@ -22,20 +21,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EvaluationController {
 
-    private final EvaluationCommandHandler evaluationCommandHandler;
-    private final EvaluationQueryHandler evaluationQueryHandler;
+    private final EvaluationInputPort evaluationInputPort;
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public ResponseEntity<CreateEvaluationCommandResponse> create(
             @RequestBody @Valid CreateEvaluationCommand command) {
         return ResponseEntity.ok()
-                .body(evaluationCommandHandler.create(command));
+                .body(evaluationInputPort.create(command));
     }
 
     @GetMapping
     public ResponseEntity<List<FindEvaluationQueryResponse>> findAll() {
         return ResponseEntity.ok()
-                .body(evaluationQueryHandler.findAll());
+                .body(evaluationInputPort.findAll());
     }
 }

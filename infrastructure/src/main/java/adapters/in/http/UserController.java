@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import adapters.in.http.security.dto.AuthenticationDTO;
 import adapters.in.http.security.dto.AuthenticationResponseDTO;
 import adapters.in.http.security.util.JwtTokenUtil;
-import adapters.in.http.handlers.user.UserCommandHandler;
-import adapters.in.http.handlers.user.contract.command.CreateUserCommand;
-import adapters.in.http.handlers.user.contract.command.CreateUserCommandResponse;
+import usecase.user.contract.command.CreateUserCommand;
+import usecase.user.contract.command.CreateUserCommandResponse;
+import ports.input.UserInputPort;
 
 @RestController
 @RequestMapping("/users")
@@ -29,7 +29,7 @@ public class UserController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private UserCommandHandler userCommandHandler;
+    private UserInputPort userInputPort;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -44,7 +44,7 @@ public class UserController {
         command.setPassword(hashedPassword);
 
         return ResponseEntity.ok()
-                .body(userCommandHandler.execute(command));
+                .body(userInputPort.create(command));
     }
 
     @PostMapping(value = "/authenticate")

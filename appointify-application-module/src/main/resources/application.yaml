@@ -1,0 +1,23 @@
+jwt:
+  secret: usersecret
+
+#springdoc:
+#  enable-native-support: true
+
+# swagger-ui custom path
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+server:
+  forward-headers-strategy: framework
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5432/appointify
+    username: default
+    password: default
+    driver-class-name: org.postgresql.Driver

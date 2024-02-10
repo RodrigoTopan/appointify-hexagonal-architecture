@@ -1,14 +1,12 @@
 package usecase.company.mapper;
 
-import usecase.company.contract.command.CreatedCompany;
-import org.springframework.stereotype.Component;
-import usecase.company.contract.Company;
 import usecase.company.contract.Category;
+import usecase.company.contract.Company;
+import usecase.company.contract.command.CreatedCompany;
 import usecase.company.contract.query.FoundCompany;
 
 import java.util.stream.Collectors;
 
-@Component
 public class CompanyMapper {
 
     public CreatedCompany companyToCreateCompanyCommandResponse(domain.entity.Company company) {

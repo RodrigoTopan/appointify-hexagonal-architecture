@@ -4,11 +4,11 @@ import usecase.offeredservice.contract.command.CreateOfferedService;
 import usecase.offeredservice.contract.command.CreatedOfferedService;
 import usecase.offeredservice.contract.query.FoundOfferedService;
 import domain.entity.Company;
-import org.springframework.stereotype.Component;
+
 import domain.entity.OfferedService;
 import domain.valueobject.Money;
 
-@Component
+
 public class OfferedServiceMapper {
     public OfferedService createOfferedServiceCommandToOfferedService(Company company, CreateOfferedService command) {
         return new OfferedService(

@@ -2,14 +2,14 @@ package usecase.user.mapper;
 
 import usecase.user.contract.command.CreateUser;
 import usecase.user.contract.command.CreatedUser;
-import org.springframework.stereotype.Component;
+
 import domain.entity.User;
 import domain.valueobject.Email;
 import domain.valueobject.Password;
 import domain.valueobject.Username;
 import usecase.user.contract.query.FoundUser;
 
-@Component
+
 public class UserMapper {
     public User toUser(CreateUser command) {
         return new User(

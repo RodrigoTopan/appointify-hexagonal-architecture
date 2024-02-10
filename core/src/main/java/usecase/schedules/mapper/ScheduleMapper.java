@@ -1,6 +1,6 @@
 package usecase.schedules.mapper;
 
-import org.springframework.stereotype.Component;
+
 import usecase.schedules.contract.Company;
 import usecase.schedules.contract.Customer;
 import usecase.schedules.contract.Employee;
@@ -12,7 +12,7 @@ import usecase.schedules.contract.query.FoundAppointment;
 import usecase.schedules.contract.query.FoundAvailableSchedules;
 import usecase.schedules.contract.query.FoundSchedule;
 
-@Component
+
 public class ScheduleMapper {
 
     public CreatedSchedule scheduleToCreateScheduleCommandResponse(domain.entity.Schedule schedule) {

@@ -1,11 +1,11 @@
 package usecase.evaluation.mapper;
 
-import org.springframework.stereotype.Component;
+
 import domain.entity.Evaluation;
 import usecase.evaluation.contract.command.CreatedEvaluation;
 import usecase.evaluation.contract.query.FoundEvaluation;
 
-@Component
+
 public class EvaluationMapper {
 
     public CreatedEvaluation evaluationToCreateEvaluationCommandResponse(Evaluation evaluation) {

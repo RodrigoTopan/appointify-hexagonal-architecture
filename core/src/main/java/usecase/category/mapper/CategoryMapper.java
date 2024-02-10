@@ -1,7 +1,7 @@
 package usecase.category.mapper;
 
 import domain.entity.Category;
-import org.springframework.stereotype.Component;
+
 import usecase.category.contract.Company;
 import usecase.category.contract.command.CreateCategory;
 import usecase.category.contract.command.CreatedCategory;
@@ -9,7 +9,7 @@ import usecase.category.contract.query.FoundCategory;
 
 import java.util.stream.Collectors;
 
-@Component
+
 public class CategoryMapper {
     public Category createCategoryCommandToCategory(CreateCategory command) {
         return new Category(command.name(), command.image());

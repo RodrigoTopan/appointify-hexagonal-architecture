@@ -1,11 +1,11 @@
 package usecase.employee.mapper;
 
 import usecase.employee.contract.command.CreatedEmployee;
-import org.springframework.stereotype.Component;
+
 import domain.entity.Employee;
 import usecase.employee.contract.query.FoundEmployee;
 
-@Component
+
 public class EmployeeMapper {
 
     public CreatedEmployee employeeToCreateEmployeeCommandResponse(Employee employee) {

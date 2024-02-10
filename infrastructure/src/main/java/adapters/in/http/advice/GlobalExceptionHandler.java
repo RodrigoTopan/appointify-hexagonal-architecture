@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = {DomainException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorDTO handleDomainException(Exception exception) {
+    public ErrorDTO handleDomainException(DomainException exception) {
         log.error(exception.getMessage(), exception);
         return ErrorDTO.builder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
@@ -46,29 +46,29 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = {DomainValidationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDTO handleException(DomainException domainException) {
-        log.error(domainException.getMessage(), domainException);
+    public ErrorDTO handleDomainValidationException(DomainValidationException exception) {
+        log.error(exception.getMessage(), exception);
         return ErrorDTO.builder()
                 .code(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                .message(domainException.getMessage())
+                .message(exception.getMessage())
                 .build();
     }
 
     @ResponseBody
     @ExceptionHandler(value = {AccessDeniedException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ErrorDTO handleException(AccessDeniedException deniedException) {
-        log.error(deniedException.getMessage(), deniedException);
+    public ErrorDTO handleAccessDeniedException(AccessDeniedException exception) {
+        log.error(exception.getMessage(), exception);
         return ErrorDTO.builder()
                 .code(HttpStatus.UNAUTHORIZED.getReasonPhrase())
-                .message(deniedException.getMessage())
+                .message(exception.getMessage())
                 .build();
     }
 
     @ResponseBody
     @ExceptionHandler(value = {NotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorDTO handleException(NotFoundException exception) {
+    public ErrorDTO handleNotFoundException(NotFoundException exception) {
         log.error(exception.getMessage(), exception);
         return ErrorDTO.builder()
                 .code(HttpStatus.NOT_FOUND.getReasonPhrase())
@@ -79,24 +79,13 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = {ValidationException.class, MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDTO handleException(ValidationException validationException) {
-        ErrorDTO errorDTO;
-        if (validationException instanceof ConstraintViolationException) {
-            String violations = extractViolationsFromException((ConstraintViolationException) validationException);
-            log.error(violations, validationException);
-            errorDTO = ErrorDTO.builder()
-                    .code(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                    .message(violations)
-                    .build();
-        } else {
-            String exceptionMessage = validationException.getMessage();
-            log.error(exceptionMessage, validationException);
-            errorDTO = ErrorDTO.builder()
-                    .code(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                    .message(exceptionMessage)
-                    .build();
-        }
-        return errorDTO;
+    public ErrorDTO handleValidationException(MethodArgumentNotValidException exception) {
+        String exceptionMessage = exception.getMessage();
+        log.error(exceptionMessage, exception);
+        return ErrorDTO.builder()
+                .code(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(exceptionMessage)
+                .build();
     }
 
     private String extractViolationsFromException(ConstraintViolationException validationException) {
@@ -105,5 +94,4 @@ public class GlobalExceptionHandler {
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.joining("--"));
     }
-
 }

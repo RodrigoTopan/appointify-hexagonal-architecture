@@ -1,13 +1,6 @@
 package ports.input.company.contract.query;
 
+import java.util.UUID;
 import ports.input.company.contract.Company;
 
-import java.util.UUID;
-
-public record FoundCompany(
-        UUID id,
-        UUID userId,
-        Company company
-) {
-}
-
+public record FoundCompany(UUID id, UUID userId, Company company) {}

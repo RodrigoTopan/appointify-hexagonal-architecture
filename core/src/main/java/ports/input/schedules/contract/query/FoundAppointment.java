@@ -7,10 +7,4 @@ import ports.input.schedules.contract.Schedule;
 import ports.input.schedules.contract.Service;
 
 public record FoundAppointment(
-        Customer customer,
-        Schedule schedule,
-        Service service,
-        Employee employee,
-        Company company
-) {
-}
+    Customer customer, Schedule schedule, Service service, Employee employee, Company company) {}

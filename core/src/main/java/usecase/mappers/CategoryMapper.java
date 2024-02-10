@@ -21,9 +21,7 @@ public class CategoryMapper {
         category.getId(),
         category.getName(),
         category.getImage(),
-        category
-            .getCompanies()
-            .stream()
+        category.getCompanies().stream()
             .map(
                 company ->
                     new Company(

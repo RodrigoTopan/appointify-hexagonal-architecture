@@ -22,9 +22,7 @@ public class CategoryDataAccessMapper {
     var entityCompanies = entity.getCompanies();
     if (entityCompanies != null) {
       var companies =
-          entity
-              .getCompanies()
-              .stream()
+          entity.getCompanies().stream()
               .map(CompanyDataAccessMapper::toDomain)
               .collect(Collectors.toList());
 

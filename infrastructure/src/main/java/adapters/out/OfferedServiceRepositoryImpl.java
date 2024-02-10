@@ -26,8 +26,7 @@ public class OfferedServiceRepositoryImpl implements OfferedServiceRepository {
   @Override
   public List<OfferedService> findAll() {
     List<OfferedServiceEntity> entities = jpaRepository.findAll();
-    return entities
-        .stream()
+    return entities.stream()
         .map(OfferedServiceDataAccessMapper::toDomain)
         .collect(Collectors.toList());
   }
@@ -41,8 +40,7 @@ public class OfferedServiceRepositoryImpl implements OfferedServiceRepository {
   @Override
   public List<OfferedService> findAllByCompanyId(UUID companyId) {
     List<OfferedServiceEntity> entities = jpaRepository.findAllByCompanyId(companyId);
-    return entities
-        .stream()
+    return entities.stream()
         .map(OfferedServiceDataAccessMapper::toDomain)
         .collect(Collectors.toList());
   }

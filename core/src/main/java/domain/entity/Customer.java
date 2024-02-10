@@ -48,8 +48,7 @@ public class Customer {
 
   private void checkIfCustomerAlreadyHasAssignedForThisSchedule(Schedule schedule) {
     boolean hasEqualCustomerAssignee =
-        schedules
-            .stream()
+        schedules.stream()
             .anyMatch(
                 assignedSchedule ->
                     Objects.equals(assignedSchedule.getCustomerAssignee(), this)

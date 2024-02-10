@@ -10,9 +10,7 @@ public class CompanyMapper {
 
   public CreatedCompany companyToCreateCompanyCommandResponse(domain.entity.Company company) {
     var categories =
-        company
-            .getCategories()
-            .stream()
+        company.getCategories().stream()
             .map(category -> new Category(category.getId(), category.getName()))
             .collect(Collectors.toList());
 

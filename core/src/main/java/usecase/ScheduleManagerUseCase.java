@@ -62,18 +62,14 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
 
   @Override
   public List<FoundSchedule> findAll() {
-    return scheduleRepository
-        .findAll()
-        .stream()
+    return scheduleRepository.findAll().stream()
         .map(scheduleMapper::scheduleToFindScheduleQueryResponse)
         .collect(Collectors.toList());
   }
 
   @Override
   public List<FoundAppointment> find(FindCustomerAppointments query) {
-    return scheduleRepository
-        .findByCustomerId(query.customerId())
-        .stream()
+    return scheduleRepository.findByCustomerId(query.customerId()).stream()
         .map(scheduleMapper::scheduleToFindAppointmentQueryResponse)
         .collect(Collectors.toList());
   }

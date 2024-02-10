@@ -25,9 +25,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
   @Override
   public List<Schedule> findAll() {
-    return scheduleJpaRepository
-        .findAll()
-        .stream()
+    return scheduleJpaRepository.findAll().stream()
         .map(ScheduleDataAccessMapper::toDomain)
         .collect(Collectors.toList());
   }

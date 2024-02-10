@@ -41,8 +41,7 @@ public class CustomerManagerUseCase implements CustomerInputPort {
   @Override
   public List<FoundCustomer> findAll() {
     var customers = customerRepository.findAll();
-    return customers
-        .stream()
+    return customers.stream()
         .map(customerMapper::customerToFindCustomerQueryResponse)
         .collect(Collectors.toList());
   }

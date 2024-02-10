@@ -39,9 +39,7 @@ public class EvaluationManagerUseCase implements EvaluationInputPort {
 
   @Override
   public List<FoundEvaluation> findAll() {
-    return evaluationRepository
-        .findAll()
-        .stream()
+    return evaluationRepository.findAll().stream()
         .map(evaluationMapper::evaluationToFindEvaluationQueryResponse)
         .collect(Collectors.toList());
   }

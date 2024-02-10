@@ -31,9 +31,7 @@ public class UserRepositoryImpl implements UserRepository {
 
   @Override
   public List<User> findAll() {
-    return jpaRepository
-        .findAll()
-        .stream()
+    return jpaRepository.findAll().stream()
         .map(UserDataAccessMapper::toDomain)
         .collect(Collectors.toList());
   }

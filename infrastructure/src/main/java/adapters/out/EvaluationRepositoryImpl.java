@@ -23,9 +23,7 @@ public class EvaluationRepositoryImpl implements EvaluationRepository {
 
   @Override
   public List<Evaluation> findAll() {
-    return evaluationJpaRepository
-        .findAll()
-        .stream()
+    return evaluationJpaRepository.findAll().stream()
         .map(EvaluationDataAccessMapper::toDomain)
         .collect(Collectors.toList());
   }
@@ -38,9 +36,7 @@ public class EvaluationRepositoryImpl implements EvaluationRepository {
 
   @Override
   public List<Evaluation> findByCustomerId(UUID id) {
-    return evaluationJpaRepository
-        .findByCustomerId(id)
-        .stream()
+    return evaluationJpaRepository.findByCustomerId(id).stream()
         .map(EvaluationDataAccessMapper::toDomain)
         .collect(Collectors.toList());
   }

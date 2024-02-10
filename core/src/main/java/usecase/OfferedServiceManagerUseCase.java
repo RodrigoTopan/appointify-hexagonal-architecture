@@ -39,9 +39,7 @@ public class OfferedServiceManagerUseCase implements OfferedServiceInputPort {
 
   @Override
   public List<FoundOfferedService> findAll() {
-    return repository
-        .findAll()
-        .stream()
+    return repository.findAll().stream()
         .map(mapper::offeredServiceToFindOfferedServiceQueryResponse)
         .collect(Collectors.toList());
   }
@@ -54,9 +52,7 @@ public class OfferedServiceManagerUseCase implements OfferedServiceInputPort {
 
   @Override
   public List<FoundOfferedService> find(FindCompanyOfferedServices query) {
-    return repository
-        .findAll()
-        .stream()
+    return repository.findAll().stream()
         .map(mapper::offeredServiceToFindOfferedServiceQueryResponse)
         .collect(Collectors.toList());
   }

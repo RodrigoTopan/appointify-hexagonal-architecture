@@ -28,8 +28,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
   @Override
   public List<Customer> findAll() {
     List<CustomerEntity> customersEntities = customerJpaRepository.findAll();
-    return customersEntities
-        .stream()
+    return customersEntities.stream()
         .map(CustomerDataAccessMapper::toDomain)
         .collect(Collectors.toList());
   }

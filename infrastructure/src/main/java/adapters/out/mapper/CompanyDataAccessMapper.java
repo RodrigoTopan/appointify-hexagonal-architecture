@@ -71,8 +71,7 @@ public class CompanyDataAccessMapper {
     var entityCategories = entity.getCategories();
     if (entityCategories != null) {
       var categories =
-          entityCategories
-              .stream()
+          entityCategories.stream()
               .map(CompanyDataAccessMapper::toDomain)
               .collect(Collectors.toList());
       return new Company(entity.getId(), user, companyDetails, new ArrayList<>(), categories);

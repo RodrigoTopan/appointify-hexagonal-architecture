@@ -2,11 +2,4 @@ package ports.input.category.contract.command;
 
 import java.util.UUID;
 
-public record CreatedCategory(
-        UUID id,
-        String name,
-        String image
-) {
-}
-
-
+public record CreatedCategory(UUID id, String name, String image) {}

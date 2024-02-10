@@ -40,9 +40,7 @@ public class EmployeeManagerUseCase implements EmployeeInputPort {
 
   @Override
   public List<FoundEmployee> findAll() {
-    return employeeRepository
-        .findAll()
-        .stream()
+    return employeeRepository.findAll().stream()
         .map(employeeMapper::employeeToFindEmployeeQueryResponse)
         .collect(Collectors.toList());
   }

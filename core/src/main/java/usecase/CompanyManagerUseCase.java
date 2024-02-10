@@ -67,8 +67,7 @@ public class CompanyManagerUseCase implements CompanyInputPort {
   @Override
   public List<FoundCompany> findAll() {
     var customers = companyRepository.findAll();
-    return customers
-        .stream()
+    return customers.stream()
         .map(companyMapper::companyToFindCompanyQueryResponse)
         .collect(Collectors.toList());
   }

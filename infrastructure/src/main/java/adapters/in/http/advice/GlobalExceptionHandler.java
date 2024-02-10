@@ -88,9 +88,7 @@ public class GlobalExceptionHandler {
   }
 
   private String extractViolationsFromException(ConstraintViolationException validationException) {
-    return validationException
-        .getConstraintViolations()
-        .stream()
+    return validationException.getConstraintViolations().stream()
         .map(ConstraintViolation::getMessage)
         .collect(Collectors.joining("--"));
   }

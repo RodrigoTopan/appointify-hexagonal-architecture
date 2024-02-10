@@ -1,15 +1,7 @@
 package ports.input.company.contract.command;
 
-import ports.input.company.contract.Company;
-
 import java.util.List;
 import java.util.UUID;
+import ports.input.company.contract.Company;
 
-public record CreateCompany(
-        UUID userId,
-        Company company,
-        List<UUID> categories
-) {
-}
-
-
+public record CreateCompany(UUID userId, Company company, List<UUID> categories) {}

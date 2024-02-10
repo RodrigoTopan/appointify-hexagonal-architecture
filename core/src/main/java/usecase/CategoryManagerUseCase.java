@@ -34,9 +34,7 @@ public class CategoryManagerUseCase implements CategoryInputPort {
 
   @Override
   public List<FoundCategory> findAll() {
-    return categoryRepository
-        .findAll()
-        .stream()
+    return categoryRepository.findAll().stream()
         .map(categoryMapper::categoryToFindCategoryQueryResponse)
         .collect(Collectors.toList());
   }

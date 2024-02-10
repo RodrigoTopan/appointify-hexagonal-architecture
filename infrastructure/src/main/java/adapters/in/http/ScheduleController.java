@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ports.input.ScheduleInputPort;
-import usecase.schedules.contract.command.CreateSchedule;
-import usecase.schedules.contract.command.CreatedSchedule;
-import usecase.schedules.contract.query.FindAvailableSchedules;
-import usecase.schedules.contract.query.FoundAvailableSchedules;
-import usecase.schedules.contract.query.FoundSchedule;
+import ports.input.schedules.contract.command.CreateSchedule;
+import ports.input.schedules.contract.command.CreatedSchedule;
+import ports.input.schedules.contract.query.FindAvailableSchedules;
+import ports.input.schedules.contract.query.FoundAvailableSchedules;
+import ports.input.schedules.contract.query.FoundSchedule;
 
 @RestController
 @RequestMapping("/schedules")

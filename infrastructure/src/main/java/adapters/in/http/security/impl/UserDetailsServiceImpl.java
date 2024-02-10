@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import ports.input.UserInputPort;
-import usecase.user.contract.query.FindUser;
-import usecase.user.contract.query.FoundUser;
+import ports.input.user.contract.query.FindUser;
+import ports.input.user.contract.query.FoundUser;
 
 @Component
 @RequiredArgsConstructor

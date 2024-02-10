@@ -3,13 +3,13 @@ package usecase;
 import java.util.List;
 import java.util.stream.Collectors;
 import ports.input.EmployeeInputPort;
+import ports.input.employee.contract.command.CreateEmployee;
+import ports.input.employee.contract.command.CreatedEmployee;
+import ports.input.employee.contract.query.FoundEmployee;
 import ports.output.repository.CompanyRepository;
 import ports.output.repository.EmployeeRepository;
 import ports.output.repository.UserRepository;
-import usecase.employee.contract.command.CreateEmployee;
-import usecase.employee.contract.command.CreatedEmployee;
-import usecase.employee.contract.query.FoundEmployee;
-import usecase.employee.mapper.EmployeeMapper;
+import usecase.mappers.EmployeeMapper;
 
 public class EmployeeManagerUseCase implements EmployeeInputPort {
   private final EmployeeMapper employeeMapper;

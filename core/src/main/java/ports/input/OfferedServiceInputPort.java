@@ -2,10 +2,10 @@ package ports.input;
 
 import java.util.List;
 import java.util.UUID;
-import usecase.offeredservice.contract.command.CreateOfferedService;
-import usecase.offeredservice.contract.command.CreatedOfferedService;
-import usecase.offeredservice.contract.query.FindCompanyOfferedServices;
-import usecase.offeredservice.contract.query.FoundOfferedService;
+import ports.input.offeredservice.contract.command.CreateOfferedService;
+import ports.input.offeredservice.contract.command.CreatedOfferedService;
+import ports.input.offeredservice.contract.query.FindCompanyOfferedServices;
+import ports.input.offeredservice.contract.query.FoundOfferedService;
 
 public interface OfferedServiceInputPort {
   CreatedOfferedService create(CreateOfferedService command);

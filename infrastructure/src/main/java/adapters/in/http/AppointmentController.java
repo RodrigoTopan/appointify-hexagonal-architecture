@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ports.input.ScheduleInputPort;
-import usecase.schedules.contract.command.CreateAppointment;
-import usecase.schedules.contract.command.CreatedAppointment;
-import usecase.schedules.contract.query.FindCustomerAppointments;
-import usecase.schedules.contract.query.FoundAppointment;
+import ports.input.schedules.contract.command.CreateAppointment;
+import ports.input.schedules.contract.command.CreatedAppointment;
+import ports.input.schedules.contract.query.FindCustomerAppointments;
+import ports.input.schedules.contract.query.FoundAppointment;
 
 @RestController
 @RequestMapping("/appointments")

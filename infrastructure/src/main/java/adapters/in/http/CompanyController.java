@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ports.input.CompanyInputPort;
 import ports.input.OfferedServiceInputPort;
-import usecase.company.contract.command.CreateCompany;
-import usecase.company.contract.command.CreatedCompany;
-import usecase.company.contract.query.FoundCompany;
-import usecase.offeredservice.contract.query.FindCompanyOfferedServices;
-import usecase.offeredservice.contract.query.FoundOfferedService;
+import ports.input.company.contract.command.CreateCompany;
+import ports.input.company.contract.command.CreatedCompany;
+import ports.input.company.contract.query.FoundCompany;
+import ports.input.offeredservice.contract.query.FindCompanyOfferedServices;
+import ports.input.offeredservice.contract.query.FoundOfferedService;
 
 @RestController
 @RequestMapping("/companies")

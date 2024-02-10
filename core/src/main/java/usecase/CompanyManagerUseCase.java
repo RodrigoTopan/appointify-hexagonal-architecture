@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import ports.input.CompanyInputPort;
+import ports.input.company.contract.command.CreateCompany;
+import ports.input.company.contract.command.CreatedCompany;
+import ports.input.company.contract.query.FoundCompany;
 import ports.output.repository.CategoryRepository;
 import ports.output.repository.CompanyRepository;
 import ports.output.repository.UserRepository;
-import usecase.company.contract.command.CreateCompany;
-import usecase.company.contract.command.CreatedCompany;
-import usecase.company.contract.query.FoundCompany;
-import usecase.company.mapper.CompanyMapper;
+import usecase.mappers.CompanyMapper;
 
 public class CompanyManagerUseCase implements CompanyInputPort {
   private final CompanyMapper companyMapper;

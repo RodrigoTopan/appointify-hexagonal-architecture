@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ports.input.CategoryInputPort;
-import usecase.category.contract.command.CreateCategory;
-import usecase.category.contract.command.CreatedCategory;
-import usecase.category.contract.query.FoundCategory;
+import ports.input.category.contract.command.CreateCategory;
+import ports.input.category.contract.command.CreatedCategory;
+import ports.input.category.contract.query.FoundCategory;
 
 @RestController
 @RequestMapping("/categories")

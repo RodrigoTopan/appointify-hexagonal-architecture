@@ -27,14 +27,14 @@ import usecase.EvaluationManagerUseCase;
 import usecase.OfferedServiceManagerUseCase;
 import usecase.ScheduleManagerUseCase;
 import usecase.UserManagerUseCase;
-import usecase.category.mapper.CategoryMapper;
-import usecase.company.mapper.CompanyMapper;
-import usecase.customer.mapper.CustomerMapper;
-import usecase.employee.mapper.EmployeeMapper;
-import usecase.evaluation.mapper.EvaluationMapper;
-import usecase.offeredservice.mapper.OfferedServiceMapper;
-import usecase.schedules.mapper.ScheduleMapper;
-import usecase.user.mapper.UserMapper;
+import usecase.mappers.CategoryMapper;
+import usecase.mappers.CompanyMapper;
+import usecase.mappers.CustomerMapper;
+import usecase.mappers.EmployeeMapper;
+import usecase.mappers.EvaluationMapper;
+import usecase.mappers.OfferedServiceMapper;
+import usecase.mappers.ScheduleMapper;
+import usecase.mappers.UserMapper;
 
 @Configuration
 @RequiredArgsConstructor

@@ -1,12 +1,12 @@
 package usecase;
 
 import ports.input.UserInputPort;
+import ports.input.user.contract.command.CreateUser;
+import ports.input.user.contract.command.CreatedUser;
+import ports.input.user.contract.query.FindUser;
+import ports.input.user.contract.query.FoundUser;
 import ports.output.repository.UserRepository;
-import usecase.user.contract.command.CreateUser;
-import usecase.user.contract.command.CreatedUser;
-import usecase.user.contract.query.FindUser;
-import usecase.user.contract.query.FoundUser;
-import usecase.user.mapper.UserMapper;
+import usecase.mappers.UserMapper;
 
 public class UserManagerUseCase implements UserInputPort {
   private final UserMapper userMapper;

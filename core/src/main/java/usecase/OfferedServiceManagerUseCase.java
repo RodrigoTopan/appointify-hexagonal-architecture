@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import ports.input.OfferedServiceInputPort;
+import ports.input.offeredservice.contract.command.CreateOfferedService;
+import ports.input.offeredservice.contract.command.CreatedOfferedService;
+import ports.input.offeredservice.contract.query.FindCompanyOfferedServices;
+import ports.input.offeredservice.contract.query.FoundOfferedService;
 import ports.output.repository.CompanyRepository;
 import ports.output.repository.OfferedServiceRepository;
-import usecase.offeredservice.contract.command.CreateOfferedService;
-import usecase.offeredservice.contract.command.CreatedOfferedService;
-import usecase.offeredservice.contract.query.FindCompanyOfferedServices;
-import usecase.offeredservice.contract.query.FoundOfferedService;
-import usecase.offeredservice.mapper.OfferedServiceMapper;
+import usecase.mappers.OfferedServiceMapper;
 
 public class OfferedServiceManagerUseCase implements OfferedServiceInputPort {
   private final OfferedServiceMapper mapper;

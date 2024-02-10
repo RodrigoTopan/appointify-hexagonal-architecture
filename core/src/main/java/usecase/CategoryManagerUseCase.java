@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import ports.input.CategoryInputPort;
+import ports.input.category.contract.command.CreateCategory;
+import ports.input.category.contract.command.CreatedCategory;
+import ports.input.category.contract.query.FoundCategory;
 import ports.output.repository.CategoryRepository;
-import usecase.category.contract.command.CreateCategory;
-import usecase.category.contract.command.CreatedCategory;
-import usecase.category.contract.query.FoundCategory;
-import usecase.category.mapper.CategoryMapper;
+import usecase.mappers.CategoryMapper;
 
 public class CategoryManagerUseCase implements CategoryInputPort {
   private final CategoryMapper categoryMapper;

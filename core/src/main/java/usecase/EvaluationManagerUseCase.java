@@ -3,13 +3,13 @@ package usecase;
 import java.util.List;
 import java.util.stream.Collectors;
 import ports.input.EvaluationInputPort;
+import ports.input.evaluation.contract.command.CreateEvaluation;
+import ports.input.evaluation.contract.command.CreatedEvaluation;
+import ports.input.evaluation.contract.query.FoundEvaluation;
 import ports.output.repository.CustomerRepository;
 import ports.output.repository.EmployeeRepository;
 import ports.output.repository.EvaluationRepository;
-import usecase.evaluation.contract.command.CreateEvaluation;
-import usecase.evaluation.contract.command.CreatedEvaluation;
-import usecase.evaluation.contract.query.FoundEvaluation;
-import usecase.evaluation.mapper.EvaluationMapper;
+import usecase.mappers.EvaluationMapper;
 
 public class EvaluationManagerUseCase implements EvaluationInputPort {
   private final EvaluationMapper evaluationMapper;

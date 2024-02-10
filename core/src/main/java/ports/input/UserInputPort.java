@@ -1,9 +1,9 @@
 package ports.input;
 
-import usecase.user.contract.command.CreateUser;
-import usecase.user.contract.command.CreatedUser;
-import usecase.user.contract.query.FindUser;
-import usecase.user.contract.query.FoundUser;
+import ports.input.user.contract.command.CreateUser;
+import ports.input.user.contract.command.CreatedUser;
+import ports.input.user.contract.query.FindUser;
+import ports.input.user.contract.query.FoundUser;
 
 public interface UserInputPort {
   CreatedUser create(CreateUser command);

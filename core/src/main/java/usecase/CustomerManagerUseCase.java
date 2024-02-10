@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import ports.input.CustomerInputPort;
+import ports.input.customer.contract.command.CreateCustomer;
+import ports.input.customer.contract.command.CreatedCustomer;
+import ports.input.customer.contract.query.FoundCustomer;
 import ports.output.repository.CustomerRepository;
 import ports.output.repository.UserRepository;
-import usecase.customer.contract.command.CreateCustomer;
-import usecase.customer.contract.command.CreatedCustomer;
-import usecase.customer.contract.query.FoundCustomer;
-import usecase.customer.mapper.CustomerMapper;
+import usecase.mappers.CustomerMapper;
 
 public class CustomerManagerUseCase implements CustomerInputPort {
   private final CustomerMapper customerMapper;

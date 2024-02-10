@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ports.input.EvaluationInputPort;
-import usecase.evaluation.contract.command.CreateEvaluation;
-import usecase.evaluation.contract.command.CreatedEvaluation;
-import usecase.evaluation.contract.query.FoundEvaluation;
+import ports.input.evaluation.contract.command.CreateEvaluation;
+import ports.input.evaluation.contract.command.CreatedEvaluation;
+import ports.input.evaluation.contract.query.FoundEvaluation;
 
 @RestController
 @RequestMapping("/evaluations")

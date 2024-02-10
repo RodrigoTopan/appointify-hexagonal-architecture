@@ -21,20 +21,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final FoundUser userQueryResponse = userInputPort
-                .find(FindUser
-                        .builder()
-                        .username(username)
-                        .build());
+                .find(new FindUser(username));
 
         return UserDetailsImpl
                 .builder()
-                .username(userQueryResponse.getUsername())
-                .password(userQueryResponse.getPassword())
+                .username(userQueryResponse.username())
+                .password(userQueryResponse.password())
                 .isAccountNonExpired(true)
                 .isAccountNonLocked(true)
                 .isCredentialsNonExpired(true)
                 .isEnabled(true)
-                .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + userQueryResponse.getRole())))
+                .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + userQueryResponse.role())))
                 .build();
     }
 }

@@ -33,15 +33,14 @@ public class UserMapper {
     }
 
     public FoundUser toFoundUser(User user) {
-        return FoundUser
-                .builder()
-                .id(user.getId())
-                .email(user.getEmail().getValue())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .username(user.getUsername().getValue())
-                .password(user.getPassword().getValue())
-                .role(user.getRole().getValue())
-                .build();
+        return new FoundUser(
+                user.getId(),
+                user.getUsername().getValue(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail().getValue(),
+                user.getPassword().getValue(),
+                user.getRole().getValue()
+        );
     }
 }

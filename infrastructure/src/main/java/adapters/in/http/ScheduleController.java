@@ -43,13 +43,12 @@ public class ScheduleController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date rangeEndDate
     ) {
         return ResponseEntity.ok()
-                .body(scheduleInputPort.find(FindAvailableSchedules
-                        .builder()
-                        .companyId(companyId)
-                        .offeredServiceId(offeredServiceId)
-                        .rangeStartDate(rangeStartDate)
-                        .rangeEndDate(rangeEndDate)
-                        .build()));
+                .body(scheduleInputPort.find(new FindAvailableSchedules(
+                        companyId,
+                        offeredServiceId,
+                        rangeStartDate,
+                        rangeEndDate
+                )));
     }
 
     @PostMapping

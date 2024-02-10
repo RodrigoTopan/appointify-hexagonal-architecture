@@ -27,7 +27,7 @@ public class UserManagerUseCase implements UserInputPort {
 
     @Override
     public FoundUser find(FindUser query) {
-        var user = userRepository.findByUsername(query.getUsername());
+        var user = userRepository.findByUsername(query.username());
         return userMapper.toFoundUser(user);
     }
 }

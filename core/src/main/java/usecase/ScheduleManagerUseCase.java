@@ -36,13 +36,13 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
 
     @Override
     public CreatedSchedule create(CreateSchedule command) {
-        var employee = employeeRepository.findById(command.getEmployeeId());
+        var employee = employeeRepository.findById(command.employeeId());
 
-        var offeredService = offeredServiceRepository.findById(command.getOfferedServiceId());
+        var offeredService = offeredServiceRepository.findById(command.offeredServiceId());
 
         var schedule = employee.addSchedule(
-                command.getScheduleStart(),
-                command.getScheduleEnd(),
+                command.scheduleStart(),
+                command.scheduleEnd(),
                 offeredService);
 
         var savedSchedule = scheduleRepository.save(schedule);
@@ -51,8 +51,8 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
 
     @Override
     public CreatedAppointment create(CreateAppointment command) {
-        var customer = customerRepository.findById(command.getCustomerId());
-        var schedule = scheduleRepository.findById(command.getScheduleId());
+        var customer = customerRepository.findById(command.customerId());
+        var schedule = scheduleRepository.findById(command.scheduleId());
         var assignedSchedule = customer.assignAppointment(schedule);
         var savedAssignedSchedule = scheduleRepository.save(assignedSchedule);
         return scheduleMapper.scheduleToCreateAppointmentCommandResponse(savedAssignedSchedule);
@@ -68,7 +68,7 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
 
     @Override
     public List<FoundAppointment> find(FindCustomerAppointments query) {
-        return scheduleRepository.findByCustomerId(query.getCustomerId())
+        return scheduleRepository.findByCustomerId(query.customerId())
                 .stream()
                 .map(scheduleMapper::scheduleToFindAppointmentQueryResponse)
                 .collect(Collectors.toList());
@@ -77,7 +77,7 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
     @Override
     public List<FoundAvailableSchedules> find(FindAvailableSchedules query) {
         return scheduleRepository
-                .findAllByAvailableStatusAndCompanyIdAndDate(query.getCompanyId(), query.getRangeStartDate(), query.getRangeEndDate())
+                .findAllByAvailableStatusAndCompanyIdAndDate(query.companyId(), query.rangeStartDate(), query.rangeEndDate())
                 .stream()
                 .map(scheduleMapper::scheduleToFindAvailableSchedulesQueryResponse)
                 .collect(Collectors.toList());

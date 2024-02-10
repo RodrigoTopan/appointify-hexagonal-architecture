@@ -28,10 +28,7 @@ public class AppointmentController {
     @GetMapping("/{customerId}")
     public ResponseEntity<List<FoundAppointment>> findByCustomerId(@PathVariable UUID customerId) {
         return ResponseEntity.ok()
-                .body(scheduleInputPort.find(FindCustomerAppointments
-                        .builder()
-                        .customerId(customerId)
-                        .build()));
+                .body(scheduleInputPort.find(new FindCustomerAppointments(customerId)));
     }
 
     @PostMapping

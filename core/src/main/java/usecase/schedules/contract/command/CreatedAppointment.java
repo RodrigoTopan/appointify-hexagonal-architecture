@@ -1,23 +1,15 @@
 package usecase.schedules.contract.command;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import usecase.schedules.contract.Company;
 import usecase.schedules.contract.Customer;
 import usecase.schedules.contract.Employee;
 import usecase.schedules.contract.Schedule;
 import usecase.schedules.contract.Service;
 
-@Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class CreatedAppointment {
-    private Customer customer;
-    private Schedule schedule;
-    private Service service;
-    private Employee employee;
-    private Company company;
-}
+public record CreatedAppointment (
+     Customer customer,
+     Schedule schedule,
+     Service service,
+     Employee employee,
+     Company company
+){}

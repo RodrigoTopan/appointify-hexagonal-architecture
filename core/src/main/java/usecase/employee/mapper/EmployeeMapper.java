@@ -1,15 +1,15 @@
 package usecase.employee.mapper;
 
-import usecase.employee.contract.command.CreateEmployeeCommandResponse;
+import usecase.employee.contract.command.CreateEmployeeResult;
 import org.springframework.stereotype.Component;
 import domain.entity.Employee;
-import usecase.employee.contract.query.FindEmployeeQueryResponse;
+import usecase.employee.contract.query.FindEmployeeResult;
 
 @Component
 public class EmployeeMapper {
 
-    public CreateEmployeeCommandResponse employeeToCreateEmployeeCommandResponse(Employee employee) {
-        return CreateEmployeeCommandResponse
+    public CreateEmployeeResult employeeToCreateEmployeeCommandResponse(Employee employee) {
+        return CreateEmployeeResult
                 .builder()
                 .id(employee.getId())
                 .userId(employee.getUser().getId())
@@ -17,8 +17,8 @@ public class EmployeeMapper {
                 .build();
     }
 
-    public FindEmployeeQueryResponse employeeToFindEmployeeQueryResponse(Employee employee) {
-        return FindEmployeeQueryResponse
+    public FindEmployeeResult employeeToFindEmployeeQueryResponse(Employee employee) {
+        return FindEmployeeResult
                 .builder()
                 .id(employee.getId())
                 .userId(employee.getUser().getId())

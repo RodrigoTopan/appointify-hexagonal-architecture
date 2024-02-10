@@ -1,8 +1,8 @@
 package usecase.company;
 
 import usecase.company.contract.command.CreateCompany;
-import usecase.company.contract.command.CreateCompanyResponse;
-import usecase.company.contract.query.FindCompanyResponse;
+import usecase.company.contract.command.CreateCompanyResult;
+import usecase.company.contract.query.FindCompanyResult;
 import usecase.company.mapper.CompanyMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -28,7 +28,7 @@ public class CompanyManagerUseCase implements CompanyInputPort {
     private final UserRepository userRepository;
 
     @Override
-    public CreateCompanyResponse create(CreateCompany command) {
+    public CreateCompanyResult create(CreateCompany command) {
         var user = userRepository.findById(command.getUserId());
 
         List<Category> savedCategories = getSavedCategories(command.getCategories());
@@ -59,7 +59,7 @@ public class CompanyManagerUseCase implements CompanyInputPort {
 
 
     @Override
-    public List<FindCompanyResponse> findAll() {
+    public List<FindCompanyResult> findAll() {
         var customers = companyRepository.findAll();
         return customers.stream()
                 .map(companyMapper::companyToFindCompanyQueryResponse)
@@ -67,7 +67,7 @@ public class CompanyManagerUseCase implements CompanyInputPort {
     }
 
     @Override
-    public FindCompanyResponse findById(UUID id) {
+    public FindCompanyResult findById(UUID id) {
         var customer = companyRepository.findById(id);
         return companyMapper.companyToFindCompanyQueryResponse(customer);
     }

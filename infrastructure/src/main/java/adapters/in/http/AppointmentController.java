@@ -1,9 +1,9 @@
 package adapters.in.http;
 
-import usecase.schedules.contract.command.CreateAppointmentCommand;
-import usecase.schedules.contract.command.CreateAppointmentCommandResponse;
-import usecase.schedules.contract.query.FindAppointmentQueryResponse;
-import usecase.schedules.contract.query.FindCustomerAppointmentsQuery;
+import usecase.schedules.contract.command.CreateAppointment;
+import usecase.schedules.contract.command.CreateAppointmentResult;
+import usecase.schedules.contract.query.FindAppointmentQueryResult;
+import usecase.schedules.contract.query.FindCustomerAppointments;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,17 +26,17 @@ public class AppointmentController {
     private final ScheduleInputPort scheduleInputPort;
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<List<FindAppointmentQueryResponse>> findByCustomerId(@PathVariable UUID customerId) {
+    public ResponseEntity<List<FindAppointmentQueryResult>> findByCustomerId(@PathVariable UUID customerId) {
         return ResponseEntity.ok()
-                .body(scheduleInputPort.find(FindCustomerAppointmentsQuery
+                .body(scheduleInputPort.find(FindCustomerAppointments
                         .builder()
                         .customerId(customerId)
                         .build()));
     }
 
     @PostMapping
-    public ResponseEntity<CreateAppointmentCommandResponse> create(
-            @RequestBody @Valid CreateAppointmentCommand command) {
+    public ResponseEntity<CreateAppointmentResult> create(
+            @RequestBody @Valid CreateAppointment command) {
         return ResponseEntity.ok()
                 .body(scheduleInputPort.create(command));
     }

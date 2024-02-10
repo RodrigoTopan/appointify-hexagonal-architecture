@@ -1,18 +1,18 @@
 package ports.input;
 
-import usecase.customer.contract.command.CreateCustomerCommand;
-import usecase.customer.contract.command.CreateCustomerCommandResponse;
-import usecase.customer.contract.query.FindCustomerQueryResponse;
+import usecase.customer.contract.command.CreateCustomer;
+import usecase.customer.contract.command.CreateCustomerResult;
+import usecase.customer.contract.query.FindCustomerResult;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface CustomerInputPort {
-    CreateCustomerCommandResponse create(CreateCustomerCommand command);
+    CreateCustomerResult create(CreateCustomer command);
 
     void deleteById(UUID id);
 
-    List<FindCustomerQueryResponse> findAll();
+    List<FindCustomerResult> findAll();
 
-    FindCustomerQueryResponse findById(UUID id);
+    FindCustomerResult findById(UUID id);
 }

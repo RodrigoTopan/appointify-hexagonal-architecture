@@ -1,8 +1,8 @@
 package adapters.in.http;
 
-import usecase.offeredservice.contract.command.CreateOfferedServiceCommand;
-import usecase.offeredservice.contract.command.CreateOfferedServiceCommandResponse;
-import usecase.offeredservice.contract.query.FindOfferedServiceQueryResponse;
+import usecase.offeredservice.contract.command.CreateOfferedService;
+import usecase.offeredservice.contract.command.CreateOfferedServiceResult;
+import usecase.offeredservice.contract.query.FindOfferedServiceQueryResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,21 +28,21 @@ public class OfferedServiceController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_COMPANY')")
-    public ResponseEntity<CreateOfferedServiceCommandResponse> createOfferedService(
-            @RequestBody @Valid CreateOfferedServiceCommand command) {
-        CreateOfferedServiceCommandResponse response = offeredServiceInputPort.create(command);
+    public ResponseEntity<CreateOfferedServiceResult> createOfferedService(
+            @RequestBody @Valid CreateOfferedService command) {
+        CreateOfferedServiceResult response = offeredServiceInputPort.create(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping
-    public ResponseEntity<List<FindOfferedServiceQueryResponse>> getAllOfferedServices() {
-        List<FindOfferedServiceQueryResponse> response = offeredServiceInputPort.findAll();
+    public ResponseEntity<List<FindOfferedServiceQueryResult>> getAllOfferedServices() {
+        List<FindOfferedServiceQueryResult> response = offeredServiceInputPort.findAll();
         return ResponseEntity.ok().body(response);
     }
 
 
     @GetMapping("/{serviceId}")
-    public ResponseEntity<FindOfferedServiceQueryResponse> getOfferedServiceById(
+    public ResponseEntity<FindOfferedServiceQueryResult> getOfferedServiceById(
             @PathVariable UUID serviceId) {
         return ResponseEntity.ok().body( offeredServiceInputPort.findById(serviceId));
     }

@@ -1,8 +1,8 @@
 package usecase.customer;
 
-import usecase.customer.contract.command.CreateCustomerCommand;
-import usecase.customer.contract.command.CreateCustomerCommandResponse;
-import usecase.customer.contract.query.FindCustomerQueryResponse;
+import usecase.customer.contract.command.CreateCustomer;
+import usecase.customer.contract.command.CreateCustomerResult;
+import usecase.customer.contract.query.FindCustomerResult;
 import usecase.customer.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class CustomerManagerUseCase implements CustomerInputPort {
     private final UserRepository userRepository;
 
     @Override
-    public CreateCustomerCommandResponse create(CreateCustomerCommand command) {
+    public CreateCustomerResult create(CreateCustomer command) {
         var user = userRepository.findById(command.getUserId());
         var customer = user.createCustomer();
         var savedCustomer = customerRepository.save(customer);
@@ -35,7 +35,7 @@ public class CustomerManagerUseCase implements CustomerInputPort {
     }
 
     @Override
-    public List<FindCustomerQueryResponse> findAll() {
+    public List<FindCustomerResult> findAll() {
         var customers = customerRepository.findAll();
         return customers.stream()
                 .map(customerMapper::customerToFindCustomerQueryResponse)
@@ -43,7 +43,7 @@ public class CustomerManagerUseCase implements CustomerInputPort {
     }
 
     @Override
-    public FindCustomerQueryResponse findById(UUID id) {
+    public FindCustomerResult findById(UUID id) {
         var customer = customerRepository.findById(id);
         return customerMapper.customerToFindCustomerQueryResponse(customer);
     }

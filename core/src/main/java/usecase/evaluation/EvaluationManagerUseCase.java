@@ -1,8 +1,8 @@
 package usecase.evaluation;
 
-import usecase.evaluation.contract.command.CreateEvaluationCommand;
-import usecase.evaluation.contract.command.CreateEvaluationCommandResponse;
-import usecase.evaluation.contract.query.FindEvaluationQueryResponse;
+import usecase.evaluation.contract.command.CreateEvaluation;
+import usecase.evaluation.contract.command.CreateEvaluationResult;
+import usecase.evaluation.contract.query.FindEvaluationResult;
 import usecase.evaluation.mapper.EvaluationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class EvaluationManagerUseCase implements EvaluationInputPort {
     private final EvaluationRepository evaluationRepository;
 
     @Override
-    public CreateEvaluationCommandResponse create(CreateEvaluationCommand command) {
+    public CreateEvaluationResult create(CreateEvaluation command) {
         var customer = customerRepository.findById(command.getCustomerId());
         var employee = employeeRepository.findById(command.getEmployeeId());
         var evaluation = customer.evaluateEmployee(command.getRate(), command.getComment(), employee);
@@ -32,7 +32,7 @@ public class EvaluationManagerUseCase implements EvaluationInputPort {
     }
 
     @Override
-    public List<FindEvaluationQueryResponse> findAll() {
+    public List<FindEvaluationResult> findAll() {
         return evaluationRepository.findAll()
                 .stream()
                 .map(evaluationMapper::evaluationToFindEvaluationQueryResponse)

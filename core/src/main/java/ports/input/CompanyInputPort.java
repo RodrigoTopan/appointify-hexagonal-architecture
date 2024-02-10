@@ -1,17 +1,17 @@
 package ports.input;
 
 import usecase.company.contract.command.CreateCompany;
-import usecase.company.contract.command.CreateCompanyResponse;
-import usecase.company.contract.query.FindCompanyResponse;
+import usecase.company.contract.command.CreateCompanyResult;
+import usecase.company.contract.query.FindCompanyResult;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface CompanyInputPort {
-    CreateCompanyResponse create(CreateCompany command);
+    CreateCompanyResult create(CreateCompany command);
     void deleteById(UUID id);
 
-    List<FindCompanyResponse> findAll();
+    List<FindCompanyResult> findAll();
 
-    FindCompanyResponse findById(UUID id);
+    FindCompanyResult findById(UUID id);
 }

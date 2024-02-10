@@ -1,23 +1,23 @@
 package usecase.customer.mapper;
 
-import usecase.customer.contract.command.CreateCustomerCommandResponse;
-import usecase.customer.contract.query.FindCustomerQueryResponse;
+import usecase.customer.contract.command.CreateCustomerResult;
+import usecase.customer.contract.query.FindCustomerResult;
 import org.springframework.stereotype.Component;
 import domain.entity.Customer;
 
 @Component
 public class CustomerMapper {
 
-    public CreateCustomerCommandResponse customerToCreateCustomerCommandResponse(Customer customer) {
-        return CreateCustomerCommandResponse
+    public CreateCustomerResult customerToCreateCustomerCommandResponse(Customer customer) {
+        return CreateCustomerResult
                 .builder()
                 .id(customer.getId())
                 .userId(customer.getUser().getId())
                 .build();
     }
 
-    public FindCustomerQueryResponse customerToFindCustomerQueryResponse(Customer customer) {
-        return FindCustomerQueryResponse
+    public FindCustomerResult customerToFindCustomerQueryResponse(Customer customer) {
+        return FindCustomerResult
                 .builder()
                 .id(customer.getId())
                 .userId(customer.getUser().getId())

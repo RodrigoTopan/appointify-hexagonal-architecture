@@ -1,8 +1,8 @@
 package usecase.offeredservice.mapper;
 
-import usecase.offeredservice.contract.command.CreateOfferedServiceCommand;
-import usecase.offeredservice.contract.command.CreateOfferedServiceCommandResponse;
-import usecase.offeredservice.contract.query.FindOfferedServiceQueryResponse;
+import usecase.offeredservice.contract.command.CreateOfferedService;
+import usecase.offeredservice.contract.command.CreateOfferedServiceResult;
+import usecase.offeredservice.contract.query.FindOfferedServiceQueryResult;
 import domain.entity.Company;
 import org.springframework.stereotype.Component;
 import domain.entity.OfferedService;
@@ -10,13 +10,13 @@ import domain.entity.valueobject.Money;
 
 @Component
 public class OfferedServiceMapper {
-    public OfferedService createOfferedServiceCommandToOfferedService(Company company, CreateOfferedServiceCommand command) {
+    public OfferedService createOfferedServiceCommandToOfferedService(Company company, CreateOfferedService command) {
         return new OfferedService(company, command.getName(), command.getDescription(), new Money(command.getPrice()));
     }
 
-    public CreateOfferedServiceCommandResponse offeredServiceToCreateOfferedServiceCommandResponse(
+    public CreateOfferedServiceResult offeredServiceToCreateOfferedServiceCommandResponse(
             OfferedService offeredService) {
-        return CreateOfferedServiceCommandResponse
+        return CreateOfferedServiceResult
                 .builder()
                 .id(offeredService.getId())
                 .name(offeredService.getName())
@@ -26,9 +26,9 @@ public class OfferedServiceMapper {
                 .build();
     }
 
-    public FindOfferedServiceQueryResponse offeredServiceToFindOfferedServiceQueryResponse(
+    public FindOfferedServiceQueryResult offeredServiceToFindOfferedServiceQueryResponse(
             OfferedService offeredService) {
-        return FindOfferedServiceQueryResponse
+        return FindOfferedServiceQueryResult
                 .builder()
                 .id(offeredService.getId())
                 .name(offeredService.getName())

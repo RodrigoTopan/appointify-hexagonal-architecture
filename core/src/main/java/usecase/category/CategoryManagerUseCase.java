@@ -1,11 +1,11 @@
 package usecase.category;
 
-import usecase.category.contract.query.FindCategoryQueryResponse;
+import usecase.category.contract.query.FindCategoryResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ports.input.CategoryInputPort;
-import usecase.category.contract.command.CreateCategoryCommand;
-import usecase.category.contract.command.CreateCategoryCommandResponse;
+import usecase.category.contract.command.CreateCategory;
+import usecase.category.contract.command.CreateCategoryResult;
 import usecase.category.mapper.CategoryMapper;
 import ports.output.repository.CategoryRepository;
 
@@ -20,7 +20,7 @@ public class CategoryManagerUseCase implements CategoryInputPort {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public CreateCategoryCommandResponse create(CreateCategoryCommand command) {
+    public CreateCategoryResult create(CreateCategory command) {
         var category = categoryMapper.createCategoryCommandToCategory(command);
         var savedCategory = categoryRepository.save(category);
         return categoryMapper.categoryToCreateCategoryCommandResponse(savedCategory);
@@ -32,7 +32,7 @@ public class CategoryManagerUseCase implements CategoryInputPort {
     }
 
     @Override
-    public List<FindCategoryQueryResponse> findAll() {
+    public List<FindCategoryResult> findAll() {
         return categoryRepository.findAll()
                 .stream()
                 .map(categoryMapper::categoryToFindCategoryQueryResponse)
@@ -40,7 +40,7 @@ public class CategoryManagerUseCase implements CategoryInputPort {
     }
 
     @Override
-    public FindCategoryQueryResponse findById(UUID id) {
+    public FindCategoryResult findById(UUID id) {
         var category = categoryRepository.findById(id);
         return categoryMapper.categoryToFindCategoryQueryResponse(category);
     }

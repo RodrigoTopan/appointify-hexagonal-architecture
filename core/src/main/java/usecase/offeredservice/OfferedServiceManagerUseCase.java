@@ -1,9 +1,9 @@
 package usecase.offeredservice;
 
-import usecase.offeredservice.contract.command.CreateOfferedServiceCommand;
-import usecase.offeredservice.contract.command.CreateOfferedServiceCommandResponse;
-import usecase.offeredservice.contract.query.FindCompanyOfferedServicesQuery;
-import usecase.offeredservice.contract.query.FindOfferedServiceQueryResponse;
+import usecase.offeredservice.contract.command.CreateOfferedService;
+import usecase.offeredservice.contract.command.CreateOfferedServiceResult;
+import usecase.offeredservice.contract.query.FindCompanyOfferedServices;
+import usecase.offeredservice.contract.query.FindOfferedServiceQueryResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ports.input.OfferedServiceInputPort;
@@ -24,7 +24,7 @@ public class OfferedServiceManagerUseCase implements OfferedServiceInputPort {
     private final OfferedServiceRepository repository;
 
     @Override
-    public CreateOfferedServiceCommandResponse create(CreateOfferedServiceCommand command) {
+    public CreateOfferedServiceResult create(CreateOfferedService command) {
         var company = companyRepository.findById(command.getCompanyId());
         if (company == null)
             throw new NotFoundException("not found registered company");
@@ -35,7 +35,7 @@ public class OfferedServiceManagerUseCase implements OfferedServiceInputPort {
     }
 
     @Override
-    public List<FindOfferedServiceQueryResponse> findAll() {
+    public List<FindOfferedServiceQueryResult> findAll() {
         return repository.findAll()
                 .stream()
                 .map(mapper::offeredServiceToFindOfferedServiceQueryResponse)
@@ -43,13 +43,13 @@ public class OfferedServiceManagerUseCase implements OfferedServiceInputPort {
     }
 
     @Override
-    public FindOfferedServiceQueryResponse findById(UUID id) {
+    public FindOfferedServiceQueryResult findById(UUID id) {
         var offeredService = repository.findById(id);
         return mapper.offeredServiceToFindOfferedServiceQueryResponse(offeredService);
     }
 
     @Override
-    public List<FindOfferedServiceQueryResponse> find(FindCompanyOfferedServicesQuery query) {
+    public List<FindOfferedServiceQueryResult> find(FindCompanyOfferedServices query) {
         return repository.findAll()
                 .stream()
                 .map(mapper::offeredServiceToFindOfferedServiceQueryResponse)

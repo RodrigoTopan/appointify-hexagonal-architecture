@@ -1,17 +1,17 @@
 package usecase.schedules;
 
-import usecase.schedules.contract.query.FindAppointmentQueryResponse;
-import usecase.schedules.contract.query.FindAvailableSchedulesQuery;
-import usecase.schedules.contract.query.FindAvailableSchedulesQueryResponse;
-import usecase.schedules.contract.query.FindCustomerAppointmentsQuery;
-import usecase.schedules.contract.query.FindScheduleQueryResponse;
+import usecase.schedules.contract.query.FindAppointmentQueryResult;
+import usecase.schedules.contract.query.FindAvailableSchedules;
+import usecase.schedules.contract.query.FindAvailableSchedulesResult;
+import usecase.schedules.contract.query.FindCustomerAppointments;
+import usecase.schedules.contract.query.FindScheduleResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import usecase.schedules.contract.command.CreateAppointmentCommand;
-import usecase.schedules.contract.command.CreateAppointmentCommandResponse;
+import usecase.schedules.contract.command.CreateAppointment;
+import usecase.schedules.contract.command.CreateAppointmentResult;
 import usecase.schedules.mapper.ScheduleMapper;
-import usecase.schedules.contract.command.CreateScheduleCommand;
-import usecase.schedules.contract.command.CreateScheduleCommandResponse;
+import usecase.schedules.contract.command.CreateSchedule;
+import usecase.schedules.contract.command.CreateScheduleResult;
 import ports.input.ScheduleInputPort;
 import ports.output.repository.CustomerRepository;
 import ports.output.repository.EmployeeRepository;
@@ -31,7 +31,7 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
     private final ScheduleRepository scheduleRepository;
 
     @Override
-    public CreateScheduleCommandResponse create(CreateScheduleCommand command) {
+    public CreateScheduleResult create(CreateSchedule command) {
         var employee = employeeRepository.findById(command.getEmployeeId());
 
         var offeredService = offeredServiceRepository.findById(command.getOfferedServiceId());
@@ -46,7 +46,7 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
     }
 
     @Override
-    public CreateAppointmentCommandResponse create(CreateAppointmentCommand command) {
+    public CreateAppointmentResult create(CreateAppointment command) {
         var customer = customerRepository.findById(command.getCustomerId());
         var schedule = scheduleRepository.findById(command.getScheduleId());
         var assignedSchedule = customer.assignAppointment(schedule);
@@ -55,7 +55,7 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
     }
 
     @Override
-    public List<FindScheduleQueryResponse> findAll() {
+    public List<FindScheduleResult> findAll() {
         return scheduleRepository.findAll()
                 .stream()
                 .map(scheduleMapper::scheduleToFindScheduleQueryResponse)
@@ -63,7 +63,7 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
     }
 
     @Override
-    public List<FindAppointmentQueryResponse> find(FindCustomerAppointmentsQuery query) {
+    public List<FindAppointmentQueryResult> find(FindCustomerAppointments query) {
         return scheduleRepository.findByCustomerId(query.getCustomerId())
                 .stream()
                 .map(scheduleMapper::scheduleToFindAppointmentQueryResponse)
@@ -71,7 +71,7 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
     }
 
     @Override
-    public List<FindAvailableSchedulesQueryResponse> find(FindAvailableSchedulesQuery query) {
+    public List<FindAvailableSchedulesResult> find(FindAvailableSchedules query) {
         return scheduleRepository
                 .findAllByAvailableStatusAndCompanyIdAndDate(query.getCompanyId(), query.getRangeStartDate(), query.getRangeEndDate())
                 .stream()

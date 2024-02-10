@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ports.input.CustomerInputPort;
 import usecase.customer.contract.command.CreateCustomer;
-import usecase.customer.contract.command.CreateCustomerResult;
-import usecase.customer.contract.query.FindCustomerResult;
+import usecase.customer.contract.command.CreatedCustomer;
+import usecase.customer.contract.query.FoundCustomer;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,20 +26,20 @@ public class CustomerController {
 
     private final CustomerInputPort customerInputPort;
     @GetMapping
-    public ResponseEntity<List<FindCustomerResult>> findAll() {
+    public ResponseEntity<List<FoundCustomer>> findAll() {
         return ResponseEntity.ok()
                 .body(customerInputPort.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FindCustomerResult> findById(@PathVariable UUID id) {
+    public ResponseEntity<FoundCustomer> findById(@PathVariable UUID id) {
         return ResponseEntity.ok()
                 .body(customerInputPort.findById(id));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity<CreateCustomerResult> create(@RequestBody @Valid CreateCustomer command) {
+    public ResponseEntity<CreatedCustomer> create(@RequestBody @Valid CreateCustomer command) {
         return ResponseEntity.ok()
                 .body(customerInputPort.create(command));
     }

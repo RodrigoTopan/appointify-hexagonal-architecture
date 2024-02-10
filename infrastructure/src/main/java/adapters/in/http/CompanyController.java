@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import ports.input.CompanyInputPort;
 import ports.input.OfferedServiceInputPort;
 import usecase.company.contract.command.CreateCompany;
-import usecase.company.contract.command.CreateCompanyResult;
-import usecase.company.contract.query.FindCompanyResult;
+import usecase.company.contract.command.CreatedCompany;
+import usecase.company.contract.query.FoundCompany;
 import usecase.offeredservice.contract.query.FindCompanyOfferedServices;
-import usecase.offeredservice.contract.query.FindOfferedServiceQueryResult;
+import usecase.offeredservice.contract.query.FoundOfferedService;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,20 +31,20 @@ public class CompanyController {
     private final OfferedServiceInputPort offeredServiceInputPort;
 
     @GetMapping
-    public ResponseEntity<List<FindCompanyResult>> findAll() {
+    public ResponseEntity<List<FoundCompany>> findAll() {
         return ResponseEntity.ok()
                 .body(companyInputPort.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FindCompanyResult> findById(@PathVariable UUID id) {
+    public ResponseEntity<FoundCompany> findById(@PathVariable UUID id) {
         return ResponseEntity.ok()
                 .body(companyInputPort.findById(id));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_COMPANY')")
-    public ResponseEntity<CreateCompanyResult> create(
+    public ResponseEntity<CreatedCompany> create(
             @RequestBody @Valid CreateCompany command) {
         return ResponseEntity.ok()
                 .body(companyInputPort.create(command));
@@ -58,12 +58,12 @@ public class CompanyController {
     }
 
     @GetMapping("/{companyId}/services")
-    public ResponseEntity<List<FindOfferedServiceQueryResult>> getOfferedServicesByCompanyId(
+    public ResponseEntity<List<FoundOfferedService>> getOfferedServicesByCompanyId(
             @PathVariable UUID companyId) {
         FindCompanyOfferedServices query = FindCompanyOfferedServices.builder()
                 .companyId(companyId)
                 .build();
-        List<FindOfferedServiceQueryResult> response = offeredServiceInputPort.find(query);
+        List<FoundOfferedService> response = offeredServiceInputPort.find(query);
         return ResponseEntity.ok().body(response);
     }
 }

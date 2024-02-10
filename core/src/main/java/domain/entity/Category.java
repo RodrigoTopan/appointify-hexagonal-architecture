@@ -1,5 +1,7 @@
 package domain.entity;
 
+import domain.common.exception.DomainValidationException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +18,7 @@ public class Category {
         this.id = UUID.randomUUID();
         this.name = name;
         this.image = image;
+        validate();
     }
 
     public Category(UUID id, String name, String image, List<Company> companies) {
@@ -23,6 +26,16 @@ public class Category {
         this.name = name;
         this.image = image;
         this.companies.addAll(companies);
+        validate();
+    }
+
+    private void validate() {
+        if (name == null || name.isEmpty()) {
+            throw new DomainValidationException("Name cannot be empty");
+        }
+        if (image == null || image.isEmpty()) {
+            throw new DomainValidationException("Image cannot be empty");
+        }
     }
 
     public UUID getId() {

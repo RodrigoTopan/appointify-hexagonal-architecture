@@ -1,11 +1,9 @@
 package usecase;
 
 import usecase.employee.contract.command.CreateEmployee;
-import usecase.employee.contract.command.CreateEmployeeResult;
-import usecase.employee.contract.query.FindEmployeeResult;
+import usecase.employee.contract.command.CreatedEmployee;
+import usecase.employee.contract.query.FoundEmployee;
 import usecase.employee.mapper.EmployeeMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import ports.input.EmployeeInputPort;
 import ports.output.repository.CompanyRepository;
 import ports.output.repository.EmployeeRepository;
@@ -29,7 +27,7 @@ public class EmployeeManagerUseCase implements EmployeeInputPort {
     }
 
     @Override
-    public CreateEmployeeResult create(CreateEmployee command) {
+    public CreatedEmployee create(CreateEmployee command) {
         var company = companyRepository.findById(command.getCompanyId());
         var user = userRepository.findById(command.getUserId());
         var employee = company.createEmployee(user);
@@ -38,7 +36,7 @@ public class EmployeeManagerUseCase implements EmployeeInputPort {
     }
 
     @Override
-    public List<FindEmployeeResult> findAll() {
+    public List<FoundEmployee> findAll() {
         return employeeRepository.findAll()
                 .stream()
                 .map(employeeMapper::employeeToFindEmployeeQueryResponse)

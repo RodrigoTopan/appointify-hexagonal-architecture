@@ -1,8 +1,8 @@
 package adapters.in.http;
 
 import usecase.offeredservice.contract.command.CreateOfferedService;
-import usecase.offeredservice.contract.command.CreateOfferedServiceResult;
-import usecase.offeredservice.contract.query.FindOfferedServiceQueryResult;
+import usecase.offeredservice.contract.command.CreatedOfferedService;
+import usecase.offeredservice.contract.query.FoundOfferedService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,21 +28,21 @@ public class OfferedServiceController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_COMPANY')")
-    public ResponseEntity<CreateOfferedServiceResult> createOfferedService(
+    public ResponseEntity<CreatedOfferedService> createOfferedService(
             @RequestBody @Valid CreateOfferedService command) {
-        CreateOfferedServiceResult response = offeredServiceInputPort.create(command);
+        CreatedOfferedService response = offeredServiceInputPort.create(command);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping
-    public ResponseEntity<List<FindOfferedServiceQueryResult>> getAllOfferedServices() {
-        List<FindOfferedServiceQueryResult> response = offeredServiceInputPort.findAll();
+    public ResponseEntity<List<FoundOfferedService>> getAllOfferedServices() {
+        List<FoundOfferedService> response = offeredServiceInputPort.findAll();
         return ResponseEntity.ok().body(response);
     }
 
 
     @GetMapping("/{serviceId}")
-    public ResponseEntity<FindOfferedServiceQueryResult> getOfferedServiceById(
+    public ResponseEntity<FoundOfferedService> getOfferedServiceById(
             @PathVariable UUID serviceId) {
         return ResponseEntity.ok().body( offeredServiceInputPort.findById(serviceId));
     }

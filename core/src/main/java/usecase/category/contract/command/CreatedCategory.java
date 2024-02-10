@@ -1,12 +1,13 @@
-package usecase.offeredservice.contract.command;
+package usecase.category.contract.command;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
@@ -14,11 +15,11 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateOfferedServiceResult {
+public class CreatedCategory {
+    @NotNull
     private UUID id;
-    private UUID companyId;
+    @NotEmpty
     private String name;
-    private String description;
-    private BigDecimal price;
+    private String image;
 }
 

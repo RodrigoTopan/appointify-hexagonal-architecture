@@ -1,8 +1,8 @@
 package adapters.in.http;
 
 import usecase.category.contract.command.CreateCategory;
-import usecase.category.contract.command.CreateCategoryResult;
-import usecase.category.contract.query.FindCategoryResult;
+import usecase.category.contract.command.CreatedCategory;
+import usecase.category.contract.query.FoundCategory;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,21 +28,21 @@ public class CategoryController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<FindCategoryResult> findById(@PathVariable UUID id) {
+    public ResponseEntity<FoundCategory> findById(@PathVariable UUID id) {
         return ResponseEntity.ok()
                 .body(categoryInputPort.findById(id));
     }
 
 
     @GetMapping
-    public ResponseEntity<List<FindCategoryResult>> findAll() {
+    public ResponseEntity<List<FoundCategory>> findAll() {
         return ResponseEntity.ok()
                 .body(categoryInputPort.findAll());
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_COMPANY')")
-    public ResponseEntity<CreateCategoryResult> create(
+    public ResponseEntity<CreatedCategory> create(
             @RequestBody @Valid CreateCategory command) {
         return ResponseEntity.ok()
                 .body(categoryInputPort.create(command));

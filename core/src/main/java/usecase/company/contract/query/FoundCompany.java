@@ -1,5 +1,6 @@
-package usecase.customer.contract.query;
+package usecase.company.contract.query;
 
+import usecase.company.contract.Company;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,8 +12,9 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FindCustomerResult {
+public class FoundCompany {
 
     private UUID id;
     private UUID userId;
+    private Company company;
 }

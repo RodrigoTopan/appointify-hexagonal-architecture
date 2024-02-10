@@ -13,7 +13,7 @@ import usecase.schedules.contract.Service;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FindAvailableSchedulesResult {
+public class FoundAvailableSchedules {
     private Schedule schedule;
     private Service service;
     private Employee employee;

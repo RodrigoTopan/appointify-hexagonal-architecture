@@ -1,8 +1,8 @@
 package adapters.in.http;
 
 import usecase.employee.contract.command.CreateEmployee;
-import usecase.employee.contract.command.CreateEmployeeResult;
-import usecase.employee.contract.query.FindEmployeeResult;
+import usecase.employee.contract.command.CreatedEmployee;
+import usecase.employee.contract.query.FoundEmployee;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class EmployeeController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_COMPANY')")
-    public ResponseEntity<CreateEmployeeResult> create(
+    public ResponseEntity<CreatedEmployee> create(
             @RequestBody @Valid CreateEmployee command) {
         return ResponseEntity.ok()
                 .body(employeeInputPort.create(command));
@@ -33,7 +33,7 @@ public class EmployeeController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_COMPANY')")
-    public ResponseEntity<List<FindEmployeeResult>> findAll() {
+    public ResponseEntity<List<FoundEmployee>> findAll() {
         return ResponseEntity.ok()
                 .body(employeeInputPort.findAll());
     }

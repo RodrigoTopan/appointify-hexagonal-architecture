@@ -1,12 +1,12 @@
 package ports.input;
 
 import usecase.employee.contract.command.CreateEmployee;
-import usecase.employee.contract.command.CreateEmployeeResult;
-import usecase.employee.contract.query.FindEmployeeResult;
+import usecase.employee.contract.command.CreatedEmployee;
+import usecase.employee.contract.query.FoundEmployee;
 
 import java.util.List;
 
 public interface EmployeeInputPort {
-    CreateEmployeeResult create(CreateEmployee command);
-    List<FindEmployeeResult> findAll();
+    CreatedEmployee create(CreateEmployee command);
+    List<FoundEmployee> findAll();
 }

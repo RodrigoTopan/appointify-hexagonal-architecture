@@ -1,11 +1,10 @@
-package usecase.company.contract.command;
+package usecase.employee.contract.query;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import usecase.company.contract.Category;
-import usecase.company.contract.Company;
+import domain.entity.Schedule;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,10 +13,10 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCompanyResult {
+public class FoundEmployee {
 
     private UUID id;
     private UUID userId;
-    private Company company;
-    private List<Category> categories;
+    private UUID companyId;
+    private List<Schedule> schedules;
 }

@@ -1,13 +1,11 @@
 package usecase;
 
 import usecase.company.contract.command.CreateCompany;
-import usecase.company.contract.command.CreateCompanyResult;
-import usecase.company.contract.query.FindCompanyResult;
+import usecase.company.contract.command.CreatedCompany;
+import usecase.company.contract.query.FoundCompany;
 import usecase.company.mapper.CompanyMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import domain.entity.Category;
-import domain.entity.valueobject.CompanyDetails;
+import domain.valueobject.CompanyDetails;
 import ports.input.CompanyInputPort;
 import ports.output.repository.CategoryRepository;
 import ports.output.repository.CompanyRepository;
@@ -33,7 +31,7 @@ public class CompanyManagerUseCase implements CompanyInputPort {
     }
 
     @Override
-    public CreateCompanyResult create(CreateCompany command) {
+    public CreatedCompany create(CreateCompany command) {
         var user = userRepository.findById(command.getUserId());
 
         List<Category> savedCategories = getSavedCategories(command.getCategories());
@@ -64,7 +62,7 @@ public class CompanyManagerUseCase implements CompanyInputPort {
 
 
     @Override
-    public List<FindCompanyResult> findAll() {
+    public List<FoundCompany> findAll() {
         var customers = companyRepository.findAll();
         return customers.stream()
                 .map(companyMapper::companyToFindCompanyQueryResponse)
@@ -72,7 +70,7 @@ public class CompanyManagerUseCase implements CompanyInputPort {
     }
 
     @Override
-    public FindCompanyResult findById(UUID id) {
+    public FoundCompany findById(UUID id) {
         var customer = companyRepository.findById(id);
         return companyMapper.companyToFindCompanyQueryResponse(customer);
     }

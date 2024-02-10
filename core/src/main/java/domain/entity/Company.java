@@ -1,6 +1,6 @@
 package domain.entity;
 
-import domain.entity.valueobject.CompanyDetails;
+import domain.valueobject.CompanyDetails;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
 package adapters.in.http;
 
 import usecase.evaluation.contract.command.CreateEvaluation;
-import usecase.evaluation.contract.command.CreateEvaluationResult;
-import usecase.evaluation.contract.query.FindEvaluationResult;
+import usecase.evaluation.contract.command.CreatedEvaluation;
+import usecase.evaluation.contract.query.FoundEvaluation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +25,14 @@ public class EvaluationController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity<CreateEvaluationResult> create(
+    public ResponseEntity<CreatedEvaluation> create(
             @RequestBody @Valid CreateEvaluation command) {
         return ResponseEntity.ok()
                 .body(evaluationInputPort.create(command));
     }
 
     @GetMapping
-    public ResponseEntity<List<FindEvaluationResult>> findAll() {
+    public ResponseEntity<List<FoundEvaluation>> findAll() {
         return ResponseEntity.ok()
                 .body(evaluationInputPort.findAll());
     }

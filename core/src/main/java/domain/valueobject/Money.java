@@ -1,4 +1,4 @@
-package domain.entity.valueobject;
+package domain.valueobject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

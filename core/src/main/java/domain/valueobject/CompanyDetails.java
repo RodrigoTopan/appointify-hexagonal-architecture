@@ -1,7 +1,7 @@
-package domain.entity.valueobject;
+package domain.valueobject;
 
 import domain.common.exception.DomainException;
-import static org.springframework.util.ObjectUtils.isEmpty;
+import domain.common.exception.DomainValidationException;
 
 public class CompanyDetails {
     private final String name;
@@ -21,16 +21,16 @@ public class CompanyDetails {
     }
 
     void validate(String name, String description, String governmentId) {
-        if (isEmpty(name)) {
-            throw new DomainException("company invalid name");
+        if (name == null || name.isEmpty()) {
+            throw new DomainValidationException("company invalid name");
         }
 
-        if (isEmpty(description)) {
-            throw new DomainException("company invalid description");
+        if (description == null || description.isEmpty()) {
+            throw new DomainValidationException("company invalid description");
         }
 
-        if (isEmpty(governmentId)) {
-            throw new DomainException("company invalid government id");
+        if (governmentId == null || governmentId.isEmpty()) {
+            throw new DomainValidationException("company invalid government id");
         }
     }
 

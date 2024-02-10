@@ -1,19 +1,20 @@
-package domain.entity.valueobject;
+package domain.valueobject;
 
 import domain.common.exception.DomainException;
+import domain.common.exception.DomainValidationException;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
-public class Username {
+public class Password {
     private final String value;
 
-    public Username(String value) {
+    public Password(String value) {
         validate(value);
         this.value = value;
     }
 
     void validate(String value) {
         if (isEmpty(value)) {
-            throw new DomainException("invalid username");
+            throw new DomainValidationException("invalid password");
         }
     }
 

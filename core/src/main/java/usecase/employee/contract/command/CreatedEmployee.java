@@ -1,4 +1,4 @@
-package usecase.customer.contract.command;
+package usecase.employee.contract.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,9 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCustomerResult {
+public class CreatedEmployee {
 
     private UUID id;
     private UUID userId;
+    private UUID companyId;
 }

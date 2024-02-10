@@ -1,7 +1,12 @@
 package adapters.in.http;
 
+import adapters.in.http.json.CreateUserRequest;
+import adapters.in.http.mapper.UserJsonMapper;
+import adapters.in.http.security.dto.AuthenticationDTO;
+import adapters.in.http.security.dto.AuthenticationResponseDTO;
+import adapters.in.http.security.util.JwtTokenUtil;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,38 +16,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import adapters.in.http.security.dto.AuthenticationDTO;
-import adapters.in.http.security.dto.AuthenticationResponseDTO;
-import adapters.in.http.security.util.JwtTokenUtil;
-import usecase.user.contract.command.CreateUser;
-import usecase.user.contract.command.CreateUserResult;
 import ports.input.UserInputPort;
+import usecase.user.contract.command.CreatedUser;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
-    private UserInputPort userInputPort;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final UserInputPort userInputPort;
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserJsonMapper userJsonMapper;
 
     @PostMapping(value = "/register")
-    public ResponseEntity<CreateUserResult> registerUser(
-            @RequestBody @Valid CreateUser command) {
+    public ResponseEntity<CreatedUser> registerUser(
+            @RequestBody @Valid CreateUserRequest request) {
 
-        var hashedPassword = passwordEncoder.encode(command.getPassword());
-        command.setPassword(hashedPassword);
-
+        var hashedPassword = passwordEncoder.encode(request.getPassword());
+        request.setPassword(hashedPassword);
+        var command = userJsonMapper.toCreateUser(request);
         return ResponseEntity.ok()
                 .body(userInputPort.create(command));
     }

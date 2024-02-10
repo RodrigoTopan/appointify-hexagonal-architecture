@@ -1,17 +1,17 @@
 package ports.input;
 
 import usecase.offeredservice.contract.command.CreateOfferedService;
-import usecase.offeredservice.contract.command.CreateOfferedServiceResult;
+import usecase.offeredservice.contract.command.CreatedOfferedService;
 import usecase.offeredservice.contract.query.FindCompanyOfferedServices;
-import usecase.offeredservice.contract.query.FindOfferedServiceQueryResult;
+import usecase.offeredservice.contract.query.FoundOfferedService;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface OfferedServiceInputPort {
-    CreateOfferedServiceResult create(CreateOfferedService command);
-    List<FindOfferedServiceQueryResult> findAll();
+    CreatedOfferedService create(CreateOfferedService command);
+    List<FoundOfferedService> findAll();
 
-    FindOfferedServiceQueryResult findById(UUID id);
-    List<FindOfferedServiceQueryResult> find(FindCompanyOfferedServices query);
+    FoundOfferedService findById(UUID id);
+    List<FoundOfferedService> find(FindCompanyOfferedServices query);
 }

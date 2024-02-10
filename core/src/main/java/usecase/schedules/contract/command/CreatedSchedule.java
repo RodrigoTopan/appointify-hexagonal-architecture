@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateScheduleResult {
+public class CreatedSchedule {
     private UUID id;
     private Date scheduleStart;
     private Date scheduleEnd;

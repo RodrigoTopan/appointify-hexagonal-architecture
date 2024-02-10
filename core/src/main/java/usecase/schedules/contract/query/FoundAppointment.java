@@ -14,7 +14,7 @@ import usecase.schedules.contract.Service;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FindAppointmentQueryResult {
+public class FoundAppointment {
 
     private Customer customer;
     private Schedule schedule;

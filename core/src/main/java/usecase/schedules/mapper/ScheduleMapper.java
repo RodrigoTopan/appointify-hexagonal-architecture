@@ -1,10 +1,10 @@
 package usecase.schedules.mapper;
 
-import usecase.schedules.contract.command.CreateAppointmentResult;
-import usecase.schedules.contract.command.CreateScheduleResult;
-import usecase.schedules.contract.query.FindAppointmentQueryResult;
-import usecase.schedules.contract.query.FindAvailableSchedulesResult;
-import usecase.schedules.contract.query.FindScheduleResult;
+import usecase.schedules.contract.command.CreatedAppointment;
+import usecase.schedules.contract.command.CreatedSchedule;
+import usecase.schedules.contract.query.FoundAppointment;
+import usecase.schedules.contract.query.FoundAvailableSchedules;
+import usecase.schedules.contract.query.FoundSchedule;
 import org.springframework.stereotype.Component;
 import usecase.schedules.contract.Company;
 import usecase.schedules.contract.Customer;
@@ -15,8 +15,8 @@ import usecase.schedules.contract.Service;
 @Component
 public class ScheduleMapper {
 
-    public CreateScheduleResult scheduleToCreateScheduleCommandResponse(domain.entity.Schedule schedule) {
-        return CreateScheduleResult
+    public CreatedSchedule scheduleToCreateScheduleCommandResponse(domain.entity.Schedule schedule) {
+        return CreatedSchedule
                 .builder()
                 .id(schedule.getId())
                 .scheduleStart(schedule.getScheduleDate().getStart())
@@ -30,13 +30,13 @@ public class ScheduleMapper {
                 .build();
     }
 
-    public CreateAppointmentResult scheduleToCreateAppointmentCommandResponse(domain.entity.Schedule schedule) {
+    public CreatedAppointment scheduleToCreateAppointmentCommandResponse(domain.entity.Schedule schedule) {
         var company = schedule.getEmployee().getCompany();
         var customer = schedule.getCustomerAssignee();
         var employee = schedule.getEmployee();
         var service = schedule.getOfferedService();
 
-        return CreateAppointmentResult
+        return CreatedAppointment
                 .builder()
                 .schedule(Schedule
                         .builder()
@@ -72,8 +72,8 @@ public class ScheduleMapper {
     }
 
 
-    public FindScheduleResult scheduleToFindScheduleQueryResponse(domain.entity.Schedule schedule) {
-        return FindScheduleResult
+    public FoundSchedule scheduleToFindScheduleQueryResponse(domain.entity.Schedule schedule) {
+        return FoundSchedule
                 .builder()
                 .id(schedule.getId())
                 .scheduleStart(schedule.getScheduleDate().getStart())
@@ -87,13 +87,13 @@ public class ScheduleMapper {
                 .build();
     }
 
-    public FindAppointmentQueryResult scheduleToFindAppointmentQueryResponse(domain.entity.Schedule schedule) {
+    public FoundAppointment scheduleToFindAppointmentQueryResponse(domain.entity.Schedule schedule) {
         var company = schedule.getEmployee().getCompany();
         var customer = schedule.getCustomerAssignee();
         var employee = schedule.getEmployee();
         var service = schedule.getOfferedService();
 
-        return FindAppointmentQueryResult
+        return FoundAppointment
                 .builder()
                 .schedule(Schedule
                         .builder()
@@ -129,13 +129,13 @@ public class ScheduleMapper {
     }
 
 
-    public FindAvailableSchedulesResult scheduleToFindAvailableSchedulesQueryResponse(domain.entity.Schedule schedule) {
+    public FoundAvailableSchedules scheduleToFindAvailableSchedulesQueryResponse(domain.entity.Schedule schedule) {
         var company = schedule.getEmployee().getCompany();
         var customer = schedule.getCustomerAssignee();
         var employee = schedule.getEmployee();
         var service = schedule.getOfferedService();
 
-        return FindAvailableSchedulesResult
+        return FoundAvailableSchedules
                 .builder()
                 .schedule(Schedule
                         .builder()

@@ -1,13 +1,13 @@
-package usecase.category.contract.command;
+package usecase.category.contract.query;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import usecase.category.contract.CompanyDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -15,11 +15,10 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCategoryResult {
-    @NotNull
+public class FoundCategory {
     private UUID id;
-    @NotEmpty
     private String name;
     private String image;
+    private List<CompanyDTO> companies;
 }
 

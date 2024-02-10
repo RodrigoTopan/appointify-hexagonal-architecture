@@ -2,14 +2,14 @@ package usecase.evaluation.mapper;
 
 import org.springframework.stereotype.Component;
 import domain.entity.Evaluation;
-import usecase.evaluation.contract.command.CreateEvaluationResult;
-import usecase.evaluation.contract.query.FindEvaluationResult;
+import usecase.evaluation.contract.command.CreatedEvaluation;
+import usecase.evaluation.contract.query.FoundEvaluation;
 
 @Component
 public class EvaluationMapper {
 
-    public CreateEvaluationResult evaluationToCreateEvaluationCommandResponse(Evaluation evaluation) {
-        return CreateEvaluationResult
+    public CreatedEvaluation evaluationToCreateEvaluationCommandResponse(Evaluation evaluation) {
+        return CreatedEvaluation
                 .builder()
                 .rate(evaluation.getRate())
                 .comment(evaluation.getComment())
@@ -18,8 +18,8 @@ public class EvaluationMapper {
                 .build();
     }
 
-    public FindEvaluationResult evaluationToFindEvaluationQueryResponse(Evaluation evaluation) {
-        return FindEvaluationResult
+    public FoundEvaluation evaluationToFindEvaluationQueryResponse(Evaluation evaluation) {
+        return FoundEvaluation
                 .builder()
                 .rate(evaluation.getRate())
                 .comment(evaluation.getComment())

@@ -1,4 +1,4 @@
-package usecase.evaluation.contract.command;
+package usecase.evaluation.contract.query;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateEvaluationResult {
+public class FoundEvaluation {
     private Integer rate;
     private String comment;
     private UUID employeeId;

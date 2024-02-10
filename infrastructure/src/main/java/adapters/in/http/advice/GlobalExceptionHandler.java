@@ -1,5 +1,6 @@
 package adapters.in.http.advice;
 
+import domain.common.exception.DomainValidationException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
@@ -33,6 +34,17 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(value = {DomainException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorDTO handleDomainException(Exception exception) {
+        log.error(exception.getMessage(), exception);
+        return ErrorDTO.builder()
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+                .message(exception.getMessage())
+                .build();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(value = {DomainValidationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDTO handleException(DomainException domainException) {
         log.error(domainException.getMessage(), domainException);

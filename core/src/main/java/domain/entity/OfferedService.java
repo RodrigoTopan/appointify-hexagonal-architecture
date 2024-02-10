@@ -1,6 +1,6 @@
 package domain.entity;
 
-import domain.entity.valueobject.Money;
+import domain.valueobject.Money;
 
 import java.util.UUID;
 

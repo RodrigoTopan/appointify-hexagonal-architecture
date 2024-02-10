@@ -1,12 +1,12 @@
 package usecase.offeredservice.mapper;
 
 import usecase.offeredservice.contract.command.CreateOfferedService;
-import usecase.offeredservice.contract.command.CreateOfferedServiceResult;
-import usecase.offeredservice.contract.query.FindOfferedServiceQueryResult;
+import usecase.offeredservice.contract.command.CreatedOfferedService;
+import usecase.offeredservice.contract.query.FoundOfferedService;
 import domain.entity.Company;
 import org.springframework.stereotype.Component;
 import domain.entity.OfferedService;
-import domain.entity.valueobject.Money;
+import domain.valueobject.Money;
 
 @Component
 public class OfferedServiceMapper {
@@ -14,9 +14,9 @@ public class OfferedServiceMapper {
         return new OfferedService(company, command.getName(), command.getDescription(), new Money(command.getPrice()));
     }
 
-    public CreateOfferedServiceResult offeredServiceToCreateOfferedServiceCommandResponse(
+    public CreatedOfferedService offeredServiceToCreateOfferedServiceCommandResponse(
             OfferedService offeredService) {
-        return CreateOfferedServiceResult
+        return CreatedOfferedService
                 .builder()
                 .id(offeredService.getId())
                 .name(offeredService.getName())
@@ -26,9 +26,9 @@ public class OfferedServiceMapper {
                 .build();
     }
 
-    public FindOfferedServiceQueryResult offeredServiceToFindOfferedServiceQueryResponse(
+    public FoundOfferedService offeredServiceToFindOfferedServiceQueryResponse(
             OfferedService offeredService) {
-        return FindOfferedServiceQueryResult
+        return FoundOfferedService
                 .builder()
                 .id(offeredService.getId())
                 .name(offeredService.getName())

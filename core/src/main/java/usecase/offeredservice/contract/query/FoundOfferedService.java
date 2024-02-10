@@ -1,22 +1,24 @@
-package usecase.employee.contract.query;
+package usecase.offeredservice.contract.query;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import domain.entity.Schedule;
+import lombok.Setter;
 
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FindEmployeeResult {
-
+public class FoundOfferedService {
     private UUID id;
-    private UUID userId;
     private UUID companyId;
-    private List<Schedule> schedules;
+    private String name;
+    private String description;
+    private BigDecimal price;
 }
+

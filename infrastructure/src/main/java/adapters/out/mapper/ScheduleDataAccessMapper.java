@@ -1,7 +1,7 @@
 package adapters.out.mapper;
 
 import domain.entity.Schedule;
-import domain.entity.valueobject.ScheduleDate;
+import domain.valueobject.ScheduleDate;
 import adapters.out.entity.ScheduleEntity;
 
 public class ScheduleDataAccessMapper {

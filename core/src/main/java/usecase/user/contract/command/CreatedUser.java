@@ -1,14 +1,14 @@
 package usecase.user.contract.command;
 
-import domain.valueobject.UserRole;
+import java.util.UUID;
 
-public record CreateUser(
+public record CreatedUser(
+        UUID id,
+        String username,
         String firstName,
         String lastName,
-        String username,
         String email,
         String password,
-        UserRole role
+        String role
 ) {
 }
-

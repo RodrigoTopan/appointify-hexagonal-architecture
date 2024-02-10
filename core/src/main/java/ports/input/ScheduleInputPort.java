@@ -1,21 +1,21 @@
 package ports.input;
 
 import usecase.schedules.contract.command.CreateAppointment;
-import usecase.schedules.contract.command.CreateAppointmentResult;
+import usecase.schedules.contract.command.CreatedAppointment;
 import usecase.schedules.contract.command.CreateSchedule;
-import usecase.schedules.contract.command.CreateScheduleResult;
-import usecase.schedules.contract.query.FindAppointmentQueryResult;
+import usecase.schedules.contract.command.CreatedSchedule;
+import usecase.schedules.contract.query.FoundAppointment;
 import usecase.schedules.contract.query.FindAvailableSchedules;
-import usecase.schedules.contract.query.FindAvailableSchedulesResult;
+import usecase.schedules.contract.query.FoundAvailableSchedules;
 import usecase.schedules.contract.query.FindCustomerAppointments;
-import usecase.schedules.contract.query.FindScheduleResult;
+import usecase.schedules.contract.query.FoundSchedule;
 
 import java.util.List;
 
 public interface ScheduleInputPort {
-    CreateScheduleResult create(CreateSchedule command);
-    CreateAppointmentResult create(CreateAppointment command);
-    List<FindScheduleResult> findAll();
-    List<FindAppointmentQueryResult> find(FindCustomerAppointments query);
-    List<FindAvailableSchedulesResult> find(FindAvailableSchedules query);
+    CreatedSchedule create(CreateSchedule command);
+    CreatedAppointment create(CreateAppointment command);
+    List<FoundSchedule> findAll();
+    List<FoundAppointment> find(FindCustomerAppointments query);
+    List<FoundAvailableSchedules> find(FindAvailableSchedules query);
 }

@@ -1,4 +1,4 @@
-package usecase.user.contract.command;
+package adapters.in.http.json;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUserResult {
+public class CreateUserResponse {
 
     private UUID id;
     private String username;

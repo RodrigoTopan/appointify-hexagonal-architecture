@@ -1,10 +1,10 @@
 package adapters.in.http;
 
 import usecase.schedules.contract.command.CreateSchedule;
-import usecase.schedules.contract.command.CreateScheduleResult;
+import usecase.schedules.contract.command.CreatedSchedule;
 import usecase.schedules.contract.query.FindAvailableSchedules;
-import usecase.schedules.contract.query.FindAvailableSchedulesResult;
-import usecase.schedules.contract.query.FindScheduleResult;
+import usecase.schedules.contract.query.FoundAvailableSchedules;
+import usecase.schedules.contract.query.FoundSchedule;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,13 +30,13 @@ public class ScheduleController {
     private final ScheduleInputPort scheduleInputPort;
 
     @GetMapping
-    public ResponseEntity<List<FindScheduleResult>> findAll() {
+    public ResponseEntity<List<FoundSchedule>> findAll() {
         return ResponseEntity.ok()
                 .body(scheduleInputPort.findAll());
     }
 
     @GetMapping("/available")
-    public ResponseEntity<List<FindAvailableSchedulesResult>> findAvailability(
+    public ResponseEntity<List<FoundAvailableSchedules>> findAvailability(
             @RequestParam UUID companyId,
             @RequestParam UUID offeredServiceId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date rangeStartDate,
@@ -54,7 +54,7 @@ public class ScheduleController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_COMPANY')")
-    public ResponseEntity<CreateScheduleResult> create(
+    public ResponseEntity<CreatedSchedule> create(
             @RequestBody @Valid CreateSchedule command) {
         return ResponseEntity.ok()
                 .body(scheduleInputPort.create(command));

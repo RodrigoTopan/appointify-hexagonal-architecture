@@ -1,8 +1,8 @@
 package adapters.in.http;
 
 import usecase.schedules.contract.command.CreateAppointment;
-import usecase.schedules.contract.command.CreateAppointmentResult;
-import usecase.schedules.contract.query.FindAppointmentQueryResult;
+import usecase.schedules.contract.command.CreatedAppointment;
+import usecase.schedules.contract.query.FoundAppointment;
 import usecase.schedules.contract.query.FindCustomerAppointments;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class AppointmentController {
     private final ScheduleInputPort scheduleInputPort;
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<List<FindAppointmentQueryResult>> findByCustomerId(@PathVariable UUID customerId) {
+    public ResponseEntity<List<FoundAppointment>> findByCustomerId(@PathVariable UUID customerId) {
         return ResponseEntity.ok()
                 .body(scheduleInputPort.find(FindCustomerAppointments
                         .builder()
@@ -35,7 +35,7 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateAppointmentResult> create(
+    public ResponseEntity<CreatedAppointment> create(
             @RequestBody @Valid CreateAppointment command) {
         return ResponseEntity.ok()
                 .body(scheduleInputPort.create(command));

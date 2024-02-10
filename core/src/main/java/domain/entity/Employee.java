@@ -1,7 +1,7 @@
 package domain.entity;
 
 import domain.common.exception.DomainException;
-import domain.entity.valueobject.ScheduleDate;
+import domain.valueobject.ScheduleDate;
 
 import java.util.ArrayList;
 import java.util.Date;

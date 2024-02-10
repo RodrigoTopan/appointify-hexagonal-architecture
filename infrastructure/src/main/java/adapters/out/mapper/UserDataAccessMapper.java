@@ -1,10 +1,10 @@
 package adapters.out.mapper;
 
 import domain.entity.User;
-import domain.entity.valueobject.Email;
-import domain.entity.valueobject.Password;
-import domain.entity.valueobject.UserRole;
-import domain.entity.valueobject.Username;
+import domain.valueobject.Email;
+import domain.valueobject.Password;
+import domain.valueobject.UserRole;
+import domain.valueobject.Username;
 import adapters.out.entity.UserEntity;
 
 public class UserDataAccessMapper {

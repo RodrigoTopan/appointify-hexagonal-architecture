@@ -1,12 +1,12 @@
 package ports.input;
 
 import usecase.evaluation.contract.command.CreateEvaluation;
-import usecase.evaluation.contract.command.CreateEvaluationResult;
-import usecase.evaluation.contract.query.FindEvaluationResult;
+import usecase.evaluation.contract.command.CreatedEvaluation;
+import usecase.evaluation.contract.query.FoundEvaluation;
 
 import java.util.List;
 
 public interface EvaluationInputPort {
-    CreateEvaluationResult create(CreateEvaluation command);
-    List<FindEvaluationResult> findAll();
+    CreatedEvaluation create(CreateEvaluation command);
+    List<FoundEvaluation> findAll();
 }

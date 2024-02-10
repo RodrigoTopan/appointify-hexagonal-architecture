@@ -1,4 +1,4 @@
-package domain.entity.valueobject;
+package domain.valueobject;
 
 public enum UserRole {
     COMPANY("COMPANY"),

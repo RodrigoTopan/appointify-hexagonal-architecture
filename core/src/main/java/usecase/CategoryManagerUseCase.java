@@ -3,8 +3,8 @@ package usecase;
 import ports.input.CategoryInputPort;
 import ports.output.repository.CategoryRepository;
 import usecase.category.contract.command.CreateCategory;
-import usecase.category.contract.command.CreateCategoryResult;
-import usecase.category.contract.query.FindCategoryResult;
+import usecase.category.contract.command.CreatedCategory;
+import usecase.category.contract.query.FoundCategory;
 import usecase.category.mapper.CategoryMapper;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class CategoryManagerUseCase implements CategoryInputPort {
     }
 
     @Override
-    public CreateCategoryResult create(CreateCategory command) {
+    public CreatedCategory create(CreateCategory command) {
         var category = categoryMapper.createCategoryCommandToCategory(command);
         var savedCategory = categoryRepository.save(category);
         return categoryMapper.categoryToCreateCategoryCommandResponse(savedCategory);
@@ -33,7 +33,7 @@ public class CategoryManagerUseCase implements CategoryInputPort {
     }
 
     @Override
-    public List<FindCategoryResult> findAll() {
+    public List<FoundCategory> findAll() {
         return categoryRepository.findAll()
                 .stream()
                 .map(categoryMapper::categoryToFindCategoryQueryResponse)
@@ -41,7 +41,7 @@ public class CategoryManagerUseCase implements CategoryInputPort {
     }
 
     @Override
-    public FindCategoryResult findById(UUID id) {
+    public FoundCategory findById(UUID id) {
         var category = categoryRepository.findById(id);
         return categoryMapper.categoryToFindCategoryQueryResponse(category);
     }

@@ -4,8 +4,8 @@ import domain.entity.Category;
 import org.springframework.stereotype.Component;
 import usecase.category.contract.CompanyDTO;
 import usecase.category.contract.command.CreateCategory;
-import usecase.category.contract.command.CreateCategoryResult;
-import usecase.category.contract.query.FindCategoryResult;
+import usecase.category.contract.command.CreatedCategory;
+import usecase.category.contract.query.FoundCategory;
 
 import java.util.stream.Collectors;
 
@@ -15,8 +15,8 @@ public class CategoryMapper {
         return new Category(command.getName(), command.getImage());
     }
 
-    public CreateCategoryResult categoryToCreateCategoryCommandResponse(Category category) {
-        return CreateCategoryResult
+    public CreatedCategory categoryToCreateCategoryCommandResponse(Category category) {
+        return CreatedCategory
                 .builder()
                 .id(category.getId())
                 .name(category.getName())
@@ -24,8 +24,8 @@ public class CategoryMapper {
                 .build();
     }
 
-    public FindCategoryResult categoryToFindCategoryQueryResponse(Category category) {
-        return FindCategoryResult
+    public FoundCategory categoryToFindCategoryQueryResponse(Category category) {
+        return FoundCategory
                 .builder()
                 .id(category.getId())
                 .name(category.getName())

@@ -27,9 +27,9 @@ public class EvaluationManagerUseCase implements EvaluationInputPort {
 
     @Override
     public CreatedEvaluation create(CreateEvaluation command) {
-        var customer = customerRepository.findById(command.getCustomerId());
-        var employee = employeeRepository.findById(command.getEmployeeId());
-        var evaluation = customer.evaluateEmployee(command.getRate(), command.getComment(), employee);
+        var customer = customerRepository.findById(command.customerId());
+        var employee = employeeRepository.findById(command.employeeId());
+        var evaluation = customer.evaluateEmployee(command.rate(), command.comment(), employee);
         var savedEvaluation = evaluationRepository.save(evaluation);
         return evaluationMapper.evaluationToCreateEvaluationCommandResponse(savedEvaluation);
     }

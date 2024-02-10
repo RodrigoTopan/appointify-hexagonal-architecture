@@ -11,30 +11,32 @@ import domain.valueobject.Money;
 @Component
 public class OfferedServiceMapper {
     public OfferedService createOfferedServiceCommandToOfferedService(Company company, CreateOfferedService command) {
-        return new OfferedService(company, command.getName(), command.getDescription(), new Money(command.getPrice()));
+        return new OfferedService(
+                company,
+                command.name(),
+                command.description(),
+                new Money(command.price())
+        );
     }
 
-    public CreatedOfferedService offeredServiceToCreateOfferedServiceCommandResponse(
-            OfferedService offeredService) {
-        return CreatedOfferedService
-                .builder()
-                .id(offeredService.getId())
-                .name(offeredService.getName())
-                .companyId(offeredService.getCompany().getId())
-                .description(offeredService.getDescription())
-                .price(offeredService.getPrice().getAmount())
-                .build();
+    public CreatedOfferedService offeredServiceToCreateOfferedServiceCommandResponse(OfferedService offeredService) {
+        return new CreatedOfferedService(
+                offeredService.getId(),
+                offeredService.getCompany().getId(),
+                offeredService.getName(),
+                offeredService.getDescription(),
+                offeredService.getPrice().getAmount()
+        );
     }
 
     public FoundOfferedService offeredServiceToFindOfferedServiceQueryResponse(
             OfferedService offeredService) {
-        return FoundOfferedService
-                .builder()
-                .id(offeredService.getId())
-                .name(offeredService.getName())
-                .companyId(offeredService.getCompany().getId())
-                .description(offeredService.getDescription())
-                .price(offeredService.getPrice().getAmount())
-                .build();
+        return new FoundOfferedService(
+                offeredService.getId(),
+                offeredService.getCompany().getId(),
+                offeredService.getName(),
+                offeredService.getDescription(),
+                offeredService.getPrice().getAmount()
+        );
     }
 }

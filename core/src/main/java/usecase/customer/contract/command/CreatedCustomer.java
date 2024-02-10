@@ -1,18 +1,8 @@
 package usecase.customer.contract.command;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 
-@Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class CreatedCustomer {
-
-    private UUID id;
-    private UUID userId;
-}
+public record CreatedCustomer(
+        UUID id,
+        UUID userId
+) {}

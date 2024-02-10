@@ -27,7 +27,7 @@ public class OfferedServiceManagerUseCase implements OfferedServiceInputPort {
 
     @Override
     public CreatedOfferedService create(CreateOfferedService command) {
-        var company = companyRepository.findById(command.getCompanyId());
+        var company = companyRepository.findById(command.companyId());
         if (company == null)
             throw new NotFoundException("not found registered company");
 

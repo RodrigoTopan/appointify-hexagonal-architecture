@@ -2,24 +2,13 @@ package usecase.category.contract.command;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class CreatedCategory {
-    @NotNull
-    private UUID id;
-    @NotEmpty
-    private String name;
-    private String image;
-}
+public record CreatedCategory(
+        @NotNull UUID id,
+        @NotEmpty String name,
+        String image
+) {}
+
 

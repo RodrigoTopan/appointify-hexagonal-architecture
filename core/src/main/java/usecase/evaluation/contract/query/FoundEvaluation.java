@@ -1,21 +1,6 @@
 package usecase.evaluation.contract.query;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.util.UUID;
 
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class FoundEvaluation {
-    private Integer rate;
-    private String comment;
-    private UUID employeeId;
-    private UUID customerId;
-}
+public record FoundEvaluation(Integer rate, String comment, UUID employeeId, UUID customerId) {}
+

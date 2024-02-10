@@ -60,9 +60,7 @@ public class CompanyController {
     @GetMapping("/{companyId}/services")
     public ResponseEntity<List<FoundOfferedService>> getOfferedServicesByCompanyId(
             @PathVariable UUID companyId) {
-        FindCompanyOfferedServices query = FindCompanyOfferedServices.builder()
-                .companyId(companyId)
-                .build();
+        FindCompanyOfferedServices query = new FindCompanyOfferedServices(companyId);
         List<FoundOfferedService> response = offeredServiceInputPort.find(query);
         return ResponseEntity.ok().body(response);
     }

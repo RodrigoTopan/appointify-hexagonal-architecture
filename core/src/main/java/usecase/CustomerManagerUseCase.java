@@ -25,7 +25,7 @@ public class CustomerManagerUseCase implements CustomerInputPort {
 
     @Override
     public CreatedCustomer create(CreateCustomer command) {
-        var user = userRepository.findById(command.getUserId());
+        var user = userRepository.findById(command.userId());
         var customer = user.createCustomer();
         var savedCustomer = customerRepository.save(customer);
         return customerMapper.customerToCreateCustomerCommandResponse(savedCustomer);

@@ -17,31 +17,30 @@ public class CompanyMapper {
                 .map(category -> new Category(category.getId(), category.getName()))
                 .collect(Collectors.toList());
 
-        return CreatedCompany
-                .builder()
-                .id(company.getId())
-                .userId(company.getUser().getId())
-                .company(Company.builder()
-                        .name(company.getCompanyDetails().getName())
-                        .description(company.getCompanyDetails().getDescription())
-                        .governmentId(company.getCompanyDetails().getGovernmentId())
-                        .image(company.getCompanyDetails().getImage())
-                        .build())
-                .categories(categories)
-                .build();
+        return new CreatedCompany(
+                company.getId(),
+                company.getUser().getId(),
+                new Company(
+                        company.getCompanyDetails().getName(),
+                        company.getCompanyDetails().getDescription(),
+                        company.getCompanyDetails().getGovernmentId(),
+                        company.getCompanyDetails().getImage()
+                ),
+                categories
+        );
     }
 
     public FoundCompany companyToFindCompanyQueryResponse(domain.entity.Company company) {
-        return FoundCompany
-                .builder()
-                .id(company.getId())
-                .userId(company.getUser().getId())
-                .company(Company.builder()
-                        .name(company.getCompanyDetails().getName())
-                        .description(company.getCompanyDetails().getDescription())
-                        .governmentId(company.getCompanyDetails().getGovernmentId())
-                        .image(company.getCompanyDetails().getImage())
-                        .build())
-                .build();
+        return new FoundCompany(
+                company.getId(),
+                company.getUser().getId(),
+                new Company(
+                        company.getCompanyDetails().getName(),
+                        company.getCompanyDetails().getDescription(),
+                        company.getCompanyDetails().getGovernmentId(),
+                        company.getCompanyDetails().getImage()
+                )
+        );
     }
+
 }

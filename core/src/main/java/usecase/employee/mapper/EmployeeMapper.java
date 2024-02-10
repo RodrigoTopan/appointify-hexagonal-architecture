@@ -9,21 +9,19 @@ import usecase.employee.contract.query.FoundEmployee;
 public class EmployeeMapper {
 
     public CreatedEmployee employeeToCreateEmployeeCommandResponse(Employee employee) {
-        return CreatedEmployee
-                .builder()
-                .id(employee.getId())
-                .userId(employee.getUser().getId())
-                .companyId(employee.getCompany().getId())
-                .build();
+        return new CreatedEmployee(
+                employee.getId(),
+                employee.getUser().getId(),
+                employee.getCompany().getId()
+        );
     }
 
     public FoundEmployee employeeToFindEmployeeQueryResponse(Employee employee) {
-        return FoundEmployee
-                .builder()
-                .id(employee.getId())
-                .userId(employee.getUser().getId())
-                .schedules(employee.getSchedules())
-                .companyId(employee.getCompany().getId())
-                .build();
+        return new FoundEmployee(
+                employee.getId(),
+                employee.getUser().getId(),
+                employee.getCompany().getId(),
+                employee.getSchedules()
+        );
     }
 }

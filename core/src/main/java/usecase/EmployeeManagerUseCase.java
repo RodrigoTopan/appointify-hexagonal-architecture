@@ -28,8 +28,8 @@ public class EmployeeManagerUseCase implements EmployeeInputPort {
 
     @Override
     public CreatedEmployee create(CreateEmployee command) {
-        var company = companyRepository.findById(command.getCompanyId());
-        var user = userRepository.findById(command.getUserId());
+        var company = companyRepository.findById(command.companyId());
+        var user = userRepository.findById(command.userId());
         var employee = company.createEmployee(user);
         var savedEmployeeEntity = employeeRepository.save(employee);
         return employeeMapper.employeeToCreateEmployeeCommandResponse(savedEmployeeEntity);

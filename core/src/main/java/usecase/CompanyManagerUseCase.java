@@ -32,15 +32,15 @@ public class CompanyManagerUseCase implements CompanyInputPort {
 
     @Override
     public CreatedCompany create(CreateCompany command) {
-        var user = userRepository.findById(command.getUserId());
+        var user = userRepository.findById(command.userId());
 
-        List<Category> savedCategories = getSavedCategories(command.getCategories());
+        List<Category> savedCategories = getSavedCategories(command.categories());
 
         var companyDetails = new CompanyDetails(
-                command.getCompany().getName(),
-                command.getCompany().getDescription(),
-                command.getCompany().getGovernmentId(),
-                command.getCompany().getImage());
+                command.company().name(),
+                command.company().description(),
+                command.company().governmentId(),
+                command.company().image());
 
         var company = user.createCompany(companyDetails, savedCategories);
         var savedCompany = companyRepository.save(company);

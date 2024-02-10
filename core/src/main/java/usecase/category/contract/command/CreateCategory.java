@@ -1,20 +1,10 @@
 package usecase.category.contract.command;
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class CreateCategory {
-    @NotEmpty
-    private String name;
-    private String image;
-}
+public record CreateCategory(
+        @NotEmpty String name,
+        String image
+) {}
+
 

@@ -8,13 +8,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class FoundCompany {
+import java.util.UUID;
 
-    private UUID id;
-    private UUID userId;
-    private Company company;
-}
+public record FoundCompany(
+        UUID id,
+        UUID userId,
+        Company company
+) {}
+

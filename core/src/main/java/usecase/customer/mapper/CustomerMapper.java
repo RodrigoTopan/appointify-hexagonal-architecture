@@ -9,18 +9,13 @@ import domain.entity.Customer;
 public class CustomerMapper {
 
     public CreatedCustomer customerToCreateCustomerCommandResponse(Customer customer) {
-        return CreatedCustomer
-                .builder()
-                .id(customer.getId())
-                .userId(customer.getUser().getId())
-                .build();
+        return new CreatedCustomer(customer.getId(), customer.getUser().getId());
     }
 
     public FoundCustomer customerToFindCustomerQueryResponse(Customer customer) {
-        return FoundCustomer
-                .builder()
-                .id(customer.getId())
-                .userId(customer.getUser().getId())
-                .build();
+        return new FoundCustomer(
+                customer.getId(),
+                customer.getUser().getId()
+        );
     }
 }

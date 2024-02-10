@@ -1,4 +1,4 @@
-package usecase.company;
+package usecase;
 
 import usecase.company.contract.command.CreateCompany;
 import usecase.company.contract.command.CreateCompanyResult;
@@ -18,14 +18,19 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Component
-@RequiredArgsConstructor
 public class CompanyManagerUseCase implements CompanyInputPort {
     private final CompanyMapper companyMapper;
     private final CompanyRepository companyRepository;
     private final CategoryRepository categoryRepository;
 
     private final UserRepository userRepository;
+
+    public CompanyManagerUseCase(CompanyMapper companyMapper, CompanyRepository companyRepository, CategoryRepository categoryRepository, UserRepository userRepository) {
+        this.companyMapper = companyMapper;
+        this.companyRepository = companyRepository;
+        this.categoryRepository = categoryRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public CreateCompanyResult create(CreateCompany command) {

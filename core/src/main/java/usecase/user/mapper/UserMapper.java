@@ -1,17 +1,17 @@
 package usecase.user.mapper;
 
-import usecase.user.contract.command.CreateUserCommand;
-import usecase.user.contract.command.CreateUserCommandResponse;
+import usecase.user.contract.command.CreateUser;
+import usecase.user.contract.command.CreateUserResult;
 import org.springframework.stereotype.Component;
 import domain.entity.User;
 import domain.entity.valueobject.Email;
 import domain.entity.valueobject.Password;
 import domain.entity.valueobject.Username;
-import usecase.user.contract.query.FindUserQueryResponse;
+import usecase.user.contract.query.FindUserResult;
 
 @Component
 public class UserMapper {
-    public User createUserCommandToUser(CreateUserCommand command) {
+    public User createUserCommandToUser(CreateUser command) {
         return new User(
                 command.getFirstName(),
                 command.getLastName(),
@@ -21,8 +21,8 @@ public class UserMapper {
                 command.getRole());
     }
 
-    public CreateUserCommandResponse userToCreateUserCommandResponse(User user) {
-        return CreateUserCommandResponse
+    public CreateUserResult userToCreateUserCommandResponse(User user) {
+        return CreateUserResult
                 .builder()
                 .id(user.getId())
                 .email(user.getEmail().getValue())
@@ -34,8 +34,8 @@ public class UserMapper {
                 .build();
     }
 
-    public FindUserQueryResponse userToFindUserQueryResponse(User user) {
-        return FindUserQueryResponse
+    public FindUserResult userToFindUserQueryResponse(User user) {
+        return FindUserResult
                 .builder()
                 .id(user.getId())
                 .email(user.getEmail().getValue())

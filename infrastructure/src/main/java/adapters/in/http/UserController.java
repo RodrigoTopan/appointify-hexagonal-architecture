@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import adapters.in.http.security.dto.AuthenticationDTO;
 import adapters.in.http.security.dto.AuthenticationResponseDTO;
 import adapters.in.http.security.util.JwtTokenUtil;
-import usecase.user.contract.command.CreateUserCommand;
-import usecase.user.contract.command.CreateUserCommandResponse;
+import usecase.user.contract.command.CreateUser;
+import usecase.user.contract.command.CreateUserResult;
 import ports.input.UserInputPort;
 
 @RestController
@@ -37,8 +37,8 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping(value = "/register")
-    public ResponseEntity<CreateUserCommandResponse> registerUser(
-            @RequestBody @Valid CreateUserCommand command) {
+    public ResponseEntity<CreateUserResult> registerUser(
+            @RequestBody @Valid CreateUser command) {
 
         var hashedPassword = passwordEncoder.encode(command.getPassword());
         command.setPassword(hashedPassword);

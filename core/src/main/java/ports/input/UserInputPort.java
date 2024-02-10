@@ -1,11 +1,11 @@
 package ports.input;
 
-import usecase.user.contract.command.CreateUserCommand;
-import usecase.user.contract.command.CreateUserCommandResponse;
-import usecase.user.contract.query.FindUserQuery;
-import usecase.user.contract.query.FindUserQueryResponse;
+import usecase.user.contract.command.CreateUser;
+import usecase.user.contract.command.CreateUserResult;
+import usecase.user.contract.query.FindUser;
+import usecase.user.contract.query.FindUserResult;
 
 public interface UserInputPort {
-    CreateUserCommandResponse create(CreateUserCommand command);
-    FindUserQueryResponse find(FindUserQuery query);
+    CreateUserResult create(CreateUser command);
+    FindUserResult find(FindUser query);
 }

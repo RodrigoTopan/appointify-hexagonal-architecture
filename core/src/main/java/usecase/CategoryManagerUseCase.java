@@ -1,23 +1,24 @@
-package usecase.category;
+package usecase;
 
-import usecase.category.contract.query.FindCategoryResult;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import ports.input.CategoryInputPort;
+import ports.output.repository.CategoryRepository;
 import usecase.category.contract.command.CreateCategory;
 import usecase.category.contract.command.CreateCategoryResult;
+import usecase.category.contract.query.FindCategoryResult;
 import usecase.category.mapper.CategoryMapper;
-import ports.output.repository.CategoryRepository;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Component
-@RequiredArgsConstructor
 public class CategoryManagerUseCase implements CategoryInputPort {
     private final CategoryMapper categoryMapper;
     private final CategoryRepository categoryRepository;
+
+    public CategoryManagerUseCase(CategoryMapper categoryMapper, CategoryRepository categoryRepository) {
+        this.categoryMapper = categoryMapper;
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public CreateCategoryResult create(CreateCategory command) {

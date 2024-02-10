@@ -1,4 +1,4 @@
-package usecase.offeredservice;
+package usecase;
 
 import usecase.offeredservice.contract.command.CreateOfferedService;
 import usecase.offeredservice.contract.command.CreateOfferedServiceResult;
@@ -16,12 +16,16 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Component
-@RequiredArgsConstructor
 public class OfferedServiceManagerUseCase implements OfferedServiceInputPort {
     private final OfferedServiceMapper mapper;
     private final CompanyRepository companyRepository;
     private final OfferedServiceRepository repository;
+
+    public OfferedServiceManagerUseCase(OfferedServiceMapper mapper, CompanyRepository companyRepository, OfferedServiceRepository repository) {
+        this.mapper = mapper;
+        this.companyRepository = companyRepository;
+        this.repository = repository;
+    }
 
     @Override
     public CreateOfferedServiceResult create(CreateOfferedService command) {

@@ -1,6 +1,6 @@
 package adapters.in.http.config;
 
-import usecase.user.UserManagerUseCase;
+import usecase.UserManagerUseCase;
 import usecase.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -21,19 +21,19 @@ import ports.output.repository.EvaluationRepository;
 import ports.output.repository.OfferedServiceRepository;
 import ports.output.repository.ScheduleRepository;
 import ports.output.repository.UserRepository;
-import usecase.category.CategoryManagerUseCase;
+import usecase.CategoryManagerUseCase;
 import usecase.category.mapper.CategoryMapper;
-import usecase.company.CompanyManagerUseCase;
+import usecase.CompanyManagerUseCase;
 import usecase.company.mapper.CompanyMapper;
-import usecase.customer.CustomerManagerUseCase;
+import usecase.CustomerManagerUseCase;
 import usecase.customer.mapper.CustomerMapper;
-import usecase.employee.EmployeeManagerUseCase;
+import usecase.EmployeeManagerUseCase;
 import usecase.employee.mapper.EmployeeMapper;
-import usecase.evaluation.EvaluationManagerUseCase;
+import usecase.EvaluationManagerUseCase;
 import usecase.evaluation.mapper.EvaluationMapper;
-import usecase.offeredservice.OfferedServiceManagerUseCase;
+import usecase.OfferedServiceManagerUseCase;
 import usecase.offeredservice.mapper.OfferedServiceMapper;
-import usecase.schedules.ScheduleManagerUseCase;
+import usecase.ScheduleManagerUseCase;
 import usecase.schedules.mapper.ScheduleMapper;
 
 @Configuration

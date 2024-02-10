@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FindUserQueryResponse {
+public class FindUserResult {
 
     private UUID id;
     private String username;

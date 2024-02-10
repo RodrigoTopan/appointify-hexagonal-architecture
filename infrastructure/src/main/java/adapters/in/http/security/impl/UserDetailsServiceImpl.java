@@ -1,7 +1,7 @@
 package adapters.in.http.security.impl;
 
-import usecase.user.contract.query.FindUserQuery;
-import usecase.user.contract.query.FindUserQueryResponse;
+import usecase.user.contract.query.FindUser;
+import usecase.user.contract.query.FindUserResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,8 +20,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final FindUserQueryResponse userQueryResponse = userInputPort
-                .find(FindUserQuery
+        final FindUserResult userQueryResponse = userInputPort
+                .find(FindUser
                         .builder()
                         .username(username)
                         .build());

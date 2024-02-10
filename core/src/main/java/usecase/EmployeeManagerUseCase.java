@@ -1,4 +1,4 @@
-package usecase.employee;
+package usecase;
 
 import usecase.employee.contract.command.CreateEmployee;
 import usecase.employee.contract.command.CreateEmployeeResult;
@@ -14,14 +14,19 @@ import ports.output.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-@RequiredArgsConstructor
 public class EmployeeManagerUseCase implements EmployeeInputPort {
     private final EmployeeMapper employeeMapper;
     private final CompanyRepository companyRepository;
     private final EmployeeRepository employeeRepository;
 
     private final UserRepository userRepository;
+
+    public EmployeeManagerUseCase(EmployeeMapper employeeMapper, CompanyRepository companyRepository, EmployeeRepository employeeRepository, UserRepository userRepository) {
+        this.employeeMapper = employeeMapper;
+        this.companyRepository = companyRepository;
+        this.employeeRepository = employeeRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public CreateEmployeeResult create(CreateEmployee command) {

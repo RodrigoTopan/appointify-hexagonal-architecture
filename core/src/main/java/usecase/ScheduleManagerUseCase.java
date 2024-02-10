@@ -1,4 +1,4 @@
-package usecase.schedules;
+package usecase;
 
 import usecase.schedules.contract.query.FindAppointmentQueryResult;
 import usecase.schedules.contract.query.FindAvailableSchedules;
@@ -21,14 +21,20 @@ import ports.output.repository.ScheduleRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-@RequiredArgsConstructor
 public class ScheduleManagerUseCase implements ScheduleInputPort {
     private final ScheduleMapper scheduleMapper;
     private final CustomerRepository customerRepository;
     private final EmployeeRepository employeeRepository;
     private final OfferedServiceRepository offeredServiceRepository;
     private final ScheduleRepository scheduleRepository;
+
+    public ScheduleManagerUseCase(ScheduleMapper scheduleMapper, CustomerRepository customerRepository, EmployeeRepository employeeRepository, OfferedServiceRepository offeredServiceRepository, ScheduleRepository scheduleRepository) {
+        this.scheduleMapper = scheduleMapper;
+        this.customerRepository = customerRepository;
+        this.employeeRepository = employeeRepository;
+        this.offeredServiceRepository = offeredServiceRepository;
+        this.scheduleRepository = scheduleRepository;
+    }
 
     @Override
     public CreateScheduleResult create(CreateSchedule command) {

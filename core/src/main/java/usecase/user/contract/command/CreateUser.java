@@ -15,7 +15,7 @@ import domain.entity.valueobject.UserRole;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUserCommand {
+public class CreateUser {
     @NotEmpty
     private String firstName;
     @NotEmpty

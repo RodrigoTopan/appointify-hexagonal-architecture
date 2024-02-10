@@ -1,4 +1,4 @@
-package usecase.evaluation;
+package usecase;
 
 import usecase.evaluation.contract.command.CreateEvaluation;
 import usecase.evaluation.contract.command.CreateEvaluationResult;
@@ -14,13 +14,18 @@ import ports.output.repository.EvaluationRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-@RequiredArgsConstructor
 public class EvaluationManagerUseCase implements EvaluationInputPort {
     private final EvaluationMapper evaluationMapper;
     private final CustomerRepository customerRepository;
     private final EmployeeRepository employeeRepository;
     private final EvaluationRepository evaluationRepository;
+
+    public EvaluationManagerUseCase(EvaluationMapper evaluationMapper, CustomerRepository customerRepository, EmployeeRepository employeeRepository, EvaluationRepository evaluationRepository) {
+        this.evaluationMapper = evaluationMapper;
+        this.customerRepository = customerRepository;
+        this.employeeRepository = employeeRepository;
+        this.evaluationRepository = evaluationRepository;
+    }
 
     @Override
     public CreateEvaluationResult create(CreateEvaluation command) {

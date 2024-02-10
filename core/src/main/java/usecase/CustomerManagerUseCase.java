@@ -1,4 +1,4 @@
-package usecase.customer;
+package usecase;
 
 import usecase.customer.contract.command.CreateCustomer;
 import usecase.customer.contract.command.CreateCustomerResult;
@@ -14,12 +14,16 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Component
-@RequiredArgsConstructor
 public class CustomerManagerUseCase implements CustomerInputPort {
     private final CustomerMapper customerMapper;
     private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
+
+    public CustomerManagerUseCase(CustomerMapper customerMapper, CustomerRepository customerRepository, UserRepository userRepository) {
+        this.customerMapper = customerMapper;
+        this.customerRepository = customerRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public CreateCustomerResult create(CreateCustomer command) {

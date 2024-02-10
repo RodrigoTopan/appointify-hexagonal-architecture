@@ -12,7 +12,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FindUserQuery {
+public class FindUser {
     @NotEmpty
     private String username;
 }

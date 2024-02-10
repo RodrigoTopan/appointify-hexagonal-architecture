@@ -1,6 +1,6 @@
 package adapters.out;
 
-import entity.OfferedService;
+import domain.entity.OfferedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ports.output.repository.OfferedServiceRepository;

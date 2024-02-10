@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import common.exception.DomainException;
-import common.exception.NotFoundException;
+import domain.common.exception.DomainException;
+import domain.common.exception.NotFoundException;
 
 import java.util.stream.Collectors;
 

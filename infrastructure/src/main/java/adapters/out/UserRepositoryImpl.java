@@ -1,6 +1,6 @@
 package adapters.out;
 
-import entity.User;
+import domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ports.output.repository.UserRepository;

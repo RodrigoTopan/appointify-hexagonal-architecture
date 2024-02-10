@@ -1,6 +1,6 @@
 package adapters.out;
 
-import entity.Category;
+import domain.entity.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ports.output.repository.CategoryRepository;

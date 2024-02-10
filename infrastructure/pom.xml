@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>puc</groupId>
-            <artifactId>domain</artifactId>
+            <artifactId>core</artifactId>
             <version>${version}</version>
         </dependency>
         <dependency>

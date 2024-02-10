@@ -1,13 +1,13 @@
 package adapters.out.mapper;
 
-import entity.Category;
-import entity.Company;
-import entity.User;
-import entity.valueobject.CompanyDetails;
-import entity.valueobject.Email;
-import entity.valueobject.Password;
-import entity.valueobject.UserRole;
-import entity.valueobject.Username;
+import domain.entity.Category;
+import domain.entity.Company;
+import domain.entity.User;
+import domain.entity.valueobject.CompanyDetails;
+import domain.entity.valueobject.Email;
+import domain.entity.valueobject.Password;
+import domain.entity.valueobject.UserRole;
+import domain.entity.valueobject.Username;
 import adapters.out.entity.CategoryEntity;
 import adapters.out.entity.CompanyEntity;
 import adapters.out.entity.UserEntity;

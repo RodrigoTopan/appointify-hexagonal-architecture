@@ -2,7 +2,7 @@ package adapters.out;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import entity.Company;
+import domain.entity.Company;
 import ports.output.repository.CompanyRepository;
 import adapters.out.entity.CompanyEntity;
 import adapters.out.jpa.CompanyJpaRepository;

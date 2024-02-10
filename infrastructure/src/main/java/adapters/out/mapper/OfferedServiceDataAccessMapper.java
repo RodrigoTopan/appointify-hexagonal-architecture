@@ -1,7 +1,7 @@
 package adapters.out.mapper;
 
-import entity.OfferedService;
-import entity.valueobject.Money;
+import domain.entity.OfferedService;
+import domain.entity.valueobject.Money;
 import adapters.out.entity.OfferedServiceEntity;
 
 public class OfferedServiceDataAccessMapper {

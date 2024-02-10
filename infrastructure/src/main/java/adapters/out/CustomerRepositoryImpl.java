@@ -1,6 +1,6 @@
 package adapters.out;
 
-import entity.Customer;
+import domain.entity.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ports.output.repository.CustomerRepository;

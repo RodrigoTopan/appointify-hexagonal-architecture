@@ -1,6 +1,6 @@
 package adapters.out.mapper;
 
-import entity.Category;
+import domain.entity.Category;
 import adapters.out.entity.CategoryEntity;
 
 import java.util.ArrayList;

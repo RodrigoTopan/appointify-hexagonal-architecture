@@ -1,14 +1,14 @@
 package adapters.out.mapper;
 
 import adapters.out.entity.CustomerEntity;
-import entity.Customer;
-import entity.Evaluation;
-import entity.Schedule;
-import entity.User;
-import entity.valueobject.Email;
-import entity.valueobject.Password;
-import entity.valueobject.UserRole;
-import entity.valueobject.Username;
+import domain.entity.Customer;
+import domain.entity.Evaluation;
+import domain.entity.Schedule;
+import domain.entity.User;
+import domain.entity.valueobject.Email;
+import domain.entity.valueobject.Password;
+import domain.entity.valueobject.UserRole;
+import domain.entity.valueobject.Username;
 import adapters.out.entity.UserEntity;
 
 import java.util.List;

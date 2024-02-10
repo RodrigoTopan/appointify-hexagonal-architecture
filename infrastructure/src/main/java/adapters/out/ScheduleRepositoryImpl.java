@@ -1,6 +1,6 @@
 package adapters.out;
 
-import entity.Schedule;
+import domain.entity.Schedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ports.output.repository.ScheduleRepository;

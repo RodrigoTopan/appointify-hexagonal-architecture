@@ -1,12 +1,12 @@
 package adapters.out.mapper;
 
-import entity.Employee;
-import entity.Schedule;
-import entity.User;
-import entity.valueobject.Email;
-import entity.valueobject.Password;
-import entity.valueobject.UserRole;
-import entity.valueobject.Username;
+import domain.entity.Employee;
+import domain.entity.Schedule;
+import domain.entity.User;
+import domain.entity.valueobject.Email;
+import domain.entity.valueobject.Password;
+import domain.entity.valueobject.UserRole;
+import domain.entity.valueobject.Username;
 import adapters.out.entity.EmployeeEntity;
 import adapters.out.entity.UserEntity;
 

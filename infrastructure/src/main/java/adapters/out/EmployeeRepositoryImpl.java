@@ -1,6 +1,6 @@
 package adapters.out;
 
-import entity.Employee;
+import domain.entity.Employee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ports.output.repository.EmployeeRepository;

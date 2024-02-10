@@ -1,6 +1,6 @@
 package adapters.out.mapper;
 
-import entity.Evaluation;
+import domain.entity.Evaluation;
 import adapters.out.entity.EvaluationEntity;
 
 public class EvaluationDataAccessMapper {

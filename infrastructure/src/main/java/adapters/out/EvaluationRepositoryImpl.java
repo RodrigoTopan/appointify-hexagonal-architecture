@@ -1,6 +1,6 @@
 package adapters.out;
 
-import entity.Evaluation;
+import domain.entity.Evaluation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ports.output.repository.EvaluationRepository;

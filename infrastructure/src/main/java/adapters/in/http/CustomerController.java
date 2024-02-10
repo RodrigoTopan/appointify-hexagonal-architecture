@@ -1,6 +1,8 @@
 package adapters.in.http;
 
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,38 +18,33 @@ import usecase.customer.contract.command.CreateCustomer;
 import usecase.customer.contract.command.CreatedCustomer;
 import usecase.customer.contract.query.FoundCustomer;
 
-import java.util.List;
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/customers")
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final CustomerInputPort customerInputPort;
-    @GetMapping
-    public ResponseEntity<List<FoundCustomer>> findAll() {
-        return ResponseEntity.ok()
-                .body(customerInputPort.findAll());
-    }
+  private final CustomerInputPort customerInputPort;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<FoundCustomer> findById(@PathVariable UUID id) {
-        return ResponseEntity.ok()
-                .body(customerInputPort.findById(id));
-    }
+  @GetMapping
+  public ResponseEntity<List<FoundCustomer>> findAll() {
+    return ResponseEntity.ok().body(customerInputPort.findAll());
+  }
 
-    @PostMapping
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity<CreatedCustomer> create(@RequestBody @Valid CreateCustomer command) {
-        return ResponseEntity.ok()
-                .body(customerInputPort.create(command));
-    }
+  @GetMapping("/{id}")
+  public ResponseEntity<FoundCustomer> findById(@PathVariable UUID id) {
+    return ResponseEntity.ok().body(customerInputPort.findById(id));
+  }
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity<?> deleteById(@PathVariable UUID id) {
-        customerInputPort.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
+  @PostMapping
+  @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+  public ResponseEntity<CreatedCustomer> create(@RequestBody @Valid CreateCustomer command) {
+    return ResponseEntity.ok().body(customerInputPort.create(command));
+  }
+
+  @DeleteMapping("/{id}")
+  @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+  public ResponseEntity<?> deleteById(@PathVariable UUID id) {
+    customerInputPort.deleteById(id);
+    return ResponseEntity.ok().build();
+  }
 }

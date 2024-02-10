@@ -16,18 +16,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserRequest {
-    @NotEmpty
-    private String firstName;
-    @NotEmpty
-    private String lastName;
-    @NotEmpty
-    private String username;
-    @Email
-    private String email;
-    @NotEmpty
-    private String password;
+  @NotEmpty private String firstName;
+  @NotEmpty private String lastName;
+  @NotEmpty private String username;
+  @Email private String email;
+  @NotEmpty private String password;
 
-    @NotNull
-    private UserRole role;
+  @NotNull private UserRole role;
 }
-

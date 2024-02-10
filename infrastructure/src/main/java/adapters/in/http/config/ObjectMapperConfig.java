@@ -11,18 +11,16 @@ import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class ObjectMapperConfig {
-    @Bean
-    @Primary
-    public ObjectMapper objectMapper() {
-        final ObjectMapper mapper = new ObjectMapper();
+  @Bean
+  @Primary
+  public ObjectMapper objectMapper() {
+    final ObjectMapper mapper = new ObjectMapper();
 
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
-        mapper.registerModule(new JavaTimeModule());
-        return mapper;
-    }
-
-
+    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
+    mapper.registerModule(new JavaTimeModule());
+    return mapper;
+  }
 }

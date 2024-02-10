@@ -24,37 +24,35 @@ import usecase.user.contract.command.CreatedUser;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final AuthenticationManager authenticationManager;
-    private final JwtTokenUtil jwtTokenUtil;
-    private final UserInputPort userInputPort;
-    private final UserDetailsService userDetailsService;
-    private final PasswordEncoder passwordEncoder;
-    private final UserJsonMapper userJsonMapper;
+  private final AuthenticationManager authenticationManager;
+  private final JwtTokenUtil jwtTokenUtil;
+  private final UserInputPort userInputPort;
+  private final UserDetailsService userDetailsService;
+  private final PasswordEncoder passwordEncoder;
+  private final UserJsonMapper userJsonMapper;
 
-    @PostMapping(value = "/register")
-    public ResponseEntity<CreatedUser> registerUser(
-            @RequestBody @Valid CreateUserRequest request) {
+  @PostMapping(value = "/register")
+  public ResponseEntity<CreatedUser> registerUser(@RequestBody @Valid CreateUserRequest request) {
 
-        var hashedPassword = passwordEncoder.encode(request.getPassword());
-        request.setPassword(hashedPassword);
-        var command = userJsonMapper.toCreateUser(request);
-        return ResponseEntity.ok()
-                .body(userInputPort.create(command));
-    }
+    var hashedPassword = passwordEncoder.encode(request.getPassword());
+    request.setPassword(hashedPassword);
+    var command = userJsonMapper.toCreateUser(request);
+    return ResponseEntity.ok().body(userInputPort.create(command));
+  }
 
-    @PostMapping(value = "/authenticate")
-    public ResponseEntity<AuthenticationResponseDTO> createAuthenticationToken(@RequestBody AuthenticationDTO authenticationRequest) {
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-        final var userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        final var token = jwtTokenUtil.generateToken(userDetails);
-        final var mainRole = userDetails.getAuthorities()
-                .stream()
-                .findFirst()
-                .orElseThrow();
-        return ResponseEntity.ok(new AuthenticationResponseDTO(token, userDetails.getUsername(), mainRole.getAuthority()));
-    }
+  @PostMapping(value = "/authenticate")
+  public ResponseEntity<AuthenticationResponseDTO> createAuthenticationToken(
+      @RequestBody AuthenticationDTO authenticationRequest) {
+    authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+    final var userDetails =
+        userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+    final var token = jwtTokenUtil.generateToken(userDetails);
+    final var mainRole = userDetails.getAuthorities().stream().findFirst().orElseThrow();
+    return ResponseEntity.ok(
+        new AuthenticationResponseDTO(token, userDetails.getUsername(), mainRole.getAuthority()));
+  }
 
-    private void authenticate(String username, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-    }
+  private void authenticate(String username, String password) {
+    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+  }
 }

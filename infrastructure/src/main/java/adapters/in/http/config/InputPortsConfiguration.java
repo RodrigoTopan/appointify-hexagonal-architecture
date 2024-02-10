@@ -1,7 +1,5 @@
 package adapters.in.http.config;
 
-import usecase.UserManagerUseCase;
-import usecase.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,76 +20,87 @@ import ports.output.repository.OfferedServiceRepository;
 import ports.output.repository.ScheduleRepository;
 import ports.output.repository.UserRepository;
 import usecase.CategoryManagerUseCase;
-import usecase.category.mapper.CategoryMapper;
 import usecase.CompanyManagerUseCase;
-import usecase.company.mapper.CompanyMapper;
 import usecase.CustomerManagerUseCase;
-import usecase.customer.mapper.CustomerMapper;
 import usecase.EmployeeManagerUseCase;
-import usecase.employee.mapper.EmployeeMapper;
 import usecase.EvaluationManagerUseCase;
-import usecase.evaluation.mapper.EvaluationMapper;
 import usecase.OfferedServiceManagerUseCase;
-import usecase.offeredservice.mapper.OfferedServiceMapper;
 import usecase.ScheduleManagerUseCase;
+import usecase.UserManagerUseCase;
+import usecase.category.mapper.CategoryMapper;
+import usecase.company.mapper.CompanyMapper;
+import usecase.customer.mapper.CustomerMapper;
+import usecase.employee.mapper.EmployeeMapper;
+import usecase.evaluation.mapper.EvaluationMapper;
+import usecase.offeredservice.mapper.OfferedServiceMapper;
 import usecase.schedules.mapper.ScheduleMapper;
+import usecase.user.mapper.UserMapper;
 
 @Configuration
 @RequiredArgsConstructor
 public class InputPortsConfiguration {
 
-    @Bean
-    public CategoryInputPort categoryInputPort(CategoryRepository categoryRepository) {
-        return new CategoryManagerUseCase(new CategoryMapper(), categoryRepository);
-    }
+  @Bean
+  public CategoryInputPort categoryInputPort(CategoryRepository categoryRepository) {
+    return new CategoryManagerUseCase(new CategoryMapper(), categoryRepository);
+  }
 
-    @Bean
-    public CompanyInputPort companyInputPort(CompanyRepository companyRepository,
-                                             CategoryRepository categoryRepository,
-                                             UserRepository userRepository) {
-        return new CompanyManagerUseCase(new CompanyMapper(), companyRepository, categoryRepository, userRepository);
-    }
+  @Bean
+  public CompanyInputPort companyInputPort(
+      CompanyRepository companyRepository,
+      CategoryRepository categoryRepository,
+      UserRepository userRepository) {
+    return new CompanyManagerUseCase(
+        new CompanyMapper(), companyRepository, categoryRepository, userRepository);
+  }
 
-    @Bean
-    public CustomerInputPort customerInputPort(CustomerRepository customerRepository,
-                                               UserRepository userRepository) {
-        return new CustomerManagerUseCase(new CustomerMapper(), customerRepository, userRepository);
-    }
+  @Bean
+  public CustomerInputPort customerInputPort(
+      CustomerRepository customerRepository, UserRepository userRepository) {
+    return new CustomerManagerUseCase(new CustomerMapper(), customerRepository, userRepository);
+  }
 
-    @Bean
-    public EmployeeInputPort employeeInputPort(CompanyRepository companyRepository,
-                                               EmployeeRepository employeeRepository,
-                                               UserRepository userRepository) {
-        return new EmployeeManagerUseCase(new EmployeeMapper(), companyRepository, employeeRepository, userRepository);
-    }
+  @Bean
+  public EmployeeInputPort employeeInputPort(
+      CompanyRepository companyRepository,
+      EmployeeRepository employeeRepository,
+      UserRepository userRepository) {
+    return new EmployeeManagerUseCase(
+        new EmployeeMapper(), companyRepository, employeeRepository, userRepository);
+  }
 
-    @Bean
-    public EvaluationInputPort evaluationInputPort(CustomerRepository customerRepository,
-                                                   EmployeeRepository employeeRepository,
-                                                   EvaluationRepository evaluationRepository) {
-        return new EvaluationManagerUseCase(new EvaluationMapper(), customerRepository, employeeRepository, evaluationRepository);
-    }
+  @Bean
+  public EvaluationInputPort evaluationInputPort(
+      CustomerRepository customerRepository,
+      EmployeeRepository employeeRepository,
+      EvaluationRepository evaluationRepository) {
+    return new EvaluationManagerUseCase(
+        new EvaluationMapper(), customerRepository, employeeRepository, evaluationRepository);
+  }
 
-    @Bean
-    public OfferedServiceInputPort offeredServiceInputPort(CompanyRepository companyRepository,
-                                                           OfferedServiceRepository offeredServiceRepository) {
-        return new OfferedServiceManagerUseCase(new OfferedServiceMapper(), companyRepository, offeredServiceRepository);
-    }
+  @Bean
+  public OfferedServiceInputPort offeredServiceInputPort(
+      CompanyRepository companyRepository, OfferedServiceRepository offeredServiceRepository) {
+    return new OfferedServiceManagerUseCase(
+        new OfferedServiceMapper(), companyRepository, offeredServiceRepository);
+  }
 
-    @Bean
-    public ScheduleInputPort scheduleInputPort(CustomerRepository customerRepository,
-                                               EmployeeRepository employeeRepository,
-                                               OfferedServiceRepository offeredServiceRepository,
-                                               ScheduleRepository scheduleRepository) {
-        return new ScheduleManagerUseCase(new ScheduleMapper(),
-                customerRepository,
-                employeeRepository,
-                offeredServiceRepository,
-                scheduleRepository);
-    }
+  @Bean
+  public ScheduleInputPort scheduleInputPort(
+      CustomerRepository customerRepository,
+      EmployeeRepository employeeRepository,
+      OfferedServiceRepository offeredServiceRepository,
+      ScheduleRepository scheduleRepository) {
+    return new ScheduleManagerUseCase(
+        new ScheduleMapper(),
+        customerRepository,
+        employeeRepository,
+        offeredServiceRepository,
+        scheduleRepository);
+  }
 
-    @Bean
-    public UserInputPort userInputPort(UserRepository userRepository) {
-        return new UserManagerUseCase(new UserMapper(), userRepository);
-    }
+  @Bean
+  public UserInputPort userInputPort(UserRepository userRepository) {
+    return new UserManagerUseCase(new UserMapper(), userRepository);
+  }
 }

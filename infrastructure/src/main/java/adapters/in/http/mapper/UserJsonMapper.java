@@ -9,13 +9,13 @@ import usecase.user.contract.command.CreatedUser;
 
 @Mapper(componentModel = "spring")
 public interface UserJsonMapper {
-    UserJsonMapper INSTANCE = Mappers.getMapper(UserJsonMapper.class);
+  UserJsonMapper INSTANCE = Mappers.getMapper(UserJsonMapper.class);
 
-    CreateUser toCreateUser(CreateUserRequest createUserRequest);
+  CreateUser toCreateUser(CreateUserRequest createUserRequest);
 
-    CreateUserRequest toCreateUserRequest(CreateUser createUser);
+  CreateUserRequest toCreateUserRequest(CreateUser createUser);
 
-    CreatedUser toCreatedUser(CreateUserResponse createUserResponse);
+  CreatedUser toCreatedUser(CreateUserResponse createUserResponse);
 
-    CreateUserResponse toCreateUserResponse(CreateUser createUser);
+  CreateUserResponse toCreateUserResponse(CreateUser createUser);
 }

@@ -5,14 +5,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.math.BigDecimal;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -22,12 +21,12 @@ import java.util.UUID;
 @Table(name = "offered_services")
 @Entity
 public class OfferedServiceEntity {
-    @Id
-    private UUID id;
-    private String name;
-    private String description;
-    private BigDecimal price;
-    @ManyToOne
-    @JoinColumn(name = "company_id")
-    private CompanyEntity company;
+  @Id private UUID id;
+  private String name;
+  private String description;
+  private BigDecimal price;
+
+  @ManyToOne
+  @JoinColumn(name = "company_id")
+  private CompanyEntity company;
 }

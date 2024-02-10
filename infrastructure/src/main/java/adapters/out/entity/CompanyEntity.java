@@ -10,15 +10,14 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -28,26 +27,25 @@ import java.util.UUID;
 @Table(name = "companies")
 @Entity
 public class CompanyEntity {
-    @Id
-    @Column(name = "id")
-    @EqualsAndHashCode.Include
-    private UUID id;
+  @Id
+  @Column(name = "id")
+  @EqualsAndHashCode.Include
+  private UUID id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+  @OneToOne
+  @JoinColumn(name = "user_id")
+  private UserEntity user;
 
-    private String companyName;
-    private String companyDescription;
-    private String companyGovernmentId;
-    private String companyImage;
+  private String companyName;
+  private String companyDescription;
+  private String companyGovernmentId;
+  private String companyImage;
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    private List<OfferedServiceEntity> offeredServices;
+  @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+  private List<OfferedServiceEntity> offeredServices;
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    private List<EmployeeEntity> employees;
+  @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+  private List<EmployeeEntity> employees;
 
-    @ManyToMany
-    private List<CategoryEntity> categories;
+  @ManyToMany private List<CategoryEntity> categories;
 }

@@ -1,4 +1,3 @@
 package ports.input;
 
-public interface AppointmentInputPort {
-}
+public interface AppointmentInputPort {}

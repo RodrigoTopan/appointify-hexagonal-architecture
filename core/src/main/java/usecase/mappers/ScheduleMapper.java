@@ -1,5 +1,6 @@
 package usecase.mappers;
 
+import java.util.UUID;
 import ports.input.schedules.contract.Company;
 import ports.input.schedules.contract.Customer;
 import ports.input.schedules.contract.Employee;
@@ -63,14 +64,30 @@ public class ScheduleMapper {
   }
 
   public FoundSchedule scheduleToFindScheduleQueryResponse(domain.entity.Schedule schedule) {
+    UUID employeeId = null;
+    UUID offeredServiceId = null;
+    UUID customerAssigneeId = null;
+
+    if (schedule.getEmployee() != null) {
+      employeeId = schedule.getEmployee().getId();
+    }
+
+    if (schedule.getOfferedService() != null) {
+      offeredServiceId = schedule.getOfferedService().getId();
+    }
+
+    if (schedule.getCustomerAssignee() != null) {
+      customerAssigneeId = schedule.getCustomerAssignee().getId();
+    }
+
     return new FoundSchedule(
         schedule.getId(),
-        schedule.getScheduleDate().getStart(),
-        schedule.getScheduleDate().getEnd(),
-        schedule.getEmployee().getId(),
-        schedule.getOfferedService().getId(),
+        schedule.getScheduleDate() != null ? schedule.getScheduleDate().getStart() : null,
+        schedule.getScheduleDate() != null ? schedule.getScheduleDate().getEnd() : null,
+        employeeId,
+        offeredServiceId,
         schedule.isAvailable(),
-        schedule.getCustomerAssignee() == null ? null : schedule.getCustomerAssignee().getId());
+        customerAssigneeId);
   }
 
   public FoundAppointment scheduleToFindAppointmentQueryResponse(domain.entity.Schedule schedule) {

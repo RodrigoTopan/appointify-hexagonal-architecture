@@ -3,6 +3,7 @@ package adapters.in.http;
 import adapters.in.http.json.schedules.CreateScheduleRequest;
 import adapters.in.http.mapper.SchedulesJsonMapper;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -37,15 +38,16 @@ public class ScheduleController {
 
   @GetMapping("/available")
   public ResponseEntity<List<FoundAvailableSchedules>> findAvailability(
-      @RequestParam UUID companyId,
-      @RequestParam UUID offeredServiceId,
-      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date rangeStartDate,
-      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date rangeEndDate) {
-    return ResponseEntity.ok()
-        .body(
-            scheduleInputPort.find(
-                new FindAvailableSchedules(
-                    companyId, offeredServiceId, rangeStartDate, rangeEndDate)));
+      @RequestParam @NotNull UUID companyId,
+      @RequestParam @NotNull UUID offeredServiceId,
+      @RequestParam @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date rangeStartDate,
+      @RequestParam @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date rangeEndDate) {
+
+    FindAvailableSchedules findAvailableSchedules =
+        new FindAvailableSchedules(companyId, offeredServiceId, rangeStartDate, rangeEndDate);
+
+    List<FoundAvailableSchedules> schedules = scheduleInputPort.find(findAvailableSchedules);
+    return ResponseEntity.ok().body(schedules);
   }
 
   @PostMapping

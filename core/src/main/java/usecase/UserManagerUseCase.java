@@ -1,5 +1,6 @@
 package usecase;
 
+import domain.common.exception.NotFoundException;
 import ports.input.UserInputPort;
 import ports.input.user.contract.command.CreateUser;
 import ports.input.user.contract.command.CreatedUser;
@@ -27,6 +28,9 @@ public class UserManagerUseCase implements UserInputPort {
   @Override
   public FoundUser find(FindUser query) {
     var user = userRepository.findByUsername(query.username());
+    if (user == null) {
+      throw new NotFoundException("User not found");
+    }
     return userMapper.toFoundUser(user);
   }
 }

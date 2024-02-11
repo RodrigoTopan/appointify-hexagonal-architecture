@@ -79,6 +79,9 @@ public class CompanyManagerUseCase implements CompanyInputPort {
   @Override
   public FoundCompany findById(UUID id) {
     var customer = companyRepository.findById(id);
+    if (customer == null) {
+      throw new NotFoundException("Customer not found");
+    }
     return companyMapper.companyToFindCompanyQueryResponse(customer);
   }
 }

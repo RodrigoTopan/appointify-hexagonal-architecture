@@ -33,8 +33,8 @@ public class OfferedServiceRepositoryImpl implements OfferedServiceRepository {
 
   @Override
   public OfferedService findById(UUID id) {
-    var entity = jpaRepository.findById(id).orElseThrow();
-    return OfferedServiceDataAccessMapper.toDomain(entity);
+    var entity = jpaRepository.findById(id);
+    return entity.map(OfferedServiceDataAccessMapper::toDomain).orElse(null);
   }
 
   @Override

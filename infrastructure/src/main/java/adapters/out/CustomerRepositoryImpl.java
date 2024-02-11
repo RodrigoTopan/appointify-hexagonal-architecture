@@ -35,7 +35,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
   @Override
   public Customer findById(UUID id) {
-    var customerEntity = customerJpaRepository.findById(id).orElseThrow();
+    var optionalCustomerEntity = customerJpaRepository.findById(id);
+    if (optionalCustomerEntity.isEmpty()) return null;
+    var customerEntity = optionalCustomerEntity.get();
     var scheduleEntities = scheduleJpaRepository.findByCustomerId(customerEntity.getId());
     customerEntity.setSchedules(scheduleEntities);
     return CustomerDataAccessMapper.toDomain(customerEntity);

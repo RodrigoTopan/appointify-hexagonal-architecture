@@ -31,8 +31,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
   @Override
   public Employee findById(UUID id) {
-    var entity = employeeJpaRepository.findById(id).orElseThrow();
-    return EmployeeDataAccessMapper.toDomain(entity);
+    var entity = employeeJpaRepository.findById(id);
+    return entity.map(EmployeeDataAccessMapper::toDomain).orElse(null);
   }
 
   @Override

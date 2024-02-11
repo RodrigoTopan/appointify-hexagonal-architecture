@@ -1,5 +1,6 @@
 package usecase;
 
+import domain.common.exception.NotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 import ports.input.EmployeeInputPort;
@@ -32,7 +33,13 @@ public class EmployeeManagerUseCase implements EmployeeInputPort {
   @Override
   public CreatedEmployee create(CreateEmployee command) {
     var company = companyRepository.findById(command.companyId());
+    if (company == null) {
+      throw new NotFoundException("Company not found");
+    }
     var user = userRepository.findById(command.userId());
+    if (user == null) {
+      throw new NotFoundException("User not found");
+    }
     var employee = company.createEmployee(user);
     var savedEmployeeEntity = employeeRepository.save(employee);
     return employeeMapper.employeeToCreateEmployeeCommandResponse(savedEmployeeEntity);

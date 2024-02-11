@@ -1,5 +1,6 @@
 package usecase;
 
+import domain.common.exception.NotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 import ports.input.EvaluationInputPort;
@@ -31,7 +32,13 @@ public class EvaluationManagerUseCase implements EvaluationInputPort {
   @Override
   public CreatedEvaluation create(CreateEvaluation command) {
     var customer = customerRepository.findById(command.customerId());
+    if (customer == null) {
+      throw new NotFoundException("Customer not found");
+    }
     var employee = employeeRepository.findById(command.employeeId());
+    if (employee == null) {
+      throw new NotFoundException("Employee not found");
+    }
     var evaluation = customer.evaluateEmployee(command.rate(), command.comment(), employee);
     var savedEvaluation = evaluationRepository.save(evaluation);
     return evaluationMapper.evaluationToCreateEvaluationCommandResponse(savedEvaluation);

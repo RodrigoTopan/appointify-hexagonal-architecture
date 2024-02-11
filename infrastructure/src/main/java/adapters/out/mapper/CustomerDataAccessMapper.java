@@ -1,5 +1,7 @@
 package adapters.out.mapper;
 
+import static org.springframework.util.ObjectUtils.isEmpty;
+
 import adapters.out.entity.CustomerEntity;
 import adapters.out.entity.UserEntity;
 import domain.entity.Customer;
@@ -10,8 +12,6 @@ import domain.valueobject.Email;
 import domain.valueobject.Password;
 import domain.valueobject.UserRole;
 import domain.valueobject.Username;
-import static org.springframework.util.ObjectUtils.isEmpty;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,13 +50,14 @@ public class CustomerDataAccessMapper {
     }
 
     List<Schedule> schedules = new ArrayList<>();
-    if(!isEmpty(entity.getSchedules())) {
+    if (!isEmpty(entity.getSchedules())) {
       schedules = entity.getSchedules().stream().map(ScheduleDataAccessMapper::toDomain).toList();
     }
 
     List<Evaluation> evaluations = new ArrayList<>();
-    if(!isEmpty(entity.getEvaluations())) {
-      evaluations = entity.getEvaluations().stream().map(EvaluationDataAccessMapper::toDomain).toList();
+    if (!isEmpty(entity.getEvaluations())) {
+      evaluations =
+          entity.getEvaluations().stream().map(EvaluationDataAccessMapper::toDomain).toList();
     }
 
     return new Customer(entity.getId(), user, schedules, evaluations);

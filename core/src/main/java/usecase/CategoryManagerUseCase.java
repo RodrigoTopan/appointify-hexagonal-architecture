@@ -1,5 +1,6 @@
 package usecase;
 
+import domain.common.exception.NotFoundException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -42,6 +43,9 @@ public class CategoryManagerUseCase implements CategoryInputPort {
   @Override
   public FoundCategory findById(UUID id) {
     var category = categoryRepository.findById(id);
+    if (category == null) {
+      throw new NotFoundException("Category not found");
+    }
     return categoryMapper.categoryToFindCategoryQueryResponse(category);
   }
 }

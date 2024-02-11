@@ -32,8 +32,8 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
   @Override
   public Schedule findById(UUID id) {
-    var entity = scheduleJpaRepository.findById(id).orElseThrow();
-    return ScheduleDataAccessMapper.toDomain(entity);
+    var entity = scheduleJpaRepository.findById(id);
+    return entity.map(ScheduleDataAccessMapper::toDomain).orElse(null);
   }
 
   @Override

@@ -30,8 +30,8 @@ public class EvaluationRepositoryImpl implements EvaluationRepository {
 
   @Override
   public Evaluation findById(UUID id) {
-    var entity = evaluationJpaRepository.findById(id).orElseThrow();
-    return EvaluationDataAccessMapper.toDomain(entity);
+    var entity = evaluationJpaRepository.findById(id);
+    return entity.map(EvaluationDataAccessMapper::toDomain).orElse(null);
   }
 
   @Override

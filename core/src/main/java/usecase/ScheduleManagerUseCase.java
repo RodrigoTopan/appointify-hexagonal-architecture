@@ -1,5 +1,6 @@
 package usecase;
 
+import domain.common.exception.NotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 import ports.input.ScheduleInputPort;
@@ -41,8 +42,14 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
   @Override
   public CreatedSchedule create(CreateSchedule command) {
     var employee = employeeRepository.findById(command.employeeId());
+    if (employee == null) {
+      throw new NotFoundException("Employee not found");
+    }
 
     var offeredService = offeredServiceRepository.findById(command.offeredServiceId());
+    if (offeredService == null) {
+      throw new NotFoundException("Service not found");
+    }
 
     var schedule =
         employee.addSchedule(command.scheduleStart(), command.scheduleEnd(), offeredService);
@@ -54,7 +61,13 @@ public class ScheduleManagerUseCase implements ScheduleInputPort {
   @Override
   public CreatedAppointment create(CreateAppointment command) {
     var customer = customerRepository.findById(command.customerId());
+    if (customer == null) {
+      throw new NotFoundException("Customer not found");
+    }
     var schedule = scheduleRepository.findById(command.scheduleId());
+    if (schedule == null) {
+      throw new NotFoundException("Schedule not found");
+    }
     var assignedSchedule = customer.assignAppointment(schedule);
     var savedAssignedSchedule = scheduleRepository.save(assignedSchedule);
     return scheduleMapper.scheduleToCreateAppointmentCommandResponse(savedAssignedSchedule);

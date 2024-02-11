@@ -1,5 +1,6 @@
 package usecase;
 
+import domain.common.exception.NotFoundException;
 import domain.entity.Category;
 import domain.valueobject.CompanyDetails;
 import java.util.ArrayList;
@@ -36,6 +37,9 @@ public class CompanyManagerUseCase implements CompanyInputPort {
   @Override
   public CreatedCompany create(CreateCompany command) {
     var user = userRepository.findById(command.userId());
+    if (user == null) {
+      throw new NotFoundException("User not found");
+    }
 
     List<Category> savedCategories = getSavedCategories(command.categories());
 

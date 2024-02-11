@@ -1,5 +1,6 @@
 package usecase;
 
+import domain.common.exception.NotFoundException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -28,6 +29,9 @@ public class CustomerManagerUseCase implements CustomerInputPort {
   @Override
   public CreatedCustomer create(CreateCustomer command) {
     var user = userRepository.findById(command.userId());
+    if (user == null) {
+      throw new NotFoundException("User not found");
+    }
     var customer = user.createCustomer();
     var savedCustomer = customerRepository.save(customer);
     return customerMapper.customerToCreateCustomerCommandResponse(savedCustomer);
@@ -49,6 +53,9 @@ public class CustomerManagerUseCase implements CustomerInputPort {
   @Override
   public FoundCustomer findById(UUID id) {
     var customer = customerRepository.findById(id);
+    if (customer == null) {
+      throw new NotFoundException("Customer not found");
+    }
     return customerMapper.customerToFindCustomerQueryResponse(customer);
   }
 }

@@ -38,7 +38,8 @@ public class UserRepositoryImpl implements UserRepository {
 
   @Override
   public User findById(UUID id) {
-    return UserDataAccessMapper.toDomain(jpaRepository.findById(id).orElseThrow());
+    var entity = jpaRepository.findById(id);
+    return entity.map(UserDataAccessMapper::toDomain).orElse(null);
   }
 
   @Override

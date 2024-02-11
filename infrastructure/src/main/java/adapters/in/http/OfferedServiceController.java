@@ -1,6 +1,10 @@
 package adapters.in.http;
 
+import adapters.in.http.json.offeredservice.CreateOfferedServiceRequest;
+import adapters.in.http.mapper.OfferedServiceJsonMapper;
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,41 +15,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import adapters.in.http.handlers.offeredservice.OfferedServiceCommandHandler;
-import adapters.in.http.handlers.offeredservice.OfferedServiceQueryHandler;
-import adapters.in.http.handlers.offeredservice.contract.command.CreateOfferedServiceCommand;
-import adapters.in.http.handlers.offeredservice.contract.command.CreateOfferedServiceCommandResponse;
-import adapters.in.http.handlers.offeredservice.contract.query.FindOfferedServiceQueryResponse;
-
-import java.util.List;
-import java.util.UUID;
+import ports.input.OfferedServiceInputPort;
+import ports.input.offeredservice.contract.command.CreatedOfferedService;
+import ports.input.offeredservice.contract.query.FoundOfferedService;
 
 @RestController
 @RequestMapping("/services")
 @RequiredArgsConstructor
 public class OfferedServiceController {
 
-    private final OfferedServiceCommandHandler offeredServiceCommandHandler;
-    private final OfferedServiceQueryHandler offeredServiceQueryHandler;
+  private final OfferedServiceJsonMapper mapper;
+  private final OfferedServiceInputPort offeredServiceInputPort;
 
-    @PostMapping
-    @PreAuthorize("hasRole('ROLE_COMPANY')")
-    public ResponseEntity<CreateOfferedServiceCommandResponse> createOfferedService(
-            @RequestBody @Valid CreateOfferedServiceCommand command) {
-        CreateOfferedServiceCommandResponse response = offeredServiceCommandHandler.create(command);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+  @PostMapping
+  @PreAuthorize("hasRole('ROLE_COMPANY')")
+  public ResponseEntity<CreatedOfferedService> createOfferedService(
+      @RequestBody @Valid CreateOfferedServiceRequest request) {
+    CreatedOfferedService response = offeredServiceInputPort.create(mapper.toCommand(request));
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+  }
 
-    @GetMapping
-    public ResponseEntity<List<FindOfferedServiceQueryResponse>> getAllOfferedServices() {
-        List<FindOfferedServiceQueryResponse> response = offeredServiceQueryHandler.findAll();
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping
+  public ResponseEntity<List<FoundOfferedService>> getAllOfferedServices() {
+    List<FoundOfferedService> response = offeredServiceInputPort.findAll();
+    return ResponseEntity.ok().body(response);
+  }
 
-
-    @GetMapping("/{serviceId}")
-    public ResponseEntity<FindOfferedServiceQueryResponse> getOfferedServiceById(
-            @PathVariable UUID serviceId) {
-        return ResponseEntity.ok().body( offeredServiceQueryHandler.findById(serviceId));
-    }
+  @GetMapping("/{serviceId}")
+  public ResponseEntity<FoundOfferedService> getOfferedServiceById(@PathVariable UUID serviceId) {
+    return ResponseEntity.ok().body(offeredServiceInputPort.findById(serviceId));
+  }
 }

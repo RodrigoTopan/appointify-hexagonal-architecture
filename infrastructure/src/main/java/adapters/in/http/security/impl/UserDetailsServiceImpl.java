@@ -1,40 +1,34 @@
 package adapters.in.http.security.impl;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import adapters.in.http.handlers.user.UserQueryHandler;
-import adapters.in.http.handlers.user.contract.query.FindUserQuery;
-import adapters.in.http.handlers.user.contract.query.FindUserQueryResponse;
-
-import java.util.List;
+import ports.input.UserInputPort;
+import ports.input.user.contract.query.FindUser;
+import ports.input.user.contract.query.FoundUser;
 
 @Component
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserQueryHandler userQueryHandler;
+  private final UserInputPort userInputPort;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final FindUserQueryResponse userQueryResponse = userQueryHandler
-                .find(FindUserQuery
-                        .builder()
-                        .username(username)
-                        .build());
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    final FoundUser userQueryResponse = userInputPort.find(new FindUser(username));
 
-        return UserDetailsImpl
-                .builder()
-                .username(userQueryResponse.getUsername())
-                .password(userQueryResponse.getPassword())
-                .isAccountNonExpired(true)
-                .isAccountNonLocked(true)
-                .isCredentialsNonExpired(true)
-                .isEnabled(true)
-                .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + userQueryResponse.getRole())))
-                .build();
-    }
+    return UserDetailsImpl.builder()
+        .username(userQueryResponse.username())
+        .password(userQueryResponse.password())
+        .isAccountNonExpired(true)
+        .isAccountNonLocked(true)
+        .isCredentialsNonExpired(true)
+        .isEnabled(true)
+        .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + userQueryResponse.role())))
+        .build();
+  }
 }

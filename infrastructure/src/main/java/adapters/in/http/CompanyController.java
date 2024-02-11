@@ -1,6 +1,10 @@
 package adapters.in.http;
 
+import adapters.in.http.json.company.CreateCompanyRequest;
+import adapters.in.http.mapper.CompanyJsonMapper;
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,61 +15,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import adapters.in.http.handlers.company.CompanyCommandHandler;
-import adapters.in.http.handlers.company.CompanyQueryHandler;
-import adapters.in.http.handlers.company.contract.command.CreateCompanyCommand;
-import adapters.in.http.handlers.company.contract.command.CreateCompanyCommandResponse;
-import adapters.in.http.handlers.company.contract.query.FindCompanyQueryResponse;
-import adapters.in.http.handlers.offeredservice.OfferedServiceQueryHandler;
-import adapters.in.http.handlers.offeredservice.contract.query.FindCompanyOfferedServicesQuery;
-import adapters.in.http.handlers.offeredservice.contract.query.FindOfferedServiceQueryResponse;
-
-import java.util.List;
-import java.util.UUID;
+import ports.input.CompanyInputPort;
+import ports.input.OfferedServiceInputPort;
+import ports.input.company.contract.command.CreatedCompany;
+import ports.input.company.contract.query.FoundCompany;
+import ports.input.offeredservice.contract.query.FindCompanyOfferedServices;
+import ports.input.offeredservice.contract.query.FoundOfferedService;
 
 @RestController
 @RequestMapping("/companies")
 @RequiredArgsConstructor
 public class CompanyController {
 
-    private final CompanyCommandHandler companyCommandHandler;
-    private final CompanyQueryHandler companyQueryHandler;
-    private final OfferedServiceQueryHandler offeredServiceQueryHandler;
+  private final CompanyJsonMapper companyMapper;
+  private final CompanyInputPort companyInputPort;
+  private final OfferedServiceInputPort offeredServiceInputPort;
 
-    @GetMapping
-    public ResponseEntity<List<FindCompanyQueryResponse>> findAll() {
-        return ResponseEntity.ok()
-                .body(companyQueryHandler.findAll());
-    }
+  @GetMapping
+  public ResponseEntity<List<FoundCompany>> findAll() {
+    return ResponseEntity.ok().body(companyInputPort.findAll());
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<FindCompanyQueryResponse> findById(@PathVariable UUID id) {
-        return ResponseEntity.ok()
-                .body(companyQueryHandler.findById(id));
-    }
+  @GetMapping("/{id}")
+  public ResponseEntity<FoundCompany> findById(@PathVariable UUID id) {
+    return ResponseEntity.ok().body(companyInputPort.findById(id));
+  }
 
-    @PostMapping
-    @PreAuthorize("hasRole('ROLE_COMPANY')")
-    public ResponseEntity<CreateCompanyCommandResponse> create(
-            @RequestBody @Valid CreateCompanyCommand command) {
-        return ResponseEntity.ok()
-                .body(companyCommandHandler.create(command));
-    }
+  @PostMapping
+  @PreAuthorize("hasRole('ROLE_COMPANY')")
+  public ResponseEntity<CreatedCompany> create(@RequestBody @Valid CreateCompanyRequest request) {
+    return ResponseEntity.ok().body(companyInputPort.create(companyMapper.toCommand(request)));
+  }
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_COMPANY')")
-    public ResponseEntity<?> deleteById(@PathVariable UUID id) {
-        companyCommandHandler.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
+  @DeleteMapping("/{id}")
+  @PreAuthorize("hasRole('ROLE_COMPANY')")
+  public ResponseEntity<?> deleteById(@PathVariable UUID id) {
+    companyInputPort.deleteById(id);
+    return ResponseEntity.ok().build();
+  }
 
-    @GetMapping("/{companyId}/services")
-    public ResponseEntity<List<FindOfferedServiceQueryResponse>> getOfferedServicesByCompanyId(
-            @PathVariable UUID companyId) {
-        FindCompanyOfferedServicesQuery query = FindCompanyOfferedServicesQuery.builder()
-                .companyId(companyId)
-                .build();
-        List<FindOfferedServiceQueryResponse> response = offeredServiceQueryHandler.find(query);
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping("/{companyId}/services")
+  public ResponseEntity<List<FoundOfferedService>> getOfferedServicesByCompanyId(
+      @PathVariable UUID companyId) {
+    FindCompanyOfferedServices query = new FindCompanyOfferedServices(companyId);
+    List<FoundOfferedService> response = offeredServiceInputPort.find(query);
+    return ResponseEntity.ok().body(response);
+  }
 }

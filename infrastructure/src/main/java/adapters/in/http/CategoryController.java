@@ -1,6 +1,10 @@
 package adapters.in.http;
 
+import adapters.in.http.json.category.CreateCategoryRequest;
+import adapters.in.http.mapper.CategoryJsonMapper;
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,48 +15,37 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import adapters.in.http.handlers.category.CategoryCommandHandler;
-import adapters.in.http.handlers.category.CategoryQueryHandler;
-import adapters.in.http.handlers.category.contract.command.CreateCategoryCommand;
-import adapters.in.http.handlers.category.contract.command.CreateCategoryCommandResponse;
-import adapters.in.http.handlers.category.contract.query.FindCategoryQueryResponse;
-
-import java.util.List;
-import java.util.UUID;
+import ports.input.CategoryInputPort;
+import ports.input.category.contract.command.CreatedCategory;
+import ports.input.category.contract.query.FoundCategory;
 
 @RestController
 @RequestMapping("/categories")
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private final CategoryCommandHandler categoryCommandHandler;
-    private final CategoryQueryHandler categoryQueryHandler;
+  private final CategoryJsonMapper mapper;
+  private final CategoryInputPort categoryInputPort;
 
+  @GetMapping("/{id}")
+  public ResponseEntity<FoundCategory> findById(@PathVariable UUID id) {
+    return ResponseEntity.ok().body(categoryInputPort.findById(id));
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<FindCategoryQueryResponse> findById(@PathVariable UUID id) {
-        return ResponseEntity.ok()
-                .body(categoryQueryHandler.findById(id));
-    }
+  @GetMapping
+  public ResponseEntity<List<FoundCategory>> findAll() {
+    return ResponseEntity.ok().body(categoryInputPort.findAll());
+  }
 
+  @PostMapping
+  @PreAuthorize("hasRole('ROLE_COMPANY')")
+  public ResponseEntity<CreatedCategory> create(@RequestBody @Valid CreateCategoryRequest request) {
+    return ResponseEntity.ok().body(categoryInputPort.create(mapper.toCommand(request)));
+  }
 
-    @GetMapping
-    public ResponseEntity<List<FindCategoryQueryResponse>> findAll() {
-        return ResponseEntity.ok()
-                .body(categoryQueryHandler.findAll());
-    }
-
-    @PostMapping
-    @PreAuthorize("hasRole('ROLE_COMPANY')")
-    public ResponseEntity<CreateCategoryCommandResponse> create(
-            @RequestBody @Valid CreateCategoryCommand command) {
-        return ResponseEntity.ok()
-                .body(categoryCommandHandler.create(command));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable UUID id) {
-        categoryCommandHandler.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
+  @DeleteMapping("/{id}")
+  public ResponseEntity<?> deleteById(@PathVariable UUID id) {
+    categoryInputPort.deleteById(id);
+    return ResponseEntity.ok().build();
+  }
 }

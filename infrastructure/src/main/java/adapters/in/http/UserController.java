@@ -1,7 +1,12 @@
 package adapters.in.http;
 
+import adapters.in.http.json.user.CreateUserRequest;
+import adapters.in.http.mapper.UserJsonMapper;
+import adapters.in.http.security.dto.AuthenticationDTO;
+import adapters.in.http.security.dto.AuthenticationResponseDTO;
+import adapters.in.http.security.util.JwtTokenUtil;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,55 +16,51 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import adapters.in.http.security.dto.AuthenticationDTO;
-import adapters.in.http.security.dto.AuthenticationResponseDTO;
-import adapters.in.http.security.util.JwtTokenUtil;
-import adapters.in.http.handlers.user.UserCommandHandler;
-import adapters.in.http.handlers.user.contract.command.CreateUserCommand;
-import adapters.in.http.handlers.user.contract.command.CreateUserCommandResponse;
+import ports.input.UserInputPort;
+import ports.input.user.contract.command.CreateUser;
+import ports.input.user.contract.command.CreatedUser;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+  private final AuthenticationManager authenticationManager;
+  private final JwtTokenUtil jwtTokenUtil;
+  private final UserInputPort userInputPort;
+  private final UserDetailsService userDetailsService;
+  private final PasswordEncoder passwordEncoder;
+  private final UserJsonMapper userJsonMapper;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+  @PostMapping(value = "/register")
+  public ResponseEntity<CreatedUser> registerUser(@RequestBody @Valid CreateUserRequest request) {
+    String hashedPassword = passwordEncoder.encode(request.password());
+    request =
+        new CreateUserRequest(
+            request.firstName(),
+            request.lastName(),
+            request.username(),
+            request.email(),
+            hashedPassword,
+            request.role());
+    CreateUser command = userJsonMapper.toCommand(request);
+    CreatedUser createdUser = userInputPort.create(command);
+    return ResponseEntity.ok().body(createdUser);
+  }
 
-    @Autowired
-    private UserCommandHandler userCommandHandler;
+  @PostMapping(value = "/authenticate")
+  public ResponseEntity<AuthenticationResponseDTO> createAuthenticationToken(
+      @RequestBody AuthenticationDTO authenticationRequest) {
+    authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+    final var userDetails =
+        userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+    final var token = jwtTokenUtil.generateToken(userDetails);
+    final var mainRole = userDetails.getAuthorities().stream().findFirst().orElseThrow();
+    return ResponseEntity.ok(
+        new AuthenticationResponseDTO(token, userDetails.getUsername(), mainRole.getAuthority()));
+  }
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @PostMapping(value = "/register")
-    public ResponseEntity<CreateUserCommandResponse> registerUser(
-            @RequestBody @Valid CreateUserCommand command) {
-
-        var hashedPassword = passwordEncoder.encode(command.getPassword());
-        command.setPassword(hashedPassword);
-
-        return ResponseEntity.ok()
-                .body(userCommandHandler.execute(command));
-    }
-
-    @PostMapping(value = "/authenticate")
-    public ResponseEntity<AuthenticationResponseDTO> createAuthenticationToken(@RequestBody AuthenticationDTO authenticationRequest) {
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-        final var userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        final var token = jwtTokenUtil.generateToken(userDetails);
-        final var mainRole = userDetails.getAuthorities()
-                .stream()
-                .findFirst()
-                .orElseThrow();
-        return ResponseEntity.ok(new AuthenticationResponseDTO(token, userDetails.getUsername(), mainRole.getAuthority()));
-    }
-
-    private void authenticate(String username, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-    }
+  private void authenticate(String username, String password) {
+    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+  }
 }

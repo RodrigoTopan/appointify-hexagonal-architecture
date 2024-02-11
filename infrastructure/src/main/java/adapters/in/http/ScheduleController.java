@@ -1,5 +1,7 @@
 package adapters.in.http;
 
+import adapters.in.http.json.schedules.CreateScheduleRequest;
+import adapters.in.http.mapper.SchedulesJsonMapper;
 import jakarta.validation.Valid;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ports.input.ScheduleInputPort;
-import ports.input.schedules.contract.command.CreateSchedule;
 import ports.input.schedules.contract.command.CreatedSchedule;
 import ports.input.schedules.contract.query.FindAvailableSchedules;
 import ports.input.schedules.contract.query.FoundAvailableSchedules;
@@ -26,6 +27,7 @@ import ports.input.schedules.contract.query.FoundSchedule;
 @RequiredArgsConstructor
 public class ScheduleController {
 
+  private final SchedulesJsonMapper mapper;
   private final ScheduleInputPort scheduleInputPort;
 
   @GetMapping
@@ -48,7 +50,7 @@ public class ScheduleController {
 
   @PostMapping
   @PreAuthorize("hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_COMPANY')")
-  public ResponseEntity<CreatedSchedule> create(@RequestBody @Valid CreateSchedule command) {
-    return ResponseEntity.ok().body(scheduleInputPort.create(command));
+  public ResponseEntity<CreatedSchedule> create(@RequestBody @Valid CreateScheduleRequest request) {
+    return ResponseEntity.ok().body(scheduleInputPort.create(mapper.toCommand(request)));
   }
 }

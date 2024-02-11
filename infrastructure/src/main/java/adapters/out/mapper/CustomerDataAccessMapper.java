@@ -10,6 +10,9 @@ import domain.valueobject.Email;
 import domain.valueobject.Password;
 import domain.valueobject.UserRole;
 import domain.valueobject.Username;
+import static org.springframework.util.ObjectUtils.isEmpty;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDataAccessMapper {
@@ -46,11 +49,15 @@ public class CustomerDataAccessMapper {
               UserRole.valueOf(userEntity.getRole()));
     }
 
-    List<Schedule> schedules =
-        entity.getSchedules().stream().map(ScheduleDataAccessMapper::toDomain).toList();
+    List<Schedule> schedules = new ArrayList<>();
+    if(!isEmpty(entity.getSchedules())) {
+      schedules = entity.getSchedules().stream().map(ScheduleDataAccessMapper::toDomain).toList();
+    }
 
-    List<Evaluation> evaluations =
-        entity.getEvaluations().stream().map(EvaluationDataAccessMapper::toDomain).toList();
+    List<Evaluation> evaluations = new ArrayList<>();
+    if(!isEmpty(entity.getEvaluations())) {
+      evaluations = entity.getEvaluations().stream().map(EvaluationDataAccessMapper::toDomain).toList();
+    }
 
     return new Customer(entity.getId(), user, schedules, evaluations);
   }

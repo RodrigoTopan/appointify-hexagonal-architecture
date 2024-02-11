@@ -1,6 +1,6 @@
 package adapters.in.http;
 
-import adapters.in.http.json.CreateUserRequest;
+import adapters.in.http.json.user.CreateUserRequest;
 import adapters.in.http.mapper.UserJsonMapper;
 import adapters.in.http.security.dto.AuthenticationDTO;
 import adapters.in.http.security.dto.AuthenticationResponseDTO;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ports.input.UserInputPort;
+import ports.input.user.contract.command.CreateUser;
 import ports.input.user.contract.command.CreatedUser;
 
 @RestController
@@ -33,11 +34,18 @@ public class UserController {
 
   @PostMapping(value = "/register")
   public ResponseEntity<CreatedUser> registerUser(@RequestBody @Valid CreateUserRequest request) {
-
-    var hashedPassword = passwordEncoder.encode(request.getPassword());
-    request.setPassword(hashedPassword);
-    var command = userJsonMapper.toCreateUser(request);
-    return ResponseEntity.ok().body(userInputPort.create(command));
+    String hashedPassword = passwordEncoder.encode(request.password());
+    request =
+        new CreateUserRequest(
+            request.firstName(),
+            request.lastName(),
+            request.username(),
+            request.email(),
+            hashedPassword,
+            request.role());
+    CreateUser command = userJsonMapper.toCommand(request);
+    CreatedUser createdUser = userInputPort.create(command);
+    return ResponseEntity.ok().body(createdUser);
   }
 
   @PostMapping(value = "/authenticate")

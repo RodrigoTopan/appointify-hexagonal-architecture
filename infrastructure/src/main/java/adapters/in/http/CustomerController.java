@@ -1,5 +1,7 @@
 package adapters.in.http;
 
+import adapters.in.http.json.customer.CreateCustomerRequest;
+import adapters.in.http.mapper.CustomerJsonMapper;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ports.input.CustomerInputPort;
-import ports.input.customer.contract.command.CreateCustomer;
 import ports.input.customer.contract.command.CreatedCustomer;
 import ports.input.customer.contract.query.FoundCustomer;
 
@@ -23,6 +24,7 @@ import ports.input.customer.contract.query.FoundCustomer;
 @RequiredArgsConstructor
 public class CustomerController {
 
+  private final CustomerJsonMapper mapper;
   private final CustomerInputPort customerInputPort;
 
   @GetMapping
@@ -37,8 +39,8 @@ public class CustomerController {
 
   @PostMapping
   @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-  public ResponseEntity<CreatedCustomer> create(@RequestBody @Valid CreateCustomer command) {
-    return ResponseEntity.ok().body(customerInputPort.create(command));
+  public ResponseEntity<CreatedCustomer> create(@RequestBody @Valid CreateCustomerRequest request) {
+    return ResponseEntity.ok().body(customerInputPort.create(mapper.toCommand(request)));
   }
 
   @DeleteMapping("/{id}")

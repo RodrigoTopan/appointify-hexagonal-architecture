@@ -1,5 +1,7 @@
 package adapters.in.http;
 
+import adapters.in.http.json.category.CreateCategoryRequest;
+import adapters.in.http.mapper.CategoryJsonMapper;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ports.input.CategoryInputPort;
-import ports.input.category.contract.command.CreateCategory;
 import ports.input.category.contract.command.CreatedCategory;
 import ports.input.category.contract.query.FoundCategory;
 
@@ -23,6 +24,7 @@ import ports.input.category.contract.query.FoundCategory;
 @RequiredArgsConstructor
 public class CategoryController {
 
+  private final CategoryJsonMapper mapper;
   private final CategoryInputPort categoryInputPort;
 
   @GetMapping("/{id}")
@@ -37,8 +39,8 @@ public class CategoryController {
 
   @PostMapping
   @PreAuthorize("hasRole('ROLE_COMPANY')")
-  public ResponseEntity<CreatedCategory> create(@RequestBody @Valid CreateCategory command) {
-    return ResponseEntity.ok().body(categoryInputPort.create(command));
+  public ResponseEntity<CreatedCategory> create(@RequestBody @Valid CreateCategoryRequest request) {
+    return ResponseEntity.ok().body(categoryInputPort.create(mapper.toCommand(request)));
   }
 
   @DeleteMapping("/{id}")

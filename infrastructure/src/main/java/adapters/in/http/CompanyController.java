@@ -1,5 +1,7 @@
 package adapters.in.http;
 
+import adapters.in.http.json.company.CreateCompanyRequest;
+import adapters.in.http.mapper.CompanyJsonMapper;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ports.input.CompanyInputPort;
 import ports.input.OfferedServiceInputPort;
-import ports.input.company.contract.command.CreateCompany;
 import ports.input.company.contract.command.CreatedCompany;
 import ports.input.company.contract.query.FoundCompany;
 import ports.input.offeredservice.contract.query.FindCompanyOfferedServices;
@@ -26,6 +27,7 @@ import ports.input.offeredservice.contract.query.FoundOfferedService;
 @RequiredArgsConstructor
 public class CompanyController {
 
+  private final CompanyJsonMapper companyMapper;
   private final CompanyInputPort companyInputPort;
   private final OfferedServiceInputPort offeredServiceInputPort;
 
@@ -41,8 +43,8 @@ public class CompanyController {
 
   @PostMapping
   @PreAuthorize("hasRole('ROLE_COMPANY')")
-  public ResponseEntity<CreatedCompany> create(@RequestBody @Valid CreateCompany command) {
-    return ResponseEntity.ok().body(companyInputPort.create(command));
+  public ResponseEntity<CreatedCompany> create(@RequestBody @Valid CreateCompanyRequest request) {
+    return ResponseEntity.ok().body(companyInputPort.create(companyMapper.toCommand(request)));
   }
 
   @DeleteMapping("/{id}")

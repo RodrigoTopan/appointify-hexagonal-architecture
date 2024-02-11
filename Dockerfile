@@ -1,7 +1,6 @@
-FROM openjdk:17-jdk-slim
+FROM openjdk:17
 
-WORKDIR /app
+ADD infrastructure/target/*.jar app.jar
 
-COPY infrastructure/target/** /app/**
-
-CMD ["java", "-jar", "infrastructure.jar"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+EXPOSE 8080

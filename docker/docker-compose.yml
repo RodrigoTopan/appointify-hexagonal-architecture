@@ -10,10 +10,10 @@ services:
       - "5432:5432"
 
   java_app:
-    build:
-      context: ../
-      dockerfile: Dockerfile
+    image: rodrigotopan/appointify-service:1.0.0
     ports:
       - "8080:8080"
     depends_on:
       - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/appointify

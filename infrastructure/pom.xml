@@ -44,13 +44,6 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- SPRING CLOUD -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-gcp-starter</artifactId>
-            <version>1.0.0.RELEASE</version>
-        </dependency>
-
         <!-- DATABASE -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

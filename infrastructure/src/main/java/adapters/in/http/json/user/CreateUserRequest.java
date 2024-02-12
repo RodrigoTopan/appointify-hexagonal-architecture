@@ -1,6 +1,6 @@
 package adapters.in.http.json.user;
 
-import domain.valueobject.UserRole;
+import valueobject.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

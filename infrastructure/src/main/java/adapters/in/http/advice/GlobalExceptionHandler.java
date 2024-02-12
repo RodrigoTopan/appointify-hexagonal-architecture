@@ -1,8 +1,8 @@
 package adapters.in.http.advice;
 
-import domain.common.exception.DomainException;
-import domain.common.exception.DomainValidationException;
-import domain.common.exception.NotFoundException;
+import exception.DomainException;
+import exception.DomainValidationException;
+import exception.NotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;

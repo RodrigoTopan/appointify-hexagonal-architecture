@@ -1,9 +1,9 @@
 package adapters.out;
 
-import adapters.out.entity.CompanyEntity;
-import adapters.out.jpa.CompanyJpaRepository;
-import adapters.out.mapper.CompanyDataAccessMapper;
-import domain.entity.Company;
+import adapters.out.postgres.entity.CompanyEntity;
+import adapters.out.postgres.jpa.CompanyJpaRepository;
+import adapters.out.postgres.mapper.CompanyDataAccessMapper;
+import entity.Company;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

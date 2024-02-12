@@ -1,8 +1,8 @@
 package adapters.out;
 
-import adapters.out.jpa.EvaluationJpaRepository;
-import adapters.out.mapper.EvaluationDataAccessMapper;
-import domain.entity.Evaluation;
+import adapters.out.postgres.jpa.EvaluationJpaRepository;
+import adapters.out.postgres.mapper.EvaluationDataAccessMapper;
+import entity.Evaluation;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

@@ -1,8 +1,8 @@
 package adapters.out;
 
-import adapters.out.jpa.ScheduleJpaRepository;
-import adapters.out.mapper.ScheduleDataAccessMapper;
-import domain.entity.Schedule;
+import adapters.out.postgres.jpa.ScheduleJpaRepository;
+import adapters.out.postgres.mapper.ScheduleDataAccessMapper;
+import entity.Schedule;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;

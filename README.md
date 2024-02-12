@@ -73,9 +73,9 @@ Testabilidade Aprimorada: A separação das camadas facilita a escrita de testes
 
 <b>Componentes Principais da Arquitetura Hexagonal</b>
 
-Camada de Domínio (Nesse projeto chamei o módulo de core): Aqui reside o coração da aplicação, onde são definidos os modelos de dados, regras de negócios e serviços essenciais. Esta camada é agnóstica em relação a detalhes de implementação externos.
+Camada de Domínio (Nesse projeto chamei o módulo de core/domain): Aqui reside o coração da aplicação, onde são definidos os modelos de dados, regras de negócios e serviços essenciais. Esta camada é agnóstica em relação a detalhes de implementação externos.
 
-Camada de Aplicação (Nesse projeto chamei o módulo de Application): Atua como um intermediário entre a camada de domínio e as interfaces externas, coordenando as interações e implementando os casos de uso específicos da aplicação.
+Camada de Aplicação (Nesse projeto chamei o módulo de core/application): Atua como um intermediário entre a camada de domínio e as interfaces externas, coordenando as interações e implementando os casos de uso específicos da aplicação.
 
 Camada de Adaptadores(Nesse projeto chamei o módulo de infrastructure): Esta camada encapsula as interfaces com o mundo exterior à aplicação, como interfaces de usuário e APIs. Ela permite que a aplicação se comunique com outros sistemas de forma eficiente e flexível.
 

@@ -1,10 +1,10 @@
 package adapters.out;
 
-import adapters.out.entity.CustomerEntity;
-import adapters.out.jpa.CustomerJpaRepository;
-import adapters.out.jpa.ScheduleJpaRepository;
-import adapters.out.mapper.CustomerDataAccessMapper;
-import domain.entity.Customer;
+import adapters.out.postgres.entity.CustomerEntity;
+import adapters.out.postgres.jpa.CustomerJpaRepository;
+import adapters.out.postgres.jpa.ScheduleJpaRepository;
+import adapters.out.postgres.mapper.CustomerDataAccessMapper;
+import entity.Customer;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

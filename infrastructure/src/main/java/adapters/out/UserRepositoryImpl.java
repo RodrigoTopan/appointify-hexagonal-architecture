@@ -1,8 +1,8 @@
 package adapters.out;
 
-import adapters.out.jpa.UserJpaRepository;
-import adapters.out.mapper.UserDataAccessMapper;
-import domain.entity.User;
+import adapters.out.postgres.jpa.UserJpaRepository;
+import adapters.out.postgres.mapper.UserDataAccessMapper;
+import entity.User;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

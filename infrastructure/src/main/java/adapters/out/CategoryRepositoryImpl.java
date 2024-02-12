@@ -1,9 +1,9 @@
 package adapters.out;
 
-import adapters.out.entity.CategoryEntity;
-import adapters.out.jpa.CategoryJpaRepository;
-import adapters.out.mapper.CategoryDataAccessMapper;
-import domain.entity.Category;
+import adapters.out.postgres.entity.CategoryEntity;
+import adapters.out.postgres.jpa.CategoryJpaRepository;
+import adapters.out.postgres.mapper.CategoryDataAccessMapper;
+import entity.Category;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

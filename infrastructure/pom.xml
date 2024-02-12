@@ -26,7 +26,7 @@
         <!-- MODULES -->
         <dependency>
             <groupId>puc</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>application</artifactId>
             <version>${project.version}</version>
         </dependency>
 

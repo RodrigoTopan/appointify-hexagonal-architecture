@@ -1,9 +1,9 @@
 package adapters.out;
 
-import adapters.out.entity.OfferedServiceEntity;
-import adapters.out.jpa.OfferedServiceJpaRepository;
-import adapters.out.mapper.OfferedServiceDataAccessMapper;
-import domain.entity.OfferedService;
+import adapters.out.postgres.entity.OfferedServiceEntity;
+import adapters.out.postgres.jpa.OfferedServiceJpaRepository;
+import adapters.out.postgres.mapper.OfferedServiceDataAccessMapper;
+import entity.OfferedService;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

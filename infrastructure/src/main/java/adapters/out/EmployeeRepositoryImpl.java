@@ -1,9 +1,9 @@
 package adapters.out;
 
-import adapters.out.entity.EmployeeEntity;
-import adapters.out.jpa.EmployeeJpaRepository;
-import adapters.out.mapper.EmployeeDataAccessMapper;
-import domain.entity.Employee;
+import adapters.out.postgres.entity.EmployeeEntity;
+import adapters.out.postgres.jpa.EmployeeJpaRepository;
+import adapters.out.postgres.mapper.EmployeeDataAccessMapper;
+import entity.Employee;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

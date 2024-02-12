@@ -126,6 +126,11 @@ Para instalar na sua máquina e rodar a aplicação siga os passos abaixo
 
 * Possuir um servidor postgresql rodando localmente, por padrão o projeto irá se conectar em jdbc:postgresql://localhost:5432/appointify (pode ser alterado no arquivo, application.yml)
 
+* Caso queira rodar a aplicação, o entrypoint principal é a classe AppointifyApplication.java dentro do módulo infrastructure
+```
+mvn -pl infrastructure spring-boot:run -Dspring-boot.run.main-class=com.example.infrastructure.AppointifyApplication
+```
+
 <div id="contact"></div>
 
 ## 🧑‍💼 Contato

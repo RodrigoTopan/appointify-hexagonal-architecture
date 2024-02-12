@@ -8,12 +8,12 @@ import entity.Customer;
 import entity.Evaluation;
 import entity.Schedule;
 import entity.User;
+import java.util.ArrayList;
+import java.util.List;
 import valueobject.Email;
 import valueobject.Password;
 import valueobject.UserRole;
 import valueobject.Username;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CustomerDataAccessMapper {
   public static CustomerEntity toEntity(Customer customer) {

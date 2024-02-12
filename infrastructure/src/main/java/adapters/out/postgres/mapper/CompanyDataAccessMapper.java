@@ -6,14 +6,14 @@ import adapters.out.postgres.entity.UserEntity;
 import entity.Category;
 import entity.Company;
 import entity.User;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import valueobject.CompanyDetails;
 import valueobject.Email;
 import valueobject.Password;
 import valueobject.UserRole;
 import valueobject.Username;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class CompanyDataAccessMapper {
 

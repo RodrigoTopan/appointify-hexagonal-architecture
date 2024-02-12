@@ -1,13 +1,13 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import valueobject.CompanyDetails;
 import valueobject.Email;
 import valueobject.Password;
 import valueobject.UserRole;
 import valueobject.Username;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class User {
   private final UUID id;

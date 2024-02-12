@@ -1,9 +1,9 @@
 package entity;
 
-import valueobject.CompanyDetails;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import valueobject.CompanyDetails;
 
 public class Company {
 

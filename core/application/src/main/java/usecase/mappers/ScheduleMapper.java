@@ -25,8 +25,7 @@ public class ScheduleMapper {
         schedule.getCustomerAssignee() == null ? null : schedule.getCustomerAssignee().getId());
   }
 
-  public CreatedAppointment scheduleToCreateAppointmentCommandResponse(
-      entity.Schedule schedule) {
+  public CreatedAppointment scheduleToCreateAppointmentCommandResponse(entity.Schedule schedule) {
     var company = schedule.getEmployee().getCompany();
     var customer = schedule.getCustomerAssignee();
     var employee = schedule.getEmployee();

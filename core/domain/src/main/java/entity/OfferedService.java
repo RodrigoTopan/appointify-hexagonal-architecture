@@ -1,7 +1,7 @@
 package entity;
 
-import valueobject.Money;
 import java.util.UUID;
+import valueobject.Money;
 
 public class OfferedService {
   private final UUID id;

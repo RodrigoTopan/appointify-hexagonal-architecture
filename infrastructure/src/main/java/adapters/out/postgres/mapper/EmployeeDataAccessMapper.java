@@ -5,12 +5,12 @@ import adapters.out.postgres.entity.UserEntity;
 import entity.Employee;
 import entity.Schedule;
 import entity.User;
+import java.util.ArrayList;
+import java.util.List;
 import valueobject.Email;
 import valueobject.Password;
 import valueobject.UserRole;
 import valueobject.Username;
-import java.util.ArrayList;
-import java.util.List;
 
 public class EmployeeDataAccessMapper {
 

@@ -19,9 +19,9 @@
         <java.version>17</java.version>
     </properties>
     <modules>
-        <module>domain</module>
+        <module>core/domain</module>
+        <module>core/application</module>
         <module>infrastructure</module>
-        <module>application</module>
     </modules>
     <packaging>pom</packaging>
 

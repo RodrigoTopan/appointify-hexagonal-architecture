@@ -1,8 +1,7 @@
 package usecase;
 
-import exception.NotFoundException;
 import entity.Category;
-import valueobject.CompanyDetails;
+import exception.NotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +14,7 @@ import ports.output.repository.CategoryRepository;
 import ports.output.repository.CompanyRepository;
 import ports.output.repository.UserRepository;
 import usecase.mappers.CompanyMapper;
+import valueobject.CompanyDetails;
 
 public class CompanyManagerUseCase implements CompanyInputPort {
   private final CompanyMapper companyMapper;

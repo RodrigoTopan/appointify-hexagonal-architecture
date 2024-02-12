@@ -1,8 +1,8 @@
 package entity;
 
 import exception.DomainException;
-import valueobject.ScheduleDate;
 import java.util.UUID;
+import valueobject.ScheduleDate;
 
 public class Schedule {
   private final UUID id;
